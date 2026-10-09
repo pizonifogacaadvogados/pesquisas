@@ -17,7 +17,7 @@ import shutil
 import subprocess
 from pathlib import Path
 
-from . import assets, audio, estilos, fundos, graficos, luts, recorte, regras
+from . import aprendizado, assets, audio, estilos, fundos, graficos, luts, recorte, regras
 
 W, H, FPS = 1080, 1920, 30
 
@@ -217,9 +217,24 @@ def dirigir(plano, estilo="estudio", nome=None, cargo=None, titulo=None, broll_d
     else:
         prod["camadas"]["musica"] = None
     prod["humor_trilha"] = humor
+    # aprendizado: ajustes acumulados a partir do feedback e das métricas
+    aj = aprendizado.ajustes()
+    if aj:
+        cm = aj.get("camera_mult", 1.0)
+        for m in mov:
+            m["escala"] = round(1 + (m["escala"] - 1) * cm, 3)
+        prod["ajustes_aplicados"] = aj
+        if prod["camadas"].get("musica") and aj.get("musica_db_delta"):
+            prod["camadas"]["musica"]["automacao_db"] = [(t, db + aj["musica_db_delta"] if db > -50 else db)
+                                                         for t, db in prod["camadas"]["musica"]["automacao_db"]]
+        if aj.get("emoji_freq_mult", 1.0) < 1 and prod["camadas"]["emojis"]:
+            passo = max(1, round(1 / aj["emoji_freq_mult"]))
+            prod["camadas"]["emojis"] = prod["camadas"]["emojis"][::passo]
     if diagnostico:
         prod["diagnostico_visual"] = diagnostico
-    prod["camadas"]["cor"] = {"look": e["look"], "intensidade": e["lut_intensidade"], "halation": e["halation"],
+    prod["camadas"]["cor"] = {"look": e["look"],
+                              "intensidade": round(min(1, max(0, e["lut_intensidade"] + aprendizado.ajustes().get("lut_intensidade_delta", 0))), 2),
+                              "halation": e["halation"],
                               "vinheta": e["vinheta"], "grao": e["grao"], "barras": e["barras"]}
     return prod
 
@@ -369,7 +384,8 @@ def renderizar(prod, base, pasta, sfx_dir=None):
 
     # ---------- 7. legendas + abertura + lower third (ASS de frente)
     pal = prod["palavras"]
-    est, lin = graficos.legendas(pal, cam["legenda"]["tipo"], cam["legenda"]["fonte"], e["cor_destaque"])
+    est, lin = graficos.legendas(pal, cam["legenda"]["tipo"], cam["legenda"]["fonte"], e["cor_destaque"],
+                                 delta_tam=aprendizado.ajustes().get("legenda_tam_delta", 0))
     ab = cam["abertura"]
     if ab["tipo"] != "texto_atras":
         e2, l2 = graficos.abertura(ab["tipo"], ab["texto"], ab["ini"], ab["fim"], e["fonte_titulo"], e["fonte_texto"],
@@ -389,7 +405,8 @@ def renderizar(prod, base, pasta, sfx_dir=None):
     # ---------- 8. trilha de luz (light leak / flash) em modo Tela
     luz = [t for t in cam["transicoes"] if t["tipo"] in ("light_leak", "flash")]
     if luz:
-        trilha = graficos.trilha_luz(luz, dur, a_dir / "trilha_luz.mp4")
+        trilha = graficos.trilha_luz(luz, dur, a_dir / "trilha_luz.mp4",
+                                     intensidade=aprendizado.ajustes().get("transicao_intensidade", 1.0))
         entradas += ["-i", str(trilha)]
         partes.append(f"[{atual}]format=gbrp[l0];[{k}:v]format=gbrp,scale={W}:{H}[l1];"
                       f"[l0][l1]blend=all_mode=screen,format=yuv420p[luz]")

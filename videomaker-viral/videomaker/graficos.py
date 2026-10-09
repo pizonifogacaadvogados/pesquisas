@@ -69,11 +69,11 @@ def blocos_frase(palavras, max_palavras=7, max_chars=34):
     return blocos
 
 
-def legendas(palavras, tipo, fonte, cor_destaque):
+def legendas(palavras, tipo, fonte, cor_destaque, delta_tam=0):
     """Retorna (estilos, linhas) da legenda no estilo pedido."""
     out = []
     if tipo == "premium":
-        est = [estilo("Leg", fonte, 70, contorno="&H50000000", fundo="&H96000000", borda=1, esp_contorno=2.2,
+        est = [estilo("Leg", fonte, 70 + delta_tam, contorno="&H50000000", fundo="&H96000000", borda=1, esp_contorno=2.2,
                       sombra=2, mv=420, ml=110, mr=110)]
         for b in blocos_frase(palavras):
             ini, fim = b[0]["ini"], b[-1]["fim"] + 0.12
@@ -95,7 +95,7 @@ def legendas(palavras, tipo, fonte, cor_destaque):
                 out.append(dialogo(a, z, "Leg", entrada + " ".join(partes)))
         return est, out
     if tipo == "forte":
-        est = [estilo("Leg", fonte, 92, contorno="&H00000000", borda=1, esp_contorno=5, sombra=0, mv=520, espaco=1)]
+        est = [estilo("Leg", fonte, 92 + delta_tam, contorno="&H00000000", borda=1, esp_contorno=5, sombra=0, mv=520, espaco=1)]
         for b in blocos_frase(palavras, max_palavras=3, max_chars=18):
             for k, atual in enumerate(b):
                 a = b[0]["ini"] if k == 0 else atual["ini"]
@@ -106,7 +106,7 @@ def legendas(palavras, tipo, fonte, cor_destaque):
                 out.append(dialogo(a, z, "Leg", pop + " ".join(partes)))
         return est, out
     # viral (versão 1): palavra a palavra, caixa alta
-    est = [estilo("Leg", fonte, 100, contorno="&H00000000", borda=1, esp_contorno=7, sombra=3, mv=600)]
+    est = [estilo("Leg", fonte, 100 + delta_tam, contorno="&H00000000", borda=1, esp_contorno=7, sombra=3, mv=600)]
     for b in blocos_frase(palavras, max_palavras=3, max_chars=16):
         for k, atual in enumerate(b):
             a = b[0]["ini"] if k == 0 else atual["ini"]
@@ -283,7 +283,7 @@ def carimbo(texto, destino, cor=(230, 40, 40)):
 
 
 # ------------------------------------------------------------------ trilha de luz
-def trilha_luz(eventos, duracao, destino, fps=30):
+def trilha_luz(eventos, duracao, destino, fps=30, intensidade=1.0):
     """Vídeo preto com light leaks e flashes nos tempos pedidos, para mesclar em modo Tela.
 
     eventos: [{"t": 3.2, "tipo": "light_leak"|"flash"}]
@@ -320,7 +320,7 @@ def trilha_luz(eventos, duracao, destino, fps=30):
             else:
                 continue
             quadro = q if quadro is None else quadro + q
-        proc.stdin.write(preto if quadro is None else np.clip(quadro, 0, 255).astype(np.uint8).tobytes())
+        proc.stdin.write(preto if quadro is None else np.clip(quadro * intensidade, 0, 255).astype(np.uint8).tobytes())
     proc.stdin.close()
     proc.wait()
     return destino

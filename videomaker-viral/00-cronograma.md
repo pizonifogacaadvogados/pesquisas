@@ -66,36 +66,36 @@
 | ✅ E11 | Algoritmos e engajamento Instagram/TikTok 2026 | `estudos/11` |
 | ✅ E12 | Nichos político-eleitoral e advocacia (aprofundado) | `estudos/12` |
 | ✅ E13 | Inventário do CapCut menu a menu | `estudos/13` |
-| ⏳ E14 | **CapCut Pro esgotado**: cada recurso Pro, modelos/templates, tipos de legenda, efeitos de IA (VFX), aplicabilidade prática | `estudos/14` |
-| ⏳ E15 | **Áudio e música**: bancos de música, sons em alta, dinâmica (voz × música × original × impacto), automação de volume | `estudos/15` |
-| ⏳ E16 | **Matriz de decisão**: para cada tipo de vídeo/momento, qual recurso usar (fundo, zoom, emoji, react, transição, música) | `estudos/16` |
+| ✅ E14 | **CapCut Pro esgotado**: cada recurso Pro, modelos/templates, tipos de legenda, efeitos de IA (VFX), aplicabilidade prática | `estudos/14` |
+| ✅ E15 | **Áudio e música**: bancos de música, sons em alta, dinâmica (voz × música × original × impacto), automação de volume | `estudos/15` |
+| ✅ E16 | **Matriz de decisão**: para cada tipo de vídeo/momento, qual recurso usar (fundo, zoom, emoji, react, transição, música) | `estudos/16` |
 
 ## Fase 6: Motor v2 (código)
 | # | Módulo | Status |
 |---|---|---|
 | ✅ | `estilos`, `luts` (LUT .cube p/ render e CapCut), `fundos` (estúdio virtual), `recorte` (IA/chroma), `graficos` (legenda premium/forte/viral, aberturas, lower third, cartões, carimbos, light leak) | feito |
-| ✅ | `producao` (diretor + render em camadas) | feito; em teste |
-| ⏳ | `visao` – análise quadro a quadro (cenas, rosto, posição, brilho, movimento) para decidir a edição | |
-| ⏳ | `audio` – design de som (música por energia, ducking, momentos de impacto, áudio original × música) | |
-| ⏳ | `react` – layouts de react (dividida, PIP, green screen, pausa-e-comenta, carimbos, replay) | |
-| ⏳ | `aprendizado` – memória de decisões + feedback + métricas → o sistema se aperfeiçoa a cada uso | |
-| ⏳ | `capcut` v2 – roteiro profissional por camadas (Pro) | |
+| ✅ | `producao` (diretor + render em camadas) | feito e testado |
+| ✅ | `visao` – análise quadro a quadro (cenas, rosto, posição, brilho, movimento) para decidir a edição | |
+| ✅ | `audio` – design de som (música por energia, ducking, momentos de impacto, áudio original × música) | |
+| ✅ | `react` – layouts de react (dividida, PIP, green screen, pausa-e-comenta, carimbos, replay) | |
+| ✅ | `aprendizado` – memória de decisões + feedback + métricas → o sistema se aperfeiçoa a cada uso | |
+| ✅ | `capcut` v2 – roteiro profissional por camadas (Pro) | |
 
 ## Fase 7: Skills
 | # | Skill | Papel |
 |---|---|---|
-| ⏳ | `videomaker` (**mãe**) | orquestra: entende o material, escolhe formato/estilo, chama as filhas, revisa, entrega |
-| ⏳ | `videomaker-analise` | assiste (transcrição + quadros), decide momentos e a edição de cada trecho |
-| ⏳ | `videomaker-react` | reacts e manifestações sobre vídeos em alta |
-| ⏳ | `videomaker-audio` | trilha, efeitos, mixagem |
-| ⏳ | `videomaker-capcut` | operação do CapCut (Web/Desktop/Pro) |
-| ⏳ | `videomaker-conformidade` | direito autoral, imagem, OAB, TSE, LGPD |
-| ⏳ | `videomaker-publicacao` | formatos, capa, legenda do post, hashtags, horários, métricas |
+| ✅ | `videomaker` (**mãe**) | orquestra: entende o material, escolhe formato/estilo, chama as filhas, revisa, entrega |
+| ✅ | `videomaker-analise` | assiste (transcrição + quadros), decide momentos e a edição de cada trecho |
+| ✅ | `videomaker-react` | reacts e manifestações sobre vídeos em alta |
+| ✅ | `videomaker-audio` | trilha, efeitos, mixagem |
+| ✅ | `videomaker-capcut` | operação do CapCut (Web/Desktop/Pro) |
+| ✅ | `videomaker-conformidade` | direito autoral, imagem, OAB, TSE, LGPD |
+| ✅ | `videomaker-publicacao` | formatos, capa, legenda do post, hashtags, horários, métricas |
 
 ## Fase 8 (depois dos vídeos): Gestor de redes – posts e carrosséis
 | # | Etapa |
 |---|---|
-| ⬜ G1 | Pesquisa: carrosséis que mais engajam (texto, design, estrutura), formatos aceitos (Instagram/TikTok/LinkedIn), tratamento de imagem e prints |
+| ⏳ G1 | Pesquisa: carrosséis que mais engajam (texto, design, estrutura), formatos aceitos (Instagram/TikTok/LinkedIn), tratamento de imagem e prints |
 | ⬜ G2 | Pesquisa: design minimalista profissional para advocacia e política (tipografia, grid, paleta, padrão visual) |
 | ⬜ G3 | Ferramentas: Canva (conector/MCP), geração por código (HTML/Pillow → PNG), fluxo pelo Cowork |
 | ⬜ G4 | Skill-filha `social-carrossel` (+ `social-imagem`) e templates do escritório |

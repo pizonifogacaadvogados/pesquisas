@@ -17,3 +17,15 @@
 | R08.13 | mediapipe 1.1.0 | ⚠️ sem a API legada `solutions` (exige modelo externo) | descartado; usar rembg |
 | R08.14 | vídeo de amostra com pessoa real (intel-iot-devkit/sample-videos, 768×432, 12 fps, sem áudio) | ✅ | teste de recorte, estúdio e texto atrás |
 | R08.15 | Google Fonts (Inter, Playfair, Bebas, Montserrat, Courier Prime, DM Serif, Oswald, Anton) | ✅ (Libre Baskerville falhou) | tipografia profissional embutida (OFL) |
+| R08.16 | LUTs .cube gerados (6 looks) aplicados em quadro real | ✅ cor sutil e profissional | `luts.py` |
+| R08.17 | Fundos de estúdio procedurais (5) | ✅ após 2ª iteração (1ª: bokeh exagerado, corrigido) | `fundos.py` |
+| R08.18 | Recorte por IA (rembg) em pessoa real, 8s 1080×1920 | ✅ ~53s; borda boa no cabelo | `recorte.py` |
+| R08.19 | Render v2 estilo estúdio (texto atrás, cartão, lower third, light leak, LUT, halation, grão) | ✅ 41s; −14,3 LUFS; pico de memória ~1,2 GB | `producao.py` |
+| R08.20 | Defeitos visuais encontrados na revisão | light leak sobre o rosto → movido para as bordas; lower third pequeno → aumentado; **"rastro" do matte** (suavização temporal) → suavização assimétrica | correções aplicadas |
+| R08.21 | Detecção "artigo quarenta e nove do Código de Defesa do Consumidor" → cartão "Art. 49 · CDC" | ✅ | `producao.referencias_legais` |
+| R08.22 | Análise de quadros (OpenCV 5 + Haar) | ✅ 3,8s para 54s; diagnóstico correto (fundo liso → estúdio; plano estático → mais movimento) | `visao.py` |
+| R08.23 | OpenCV 5 sem modelos Haar embutidos | ⚠️ baixado do repositório oficial (BSD) para `modelos/` | — |
+| R08.24 | Detecção de batidas em trilha de 120 BPM | ✅ batidas a cada ~0,5s | `audio.batidas` |
+| R08.25 | React em tela dividida (congelar + círculo, carimbo, replay "DE NOVO", crédito) | ✅ 57s de render; comentário = 61% do tempo; círculo saiu preenchido → corrigido | `react.py` |
+| R08.26 | Aprendizado: feedback em linguagem natural → ajustes; métricas → ranking | ✅ "zoom demais / legenda pequena / light leak forte" → 3 ajustes | `aprendizado.py` |
+| R08.27 | Reinício do servidor durante o render (exit 137) | ⚠️ não era falta de memória do código (pico 1,2 GB de 16 GB); o render foi refeito | — |

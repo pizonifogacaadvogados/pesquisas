@@ -1,3 +1,6 @@
 numpy>=1.24
 pillow>=10.0
-faster-whisper>=1.0   # transcrição local (opcional se usar --srt)
+rembg>=2.0          # recorte de pessoa por IA (baixa o modelo na 1ª vez)
+onnxruntime>=1.16
+opencv-python-headless>=4.8
+faster-whisper>=1.0 # transcrição local (opcional se usar --srt)

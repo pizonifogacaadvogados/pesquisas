@@ -11,7 +11,7 @@ import json
 import sys
 from pathlib import Path
 
-from . import analise, capcut, estilos, plano, producao, regras, render
+from . import analise, aprendizado, capcut, estilos, plano, producao, react, regras, render, visao
 
 
 def _dur(txt):
@@ -61,7 +61,9 @@ def main(argv=None):
 
     p = sub.add_parser("produzir", help="produção profissional (v2): estilos, estúdio virtual, cor, gráficos")
     comuns_analise(p); comuns_plano(p)
-    p.add_argument("--estilo", choices=sorted(estilos.ESTILOS), default="estudio")
+    p.add_argument("--estilo", choices=sorted(estilos.ESTILOS) + ["auto"], default="auto",
+                   help="auto = escolhe pela análise visual e pelo preset (padrão)")
+    p.add_argument("--biblioteca-musica", help="pasta com faixas licenciadas nomeadas '<humor>__titulo.mp3'")
     p.add_argument("--nome", help="nome para o lower third (ex.: 'Dra. Ana Souza')")
     p.add_argument("--cargo", help="qualificação (ex.: 'Advogada · OAB/RS 00.000')")
     p.add_argument("--titulo", help="texto da abertura (padrão: derivado do gancho)")
@@ -71,6 +73,19 @@ def main(argv=None):
     p.add_argument("--saida", default="saida")
     p = sub.add_parser("rerender", help="re-renderiza a partir de producao.json editado")
     p.add_argument("producao"); p.add_argument("--sfx-dir")
+
+    p = sub.add_parser("react", help="monta react a partir de react.json (original + reação)")
+    p.add_argument("original"); p.add_argument("reacao"); p.add_argument("roteiro"); p.add_argument("--saida", default="saida_react")
+    p = sub.add_parser("visao", help="diagnóstico visual quadro a quadro"); p.add_argument("video")
+    p = sub.add_parser("feedback", help="registra sua avaliação de um vídeo (ajusta o sistema)")
+    p.add_argument("id"); p.add_argument("texto")
+    p = sub.add_parser("metricas", help="registra métricas reais da publicação")
+    p.add_argument("id"); p.add_argument("--plataforma", default="instagram")
+    for m in ("views", "envios", "salvamentos", "comentarios", "curtidas"):
+        p.add_argument(f"--{m}", type=int)
+    p.add_argument("--taxa-pulo", type=float, help="0-1: fração que pulou nos 3 primeiros segundos")
+    p.add_argument("--retencao-media", type=float, help="0-1")
+    sub.add_parser("licoes", help="mostra o que o sistema aprendeu")
 
     p = sub.add_parser("analisar"); comuns_analise(p); p.add_argument("--saida", default="saida")
     p = sub.add_parser("planejar"); p.add_argument("analise"); comuns_plano(p); p.add_argument("--saida", default=None)
@@ -92,11 +107,28 @@ def main(argv=None):
             render.renderizar(pl, pasta, enquadramento=a.enquadramento, base=True, final=False)
             print(f"4/5 produção, estilo '{a.estilo}' (recorte por IA pode levar alguns minutos)…")
             prod, final = producao.produzir(pl, pasta / "base.mp4", pasta, a.estilo, nome=a.nome, cargo=a.cargo,
-                                            titulo=a.titulo, broll_dir=a.broll_dir, musica=a.musica, sfx_dir=a.sfx_dir)
+                                            titulo=a.titulo, broll_dir=a.broll_dir, musica=a.musica, sfx_dir=a.sfx_dir,
+                                            biblioteca_musica=a.biblioteca_musica)
+            vid = aprendizado.registrar_video(prod, pl, pasta)
+            print(f"  estilo usado: {prod['estilo']} · registro no aprendizado: {vid}")
             print(f"  final: {final}")
             print("5/5 roteiro do CapCut…")
             print(f"  {capcut.salvar_v2(prod, pl, pasta)}")
             return 0
+        if a.cmd == "react":
+            v, rel = react.renderizar(a.original, a.reacao, json.loads(Path(a.roteiro).read_text(encoding="utf-8")), a.saida)
+            print(v); print(json.dumps(rel, ensure_ascii=False, indent=1)); return 0
+        if a.cmd == "visao":
+            print(json.dumps(visao.analisar(a.video)["diagnostico"], ensure_ascii=False, indent=1)); return 0
+        if a.cmd == "feedback":
+            print("ajustes:", aprendizado.registrar_feedback(a.id, a.texto) or "nenhum padrão reconhecido (registrado)")
+            return 0
+        if a.cmd == "metricas":
+            m = {k: getattr(a, k) for k in ("views", "envios", "salvamentos", "comentarios", "curtidas", "taxa_pulo",
+                                             "retencao_media") if getattr(a, k) is not None}
+            aprendizado.registrar_metricas(a.id, a.plataforma, **m); print("registrado"); return 0
+        if a.cmd == "licoes":
+            aprendizado.escrever_licoes(); print((aprendizado.MEM / "LICOES.md").read_text(encoding="utf-8")); return 0
         if a.cmd == "rerender":
             prod = json.loads(Path(a.producao).read_text(encoding="utf-8"))
             pasta = Path(a.producao).parent

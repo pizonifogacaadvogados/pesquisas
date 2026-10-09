@@ -64,7 +64,9 @@ def _r(x):
 
 
 def gerar(analise, preset="dinamico", dur_min=25, dur_max=60, cold_open=True):
-    cfg = regras.PRESETS[preset]
+    cfg = dict(regras.PRESETS[preset])
+    from . import aprendizado
+    cfg["pausa_max"] = round(cfg["pausa_max"] + aprendizado.ajustes().get("cortes_pausa_delta", 0.0), 3)
     palavras = analise["palavras"]
     sel = momentos.selecionar(palavras, dur_min, dur_max)
     i, j = sel["janela"]
