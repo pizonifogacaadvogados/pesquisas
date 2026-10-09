@@ -105,7 +105,8 @@ def texto_alternativo(slides_ou_texto):
     return " ".join(partes)[:1000]
 
 
-def pacote(perfil, pasta, pecas, gancho, corpo="", hashtags=None, texto_peca="", peca=None, agenda=None, alt=None):
+def pacote(perfil, pasta, pecas, gancho, corpo="", hashtags=None, texto_peca="", peca=None, agenda=None, alt=None,
+           avisos=None):
     """`pecas`: {destino: arquivo ou [arquivos]} — saída dos braços (exportar, carrossel, post, capas).
     `texto_peca`: tudo o que está escrito/falado na peça (roteiro, slides) para a conformidade.
     `agenda`: {destino: "AAAA-MM-DD HH:MM"} (do calendário). Devolve o resumo e grava PUBLICAR.md."""
@@ -114,7 +115,7 @@ def pacote(perfil, pasta, pecas, gancho, corpo="", hashtags=None, texto_peca="",
     pasta.mkdir(parents=True, exist_ok=True)
     peca = dict(peca or {})
     agenda = agenda or {}
-    resumo = {"perfil": p["id"], "destinos": {}, "conformidade": None}
+    resumo = {"perfil": p["id"], "destinos": {}, "conformidade": None, "avisos_producao": list(avisos or [])}
     textos = [texto_peca]
     for dest, arqs in pecas.items():
         arqs = arqs if isinstance(arqs, (list, tuple)) else [arqs]
@@ -161,6 +162,8 @@ def _publicar_md(p, pasta, r):
     for dest, d in r["destinos"].items():
         md.append(f"| {dest} | {', '.join(d['arquivos'])} | {d['agenda'] or 'ver calendário'} | "
                   f"{'; '.join(d['alertas']) or '—'} |")
+    if r.get("avisos_producao"):
+        md += ["", "## Avisos da produção (revise antes de publicar)"] + [f"- {a}" for a in r["avisos_producao"]]
     md += ["", "## Como publicar (manual: o sistema não posta por você)"]
     for rede in sorted({plataformas.destino(x)["rede"] for x in r["destinos"]}):
         md.append(f"- **{rede}**: {PASSOS.get(rede, '')}")

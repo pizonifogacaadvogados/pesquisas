@@ -1,0 +1,137 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//sistema-redes//calendario//PT
+BEGIN:VEVENT
+UID:escritorio-exemplo-2026-10-12-0@sistema-redes
+DTSTART:20261012T090000
+DTEND:20261012T091500
+SUMMARY:[instagram] stories: (a definir)
+DESCRIPTION:pauta a definir
+END:VEVENT
+BEGIN:VEVENT
+UID:escritorio-exemplo-2026-10-12-1@sistema-redes
+DTSTART:20261012T190000
+DTEND:20261012T191500
+SUMMARY:[instagram] reels: Direito de arrependimento em compras online
+DESCRIPTION:pauta p0001
+END:VEVENT
+BEGIN:VEVENT
+UID:escritorio-exemplo-2026-10-12-2@sistema-redes
+DTSTART:20261012T200000
+DTEND:20261012T201500
+SUMMARY:[tiktok] video: Direito de arrependimento em compras online
+DESCRIPTION:pauta p0001
+END:VEVENT
+BEGIN:VEVENT
+UID:escritorio-exemplo-2026-10-12-3@sistema-redes
+DTSTART:20261012T210000
+DTEND:20261012T211500
+SUMMARY:[youtube] shorts: Direito de arrependimento em compras online
+DESCRIPTION:pauta p0001
+END:VEVENT
+BEGIN:VEVENT
+UID:escritorio-exemplo-2026-10-13-4@sistema-redes
+DTSTART:20261013T083000
+DTEND:20261013T084500
+SUMMARY:[linkedin] documento: (a definir)
+DESCRIPTION:pauta a definir
+END:VEVENT
+BEGIN:VEVENT
+UID:escritorio-exemplo-2026-10-13-5@sistema-redes
+DTSTART:20261013T083000
+DTEND:20261013T084500
+SUMMARY:[linkedin] video: (a definir)
+DESCRIPTION:pauta a definir
+END:VEVENT
+BEGIN:VEVENT
+UID:escritorio-exemplo-2026-10-13-6@sistema-redes
+DTSTART:20261013T090000
+DTEND:20261013T091500
+SUMMARY:[instagram] stories: (a definir)
+DESCRIPTION:pauta a definir
+END:VEVENT
+BEGIN:VEVENT
+UID:escritorio-exemplo-2026-10-13-7@sistema-redes
+DTSTART:20261013T120000
+DTEND:20261013T121500
+SUMMARY:[instagram] post: (a definir)
+DESCRIPTION:pauta a definir
+END:VEVENT
+BEGIN:VEVENT
+UID:escritorio-exemplo-2026-10-14-8@sistema-redes
+DTSTART:20261014T090000
+DTEND:20261014T091500
+SUMMARY:[instagram] stories: (a definir)
+DESCRIPTION:pauta a definir
+END:VEVENT
+BEGIN:VEVENT
+UID:escritorio-exemplo-2026-10-14-9@sistema-redes
+DTSTART:20261014T120000
+DTEND:20261014T121500
+SUMMARY:[instagram] carrossel: 7 dias para desistir: passo a passo
+DESCRIPTION:pauta p0002
+END:VEVENT
+BEGIN:VEVENT
+UID:escritorio-exemplo-2026-10-14-10@sistema-redes
+DTSTART:20261014T190000
+DTEND:20261014T191500
+SUMMARY:[instagram] reels: (a definir)
+DESCRIPTION:pauta a definir
+END:VEVENT
+BEGIN:VEVENT
+UID:escritorio-exemplo-2026-10-14-11@sistema-redes
+DTSTART:20261014T200000
+DTEND:20261014T201500
+SUMMARY:[tiktok] video: (a definir)
+DESCRIPTION:pauta a definir
+END:VEVENT
+BEGIN:VEVENT
+UID:escritorio-exemplo-2026-10-14-12@sistema-redes
+DTSTART:20261014T210000
+DTEND:20261014T211500
+SUMMARY:[youtube] shorts: (a definir)
+DESCRIPTION:pauta a definir
+END:VEVENT
+BEGIN:VEVENT
+UID:escritorio-exemplo-2026-10-15-13@sistema-redes
+DTSTART:20261015T090000
+DTEND:20261015T091500
+SUMMARY:[instagram] stories: (a definir)
+DESCRIPTION:pauta a definir
+END:VEVENT
+BEGIN:VEVENT
+UID:escritorio-exemplo-2026-10-16-14@sistema-redes
+DTSTART:20261016T090000
+DTEND:20261016T091500
+SUMMARY:[instagram] stories: (a definir)
+DESCRIPTION:pauta a definir
+END:VEVENT
+BEGIN:VEVENT
+UID:escritorio-exemplo-2026-10-16-15@sistema-redes
+DTSTART:20261016T120000
+DTEND:20261016T121500
+SUMMARY:[instagram] carrossel: (a definir)
+DESCRIPTION:pauta a definir
+END:VEVENT
+BEGIN:VEVENT
+UID:escritorio-exemplo-2026-10-16-16@sistema-redes
+DTSTART:20261016T190000
+DTEND:20261016T191500
+SUMMARY:[instagram] reels: (a definir)
+DESCRIPTION:pauta a definir
+END:VEVENT
+BEGIN:VEVENT
+UID:escritorio-exemplo-2026-10-16-17@sistema-redes
+DTSTART:20261016T200000
+DTEND:20261016T201500
+SUMMARY:[tiktok] video: (a definir)
+DESCRIPTION:pauta a definir
+END:VEVENT
+BEGIN:VEVENT
+UID:escritorio-exemplo-2026-10-16-18@sistema-redes
+DTSTART:20261016T210000
+DTEND:20261016T211500
+SUMMARY:[youtube] shorts: (a definir)
+DESCRIPTION:pauta a definir
+END:VEVENT
+END:VCALENDAR

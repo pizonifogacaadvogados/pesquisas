@@ -89,8 +89,8 @@
 | ✅ | `videomaker-react` | reacts e manifestações sobre vídeos em alta |
 | ✅ | `videomaker-audio` | trilha, efeitos, mixagem |
 | ✅ | `videomaker-capcut` | operação do CapCut (Web/Desktop/Pro) |
-| ✅ | `videomaker-conformidade` | direito autoral, imagem, OAB, TSE, LGPD |
-| ✅ | `videomaker-publicacao` | formatos, capa, legenda do post, hashtags, horários, métricas |
+| ✅ | `social-conformidade` | direito autoral, imagem, OAB, TSE, LGPD |
+| ✅ | `social-publicacao` | formatos, capa, legenda do post, hashtags, horários, métricas |
 
 ## Fase 8 (depois dos vídeos): Gestor de redes – posts e carrosséis
 
@@ -122,3 +122,18 @@ Primeira versão entregue: `estudos/17`, `pesquisa/registro/R10`, `redes/foto/ca
 | B7 | **Re-teste com material decente** (seu vídeo real ou amostra 1080p+) e comparação lado a lado com as referências | `exemplo/v3` | 🟡 re-render da amostra feito; falta **o seu vídeo real** |
 
 **Limitação:** este servidor não reproduz vídeos do YouTube, TikTok e Instagram (bloqueio de rede). O levantamento usa reportagens, entrevistas, bastidores, cursos e análises escritas sobre como cada peça foi feita. Os links ficam no estudo para você assistir.
+
+---
+
+# Fase 10 (pedido de 09/10/2026): o SISTEMA de redes, de ponta a ponta
+
+Pedido: estruturar todo o código como um sistema de produção de conteúdo com dois braços (vídeo para todas as redes de vídeo; foto/carrossel/posts) e uma camada de gestão para manter redes de advocacia, conteúdo jurídico e política; auditar, corrigir, testar, arquitetar as skills e entregar manual + relatório completo.
+
+| # | Etapa | Entregável | Status |
+|---|---|---|---|
+| S1 | Auditoria do código existente | bugs corrigidos: `visao` no OpenCV 5 (→ YuNet), `--transcricao` em lista, nome de variável no teste, exportação WhatsApp, capa com legenda queimada | ✅ |
+| S2 | Especificações de todas as redes (vídeo e foto) | `R12` (48 buscas) → `redes/nucleo/plataformas.py` (26 destinos) | ✅ |
+| S3 | Arquitetura: núcleo, braço de vídeo, braço de foto, gestão | pacote `redes` (perfis, pautas, calendário, exportação multirrede, posts, capas, thumbnails, tratamento, conformidade automática R13, publicação, fluxo, relatório, diagnóstico, CLI) | ✅ |
+| S4 | Testes de ponta a ponta | `tests/test_sistema.py` (18 testes, todos passando em 7m42s, incluindo produção de vídeo completa) + `teste_pipeline.py` | ✅ |
+| S5 | Skills | `gestor-redes` (mãe) → `social-planejamento`, `videomaker` (+5), `social-foto` (+ carrossel), `social-conformidade`, `social-publicacao` | ✅ |
+| S6 | Manual e relatório | `MANUAL.md` + relatório completo (artefato) | ✅ |

@@ -1,11 +1,11 @@
 ---
 name: social-carrossel
-description: Skill do gestor de redes para carrosséis e posts de imagem (Instagram 4:5/3:4, TikTok Modo Foto 9:16, LinkedIn PDF) com design minimalista profissional para advocacia e política - roteiro de texto (gancho, promessa, uma ideia por slide, CTA), identidades visuais, tratamento de fotos e prints, e geração automática de PNG/PDF. Use quando o usuário pedir carrossel, post, banner, arte, "conteúdo escrito" ou transformar um vídeo/tema em carrossel.
+description: Skill-filha do braço de foto (social-foto) para CARROSSÉIS (Instagram 4:5/3:4, TikTok Modo Foto 9:16, LinkedIn PDF, Facebook, Threads) com design minimalista profissional para advocacia e política - roteiro de texto (gancho, promessa, uma ideia por slide, CTA), identidades visuais, tratamento de fotos e prints, e geração automática de PNG/PDF. Use quando o usuário pedir carrossel, "conteúdo escrito" em slides ou transformar um vídeo/tema em carrossel (posts de imagem única: social-foto).
 ---
 
 # Carrossel (gestor de redes)
 
-Base: `sistema-redes/estudos/17-carrosseis.md` (especificações, estrutura, design, tratamento de imagem, mix com vídeo) e registro `pesquisa/registro/R10-carrosseis.md`. Conformidade: skill `videomaker-conformidade` (mesmas regras dos vídeos).
+Base: `sistema-redes/estudos/17-carrosseis.md` (especificações, estrutura, design, tratamento de imagem, mix com vídeo) e registro `pesquisa/registro/R10-carrosseis.md`. Conformidade: skill `social-conformidade` (mesmas regras dos vídeos).
 
 ## 1. Roteiro do texto (a parte que mais pesa)
 Escreva **antes** de pensar no visual:
@@ -34,6 +34,10 @@ Mantenha **a mesma identidade** no perfil inteiro. Para outra paleta (cor do par
 - Nada de banco de imagem genérico nem clipart.
 
 ## 4. Gerar
+Pelo gestor (recomendado): `python3 -m redes pauta criar <perfil> "Tema" --formato carrossel --material carrossel.json`
+e `python3 -m redes executar <pauta>` → artes ajustadas para cada rede do perfil + PDF do LinkedIn + legendas + texto
+alternativo + pacote. A identidade vem do perfil (`identidade_foto` + `cores`).
+Avulso:
 ```bash
 cd sistema-redes
 python3 -m redes carrossel pasta/carrossel.json --formato 4x5 9x16 --saida pasta/saida
@@ -45,4 +49,4 @@ Saída: `slide_NN_4x5.png` (Instagram), `slide_NN_9x16.png` (TikTok), `carrossel
 Se o conector oficial do Canva estiver ativo (Configurações → Conectores; servidor `mcp.canva.com/mcp`), use-o para: preencher modelos do escritório (autofill), aplicar o Brand Kit e exportar. Neste ambiente ele **falhou ao conectar** (proxy); o gerador próprio cobre o fluxo sem depender dele.
 
 ## 6. Mix com vídeo
-Para cada tema forte: Reel (alcance) → carrossel aprofundando (salvamentos), 1-3 dias depois. Registre o desempenho com `videomaker-publicacao` (salvamentos e envios são as métricas do carrossel).
+Para cada tema forte: Reel (alcance) → carrossel aprofundando (salvamentos), 1-3 dias depois. Registre o desempenho com `social-publicacao` (salvamentos e envios são as métricas do carrossel).

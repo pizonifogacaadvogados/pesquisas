@@ -12,6 +12,7 @@ Ordem das camadas no render:
   → grão → barras de cinema
 """
 import json
+import os
 import re
 import shutil
 import subprocess
@@ -377,7 +378,7 @@ def renderizar(prod, base, pasta, sfx_dir=None):
     # ---------- 4b. motion graphics (HyperFrames + GSAP): lower third, cartões e chamada em overlay com alfa
     e = estilos.ESTILOS[prod["estilo"]]
     overlay = None
-    if prod.get("motion", True):
+    if prod.get("motion", os.environ.get("REDES_SEM_MOTION") != "1"):
         fins = [c["fim"] for c in cam["cartoes"]] + ([cam["lower_third"]["fim"]] if cam.get("lower_third") else [])
         if fins:
             proj = motion.composicao(prod, a_dir / "motion", acento=_ass_para_hex(e["cor_destaque"]), fim=min(max(fins) + 0.3, dur))

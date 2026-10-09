@@ -8,7 +8,7 @@ description: Skill-filha do videomaker para reacts - reagir ou se manifestar sob
 Base obrigatória: `sistema-redes/estudos/10-react.md` (formatos F1-F16, layouts, técnicas, velocidade, checklists) e registro `pesquisa/registro/R04-react.md`.
 **Regra de ouro:** o react precisa **transformar** o original (crítica/análise real). Sem isso ele é ilegal (art. 46, III LDA), antiético (OAB) e não tem alcance (originalidade do Instagram desde 30/04/2026 e do TikTok).
 
-## 1. Triagem (antes de qualquer coisa) → `videomaker-conformidade`
+## 1. Triagem (antes de qualquer coisa) → `social-conformidade`
 - Advocacia: o caso está **sob patrocínio de outro advogado**? → falar só da tese em abstrato (CED art. 42, II).
 - Política: risco de descontextualização? período eleitoral? impulsionamento (negativo não pode)?
 - Pessoa comum no vídeo? → desfocar o rosto ou não usar.

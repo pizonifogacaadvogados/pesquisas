@@ -1,0 +1,22 @@
+python3 -m unittest discover -s tests -v  (09/10/2026)
+
+Exportacao.test_multirrede: ok
+Exportacao.test_whatsapp_divide: ok
+Foto.test_capas: ok
+Foto.test_carrossel: ok
+Foto.test_posts_todos_os_tipos: ok
+Foto.test_tratamento: ok
+Gestao.test_cli: ok
+Gestao.test_fluxo_foto: ok
+Gestao.test_legendas: ok
+Gestao.test_pautas_calendario: ok
+Nucleo.test_conformidade_oab: ok
+Nucleo.test_conformidade_tse: ok
+Nucleo.test_perfis: ok
+Nucleo.test_plataformas: ok
+Nucleo.test_rosto_detector: ok
+Video.test_fluxo_video_autentico: ok
+Video.test_pipeline_v1: ok
+Video.test_react: ok
+
+Ran 18 tests in 462 s — OK (vídeo completo incluído)

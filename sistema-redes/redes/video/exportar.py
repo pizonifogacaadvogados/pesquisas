@@ -33,8 +33,8 @@ def _tem_audio(arq):
 
 def _filtro_video(d, horizontal):
     w, h = d["w"], d["h"]
-    if w == 1080 and h == 1920:
-        return "scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920"
+    if abs(w / h - 9 / 16) < 0.01:
+        return f"scale={w}:{h}:force_original_aspect_ratio=increase,crop={w}:{h}"
     if (w, h) == (1080, 1350):
         return "scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,crop=1080:1350:0:285"
     if w > h and horizontal:
@@ -50,7 +50,7 @@ def _bitrate(d, dur):
     if d.get("max_mb") and dur > 0:
         cabe = d["max_mb"] * 8 * 0.9 / dur - plataformas.EXPORT["audio_kbps"] / 1000
         alvo, teto = min(alvo, cabe), min(teto, cabe * 1.15)
-    if alvo < 2:
+    if alvo < 1.2:
         raise RuntimeError(f"vídeo longo demais para o limite de {d['max_mb']} MB da rede")
     return round(alvo, 2), round(teto, 2)
 

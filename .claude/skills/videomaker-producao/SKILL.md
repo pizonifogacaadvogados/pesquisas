@@ -41,5 +41,8 @@ Extraia quadros em: 0,5s (gancho), lower third, cada cartão, cada transição, 
 - texto legível no tamanho de celular.
 Confira o áudio: `ffmpeg -i final.mp4 -af ebur128 -f null -` (≈ −14 LUFS) e escute os pontos de música e SFX.
 
-## 4. Entregar
+## 4. Exportar para as redes
+`python3 -m redes exportar saida/NOME/final.mp4 --perfil <id>` (ou `--destinos instagram_reels tiktok_video youtube_shorts linkedin_video x_video whatsapp_status`): cada rede no tamanho, duração, bitrate e loudness certos (−14 LUFS); 4:5 para LinkedIn/Facebook; 16:9 com fundo desfocado para X/YouTube; WhatsApp em trechos de 60 s. Capa: `python3 -m redes capa saida/NOME/final.mp4 "Título" --perfil <id>`. Pelo gestor (`executar`), tudo isso é automático.
+
+## 5. Entregar
 Resumo: estilo, duração, gancho, recursos usados (cartões, B-roll, transições), trilha (clima e licença), alertas. Peça feedback para o aprendizado.

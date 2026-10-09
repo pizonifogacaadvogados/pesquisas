@@ -82,7 +82,7 @@ CSS_CAPA = """
 .capa .bloco {{ position: absolute; left: 90px; right: 90px; top: 1080px; }}
 .capa .rot {{ font-size: 34px; font-weight: 800; letter-spacing: 7px; color: var(--acento); text-transform: uppercase;
   margin-bottom: 26px; }}
-.capa .tit {{ font-family: '{fonte}', sans-serif; font-weight: 800; font-size: 104px; line-height: 1.02; color: #fff;
+.capa .tit {{ font-family: '{fonte}', sans-serif; font-weight: 800; font-size: {tam}px; line-height: 1.02; color: #fff;
   letter-spacing: -1px; text-shadow: 0 6px 30px rgba(0,0,0,.5); }}
 .capa .tit mark {{ background: none; color: var(--acento); padding: 0; }}
 """
@@ -103,6 +103,11 @@ CSS_THUMB = """
 """
 
 
+def _tam_titulo(titulo):
+    n = len(titulo.replace("==", "").split())
+    return 104 if n <= 6 else 88 if n <= 9 else 76
+
+
 def capa_reels(fonte, titulo, pasta, perfil=None, rotulo="", fonte_titulo="Inter"):
     pasta = Path(pasta)
     pasta.mkdir(parents=True, exist_ok=True)
@@ -113,7 +118,7 @@ def capa_reels(fonte, titulo, pasta, perfil=None, rotulo="", fonte_titulo="Inter
     corpo = ('<div class="bg"></div><div class="vel"></div><div class="bloco">'
              + (f'<div class="rot">{_esc(rotulo)}</div>' if rotulo else "")
              + f'<div class="tit">{_esc(titulo)}</div></div>')
-    png = renderizar(pagina(corpo, idv, 1080, 1920, CSS_CAPA.format(bg=bg.resolve().as_uri(), fonte=fonte_titulo), "capa"),
+    png = renderizar(pagina(corpo, idv, 1080, 1920, CSS_CAPA.format(bg=bg.resolve().as_uri(), fonte=fonte_titulo, tam=_tam_titulo(titulo)), "capa"),
                      pasta / "capa_reels.png", 1080, 1920)
     Image.open(png).crop((0, 240, 1080, 1680)).save(pasta / "capa_grade.png")
     al = []

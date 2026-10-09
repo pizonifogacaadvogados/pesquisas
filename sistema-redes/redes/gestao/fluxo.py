@@ -123,7 +123,8 @@ def _video(pauta, p, pasta, destinos):
     if "youtube_video" in pecas:
         th = capas.thumbnail(final, pauta.get("thumb_texto") or pauta["tema"][:30], pasta / "thumb", p)
         pecas["youtube_video"].append(pasta / "thumb" / th["thumbnail"])
-    alertas = [f"{d}: {a}" for d, v in exp["destinos"].items() for a in v["alertas"]]
+    alertas = [f"{d}: {a}" for d, v in exp["destinos"].items() for a in v["alertas"]] + \
+        [f"capa: {a}" for a in capa["alertas"]]
     return pecas, texto, {"final": str(final), **info, "alertas_exportacao": alertas}
 
 
@@ -181,7 +182,7 @@ def executar(pauta_id, pasta=None, agenda=None):
         peca.setdefault("credito", (pauta.get("react") or {}).get("credito"))
     pac = publicacao.pacote(p, pasta / "pacote", pecas, pauta.get("gancho") or pauta["tema"],
                             pauta.get("legenda_corpo", ""), pauta.get("hashtags"), texto, peca, agenda,
-                            alt=info.get("alt"))
+                            alt=info.get("alt"), avisos=info.get("alertas_exportacao", []) + info.get("alertas_arte", []))
     status = "produzido"
     _pautas.atualizar(pauta_id, status=status, pecas={"pasta": str(pasta), "pacote": str(pasta / "pacote"),
                                                      "conformidade": pac["conformidade"]["sinal"]})
