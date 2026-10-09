@@ -49,7 +49,7 @@ html, body { width: 1080px; height: 1920px; overflow: hidden; background: transp
 .mask > span { display: block; will-change: transform; }
 
 /* lower third: barra de acento que se desenha, nome e cargo revelados por máscara */
-.lt { position: absolute; left: 84px; bottom: 560px; }
+.lt { position: absolute; left: 84px; bottom: 700px; }  /* acima da faixa de legenda */
 .lt-barra { width: 6px; height: 132px; background: var(--acento); position: absolute; left: 0; top: 4px;
             transform-origin: 50% 100%; }
 .lt-fundo { position: absolute; left: 0; top: 0; height: 140px; width: 760px;

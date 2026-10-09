@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="UTF-8" /><meta name="viewport" content="width=1080, height=1920" />
+<script src="gsap.min.js"></script>
+<style>:root { --acento: #E8B84A; }
+@font-face { font-family: Inter; src: url(fontes/Inter.ttf); font-weight: 100 900; }
+@font-face { font-family: Playfair; src: url(fontes/PlayfairDisplay.ttf); font-weight: 400 900; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { width: 1080px; height: 1920px; overflow: hidden; background: transparent; }
+#root { width: 100%; height: 100%; position: relative; font-family: Inter, sans-serif; }
+.clip { position: absolute; inset: 0; }
+.mask { overflow: hidden; display: block; }
+.mask > span { display: block; will-change: transform; }
+
+/* lower third: barra de acento que se desenha, nome e cargo revelados por máscara */
+.lt { position: absolute; left: 84px; bottom: 700px; }  /* acima da faixa de legenda */
+.lt-barra { width: 6px; height: 132px; background: var(--acento); position: absolute; left: 0; top: 4px;
+            transform-origin: 50% 100%; }
+.lt-fundo { position: absolute; left: 0; top: 0; height: 140px; width: 760px;
+            background: linear-gradient(90deg, rgba(8,12,20,.62), rgba(8,12,20,0));
+            transform-origin: 0 50%; }
+.lt-txt { position: relative; padding-left: 30px; }
+.lt-nome { font-weight: 700; font-size: 64px; letter-spacing: -0.01em; color: #fff; line-height: 1.08; }
+.lt-cargo { font-weight: 500; font-size: 38px; color: rgba(255,255,255,.82); margin-top: 8px; letter-spacing: .01em; }
+
+/* cartão de norma: vidro escuro, número grande serifado, linha que se desenha */
+.card { position: absolute; left: 90px; right: 90px; top: 330px; padding: 46px 54px 50px;
+        background: rgba(10,14,22,.58); border: 1px solid rgba(255,255,255,.14); border-radius: 26px;
+        backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); }
+.card-rot { font-weight: 600; font-size: 30px; letter-spacing: .22em; color: var(--acento); }
+.card-tit { font-family: Playfair, serif; font-weight: 700; font-size: 104px; color: #fff; line-height: 1.02;
+            margin-top: 14px; }
+.card-linha { height: 3px; background: var(--acento); margin: 26px 0 22px; transform-origin: 0 50%; }
+.card-sub { font-weight: 500; font-size: 40px; color: rgba(255,255,255,.86); line-height: 1.25; }
+
+/* chamada (kicker) de abertura */
+.kick { position: absolute; left: 0; right: 0; top: 250px; text-align: center; }
+.kick-rot { font-weight: 700; font-size: 34px; letter-spacing: .32em; color: var(--acento); }
+</style></head>
+<body><div id="root" data-composition-id="main" data-start="0" data-duration="8.641" data-width="1080" data-height="1920">
+<div id="kick" class="clip" data-start="0.000" data-duration="3.400" data-track-index="1"><div class="kick"><span class="mask"><span class="kick-rot">ENTENDA</span></span></div></div>
+<div id="lt" class="clip" data-start="3.800" data-duration="3.800" data-track-index="2"><div class="lt"><div class="lt-fundo"></div><div class="lt-barra"></div><div class="lt-txt"><span class="mask"><span class="lt-nome">Dra. Ana Souza</span></span><span class="mask"><span class="lt-cargo">Advogada · OAB/RS 00.000</span></span></div></div></div>
+<div id="card0" class="clip" data-start="4.941" data-duration="3.400" data-track-index="3"><div class="card"><div class="mask"><span class="card-rot">BASE LEGAL</span></div><div class="card-tit"><span class="mask" style="display:inline-block;margin-right:.26em"><span class="w">Art.</span></span><span class="mask" style="display:inline-block;margin-right:.26em"><span class="w">49</span></span><span class="mask" style="display:inline-block;margin-right:.26em"><span class="w">·</span></span><span class="mask" style="display:inline-block;margin-right:.26em"><span class="w">CDC</span></span></div><div class="card-linha"></div><div class="mask"><span class="card-sub">Código de Defesa do Consumidor</span></div></div></div>
+</div>
+<script>
+const tl = gsap.timeline({ paused: true });
+tl.fromTo("#kick .kick-rot", {yPercent: 110}, {yPercent: 0, duration: .7, ease: "expo.out"}, 0.150);tl.fromTo("#kick .kick", {scale: 1.06, opacity: 0}, {scale: 1, opacity: 1, duration: 1.1, ease: "power3.out"}, 0.150);tl.to("#kick .kick-rot", {yPercent: -110, duration: .45, ease: "power3.in"}, 2.900);
+tl.fromTo("#lt .lt-barra", {scaleY: 0}, {scaleY: 1, duration: .55, ease: "expo.out"}, 3.800);tl.fromTo("#lt .lt-fundo", {scaleX: 0, opacity: 0}, {scaleX: 1, opacity: 1, duration: .9, ease: "expo.out"}, 3.880);tl.fromTo("#lt .lt-nome", {yPercent: 105}, {yPercent: 0, duration: .75, ease: "expo.out"}, 3.940);tl.fromTo("#lt .lt-cargo", {yPercent: 110}, {yPercent: 0, duration: .75, ease: "expo.out"}, 4.040);tl.to("#lt .lt-cargo", {yPercent: 110, duration: .4, ease: "power3.in"}, 6.980);tl.to("#lt .lt-nome", {yPercent: 105, duration: .4, ease: "power3.in"}, 7.040);tl.to("#lt .lt-fundo", {scaleX: 0, opacity: 0, duration: .45, ease: "power3.in"}, 7.100);tl.to("#lt .lt-barra", {scaleY: 0, duration: .35, ease: "power3.in"}, 7.220);
+tl.fromTo("#card0 .card", {opacity: 0, y: 46, scale: .965}, {opacity: 1, y: 0, scale: 1, duration: .8, ease: "expo.out"}, 4.941);tl.fromTo("#card0 .card-rot", {yPercent: 110}, {yPercent: 0, duration: .6, ease: "expo.out"}, 5.061);tl.fromTo("#card0 .w", {yPercent: 108}, {yPercent: 0, duration: .8, ease: "expo.out", stagger: .07}, 5.141);tl.fromTo("#card0 .card-linha", {scaleX: 0}, {scaleX: 1, duration: .9, ease: "expo.inOut"}, 5.291);tl.fromTo("#card0 .card-sub", {yPercent: 110}, {yPercent: 0, duration: .7, ease: "expo.out"}, 5.491);tl.fromTo("#card0 .card-tit", {x: 0}, {x: 8, duration: 1.800, ease: "none"}, 5.841);tl.to("#card0 .card", {opacity: 0, y: -24, scale: .985, duration: .45, ease: "power3.in"}, 7.841);
+window.__timelines["main"] = tl;
+</script></body></html>

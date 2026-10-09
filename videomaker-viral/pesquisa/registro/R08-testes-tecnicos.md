@@ -36,3 +36,4 @@
 | R08.32 | Composição v3 (casar cor + light wrap) 1ª versão | ⚠️ borda natural, mas **rosto azulado e enevoado** (ganho por canal batendo no limite de ±15%, wrap largo) → regra de compositor: tinta nas sombras (±8%), pele ±4%, wrap σ 7 e 35% | `composicao.py` |
 | R08.33 | HyperFrames 0.8.143 neste servidor | ✅ npm e Chrome headless OK; ❌ CDN do GSAP bloqueado → GSAP local via `npm pack`; overlay 9,5 s 1080×1920 ProRes 4444 com alfa em ~1 min (4 núcleos) | `motion.py` |
 | R08.34 | HuggingFace (SAM 2, MatAnyone, BiRefNet) | ❌ bloqueado pelo proxy; RVM é o melhor modelo de vídeo baixável daqui | — |
+| R08.35 | v3 completo (RVM + cor casada v2 + light wrap + overlay HyperFrames) na amostra de 41 s | ✅ pele natural, borda sem franja clara, lower third e cartão animados; lower third subido para não encostar na legenda; pico 1,4 GB no ffmpeg (o pico de 6 GB anterior veio do render do overlay) | `exemplo/v3` |
