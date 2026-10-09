@@ -16,18 +16,24 @@ def ts(seg):
 
 
 def segmentos(entrada, modelo, idioma):
+    erros = []
     try:
         from faster_whisper import WhisperModel
         segs, _ = WhisperModel(modelo, compute_type="int8").transcribe(entrada, language=idioma, vad_filter=True)
         return [(s.start, s.end, s.text.strip()) for s in segs]
-    except ImportError:
-        pass
+    except Exception as e:  # sem pacote ou sem acesso para baixar o modelo
+        erros.append(f"faster-whisper: {type(e).__name__}: {e}")
     try:
         import whisper
         res = whisper.load_model(modelo).transcribe(entrada, language=idioma)
         return [(s["start"], s["end"], s["text"].strip()) for s in res["segments"]]
-    except ImportError:
-        sys.exit("Instale um transcritor: pip install faster-whisper")
+    except Exception as e:
+        erros.append(f"openai-whisper: {type(e).__name__}: {e}")
+    sys.exit(
+        "Não foi possível transcrever.\n  " + "\n  ".join(erros)
+        + "\nInstale com `pip install faster-whisper` e garanta acesso a huggingface.co "
+        "(o modelo é baixado na primeira execução), ou forneça a transcrição .srt."
+    )
 
 
 def main():

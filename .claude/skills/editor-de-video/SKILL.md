@@ -13,6 +13,11 @@ Você é um editor de vídeo que trabalha por linha de comando. Você **não ass
 2. **Entender o conteúdo**
    - Transcrever: `python3 .claude/skills/editor-de-video/scripts/transcrever.py ENTRADA` (gera `.srt` e `.txt` ao lado do vídeo; usa faster-whisper ou whisper se instalado — se não houver, peça ao usuário a transcrição ou para instalar `pip install faster-whisper`).
    - Ver frames-chave: `ffmpeg -i ENTRADA -vf "fps=1/5,scale=480:-1" frames/f_%03d.png` e ler alguns com Read.
+   - **Visão de um trecho** (use nos pontos de decisão, como uma pausa ambígua ou para conferir um corte): gera uma única imagem com 8 frames em tira e a forma de onda do áudio embaixo. Pausas e falas ficam visíveis. Leia com Read.
+     ```
+     ffmpeg -y -ss INI -to FIM -i ENTRADA -filter_complex "[0:v]fps=8/(FIM-INI),scale=240:-2,tile=8x1[tira];[0:a]showwavespic=s=1920x200:colors=0x3388ff[onda];[tira]scale=1920:-2[t];[t][onda]vstack[out]" -map "[out]" -frames:v 1 timeline.png
+     ```
+     (substitua INI e FIM por segundos; ideia adaptada do projeto video-use)
 3. **Propor o plano de edição (EDL)** em tabela antes de renderizar: trecho, início, fim, motivo. Confirme com o usuário quando o corte for editorial (o que fica/sai); execute direto quando for técnico (comprimir, converter, legendar).
 4. **Renderizar** sempre em arquivo novo dentro de `saida/`. Nunca sobrescreva o original.
 5. **Verificar** — rode `ffprobe` na saída (duração, resolução, áudio presente), extraia 2–3 frames e olhe-os. Só diga que está pronto depois disso.
@@ -63,3 +68,9 @@ Vídeos do escritório seguem o Provimento 205/2021 da OAB (publicidade na advoc
 - Você não avalia estética, ritmo visual ou expressão facial com segurança — o resultado precisa de revisão humana.
 - Seleção de B-roll, color grading fino e motion design complexo ficam melhor em editor visual (DaVinci, Premiere, CapCut).
 - Vídeos muito longos: trabalhe por partes e prefira `-c copy` para testes rápidos.
+
+## Quando indicar outra ferramenta
+
+- Usuário sem Claude Code, só no app do Claude (web/celular): sugira o **conector Descript** (edição por comando, remove vícios de linguagem, legenda) ou o **conector Adobe for creativity** (redimensionar e criar vídeos).
+- Remoção fina de "é…", "hã…" e cortes palavra a palavra em gravações longas: o projeto **video-use** (browser-use) faz isso melhor, mas exige chave paga da ElevenLabs.
+- Vídeos animados (explicativos, slides animados, motion graphics): **HyperFrames** (HeyGen) ou **Remotion**.
