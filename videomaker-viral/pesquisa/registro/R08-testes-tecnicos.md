@@ -29,3 +29,6 @@
 | R08.25 | React em tela dividida (congelar + círculo, carimbo, replay "DE NOVO", crédito) | ✅ 57s de render; comentário = 61% do tempo; círculo saiu preenchido → corrigido | `react.py` |
 | R08.26 | Aprendizado: feedback em linguagem natural → ajustes; métricas → ranking | ✅ "zoom demais / legenda pequena / light leak forte" → 3 ajustes | `aprendizado.py` |
 | R08.27 | Reinício do servidor durante o render (exit 137) | ⚠️ não era falta de memória do código (pico 1,2 GB de 16 GB); o render foi refeito | — |
+| R08.28 | Recorte com suavização assimétrica + curva de matte | ✅ rastro eliminado (cabeça virando sem "cúpula" de fundo) | `recorte.py` |
+| R08.29 | Carrossel HTML→PNG via Chrome headless (9 slides, 2 identidades, 4:5 e 9:16, PDF) | ✅ ~16s; rodapé cortado na 1ª versão → render com folga e recorte | `carrossel.py` |
+| R08.30 | Contraste WCAG das identidades | ✅ 14,3:1 (clássico), 19,3:1 (manifesto) | — |

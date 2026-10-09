@@ -1,0 +1,7 @@
+{"layout": "dividida", "credito": "@perfil_original · 08/10/2026 · TikTok",
+ "passos": [
+  {"tipo": "original", "ini": 5.3, "fim": 9.9, "congelar": {"x": 0.5, "y": 0.4, "escala": 1.5}},
+  {"tipo": "comentario", "ini": 11.8, "fim": 18.5, "carimbo": "VERDADE"},
+  {"tipo": "replay", "ini": 25.0, "fim": 27.5, "velocidade": 0.6, "rotulo": "DE NOVO"},
+  {"tipo": "comentario", "ini": 19.8, "fim": 28.8}
+ ]}

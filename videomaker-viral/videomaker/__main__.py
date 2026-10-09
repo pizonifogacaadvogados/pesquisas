@@ -11,7 +11,7 @@ import json
 import sys
 from pathlib import Path
 
-from . import analise, aprendizado, capcut, estilos, plano, producao, react, regras, render, visao
+from . import analise, aprendizado, capcut, carrossel, estilos, plano, producao, react, regras, render, visao
 
 
 def _dur(txt):
@@ -77,6 +77,9 @@ def main(argv=None):
     p = sub.add_parser("react", help="monta react a partir de react.json (original + reação)")
     p.add_argument("original"); p.add_argument("reacao"); p.add_argument("roteiro"); p.add_argument("--saida", default="saida_react")
     p = sub.add_parser("visao", help="diagnóstico visual quadro a quadro"); p.add_argument("video")
+    p = sub.add_parser("carrossel", help="gera carrossel (PNG + PDF) a partir de carrossel.json")
+    p.add_argument("spec"); p.add_argument("--formato", nargs="+", default=["4x5"], choices=sorted(carrossel.FORMATOS))
+    p.add_argument("--identidade", choices=sorted(carrossel.IDENTIDADES)); p.add_argument("--saida", default=None)
     p = sub.add_parser("feedback", help="registra sua avaliação de um vídeo (ajusta o sistema)")
     p.add_argument("id"); p.add_argument("texto")
     p = sub.add_parser("metricas", help="registra métricas reais da publicação")
@@ -118,6 +121,16 @@ def main(argv=None):
         if a.cmd == "react":
             v, rel = react.renderizar(a.original, a.reacao, json.loads(Path(a.roteiro).read_text(encoding="utf-8")), a.saida)
             print(v); print(json.dumps(rel, ensure_ascii=False, indent=1)); return 0
+        if a.cmd == "carrossel":
+            spec = json.loads(Path(a.spec).read_text(encoding="utf-8"))
+            if a.identidade:
+                spec["identidade"] = a.identidade
+            saida = Path(a.saida or Path(a.spec).parent / "carrossel_out")
+            for f in a.formato:
+                r = carrossel.gerar(spec, saida, f, base=Path(a.spec).parent)
+                print(f"{f}: {len(r['png'])} slides, {r['pdf']}"); [print("  ⚠", x) for x in r["alertas"]]
+                carrossel.mosaico(saida, f)
+            return 0
         if a.cmd == "visao":
             print(json.dumps(visao.analisar(a.video)["diagnostico"], ensure_ascii=False, indent=1)); return 0
         if a.cmd == "feedback":

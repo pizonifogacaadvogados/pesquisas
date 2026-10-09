@@ -1,0 +1,13 @@
+{"identidade": "juridico_classico",
+ "autor": {"nome": "Dra. Ana Souza", "handle": "@anasouza.adv", "foto": "foto.jpg"},
+ "slides": [
+  {"tipo": "capa", "rotulo": "Direito do consumidor", "titulo": "Comprou online e se arrependeu?", "subtitulo": "A lei te dá um prazo que quase ninguém conhece."},
+  {"tipo": "promessa", "texto": "Em 5 slides você vai saber **exatamente** o que fazer."},
+  {"tipo": "dado", "numero": "7", "legenda": "dias para desistir da compra", "fonte": "Art. 49, Código de Defesa do Consumidor"},
+  {"tipo": "item", "numero": "01", "titulo": "Conte a partir do recebimento", "texto": "O prazo começa no dia em que o produto chega, não no dia da compra.", "destaque": "no dia em que o produto chega"},
+  {"tipo": "mito", "afirmacao": "Preciso explicar por que desisti.", "veredito": "MITO", "texto": "A lei não exige justificativa."},
+  {"tipo": "item", "numero": "02", "titulo": "Devolução integral", "texto": "A loja deve devolver tudo o que você pagou, inclusive o frete.", "destaque": "inclusive o frete"},
+  {"tipo": "texto", "texto": "Arrependimento é direito, não favor."},
+  {"tipo": "lista", "titulo": "Resumo", "itens": ["7 dias a partir do recebimento", "Sem justificativa", "Devolução integral, com frete", "Registre tudo por escrito"]},
+  {"tipo": "cta", "titulo": "Salve para consultar depois.", "texto": "Envie para quem comprou online esta semana."}
+ ]}

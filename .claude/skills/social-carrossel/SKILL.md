@@ -1,0 +1,48 @@
+---
+name: social-carrossel
+description: Skill do gestor de redes para carrosséis e posts de imagem (Instagram 4:5/3:4, TikTok Modo Foto 9:16, LinkedIn PDF) com design minimalista profissional para advocacia e política - roteiro de texto (gancho, promessa, uma ideia por slide, CTA), identidades visuais, tratamento de fotos e prints, e geração automática de PNG/PDF. Use quando o usuário pedir carrossel, post, banner, arte, "conteúdo escrito" ou transformar um vídeo/tema em carrossel.
+---
+
+# Carrossel (gestor de redes)
+
+Base: `videomaker-viral/estudos/17-carrosseis.md` (especificações, estrutura, design, tratamento de imagem, mix com vídeo) e registro `pesquisa/registro/R10-carrosseis.md`. Conformidade: skill `videomaker-conformidade` (mesmas regras dos vídeos).
+
+## 1. Roteiro do texto (a parte que mais pesa)
+Escreva **antes** de pensar no visual:
+1. **Capa = gancho**, não título (≤ 10-12 palavras): pergunta que só o deslize responde, número específico, "o erro que…", contradição.
+2. **Slide 2 = promessa** ("em 5 slides você vai saber…").
+3. **Melhor ponto até o slide 3.**
+4. **Uma ideia por slide**, 12-25 palavras, com 1 destaque (`==marca-texto==` ou `**negrito**`).
+5. Penúltimo: resumo ou dado com **fonte**.
+6. **Último = CTA** específico (salvar / enviar para alguém / comentar). Advocacia: sem captação nem consulta individual.
+Total: **7-10 slides**. Legenda do post: complementa, traz a palavra-chave de busca, até 5 hashtags.
+
+Tipos de slide disponíveis: `capa`, `promessa`, `item`, `dado`, `mito`, `texto` (manifesto), `citacao`, `print`, `lista`, `cta` (ver docstring de `videomaker/carrossel.py`).
+
+## 2. Identidade visual
+| Identidade | Quando |
+|---|---|
+| `juridico_classico` | padrão do escritório (off-white, azul-marinho, dourado; Playfair + Inter) |
+| `juridico_moderno` | temas atuais, tecnologia, trabalho (grafite + verde-água; Inter) |
+| `politico_sobrio` | política institucional, propostas (branco + azul; Inter Black) |
+| `manifesto` | frases fortes, carrossel-texto político/opinião (preto + amarelo; Bebas) |
+Mantenha **a mesma identidade** no perfil inteiro. Para outra paleta (cor do partido, marca), acrescente uma entrada em `IDENTIDADES`, sempre com contraste ≥ 4,5:1.
+
+## 3. Imagens
+- Foto do autor: recorte limpo, luz frontal; mesma cor dos vídeos (LUT).
+- Prints: alta resolução, recorte do essencial, **fonte e data** no slide, dados pessoais **anonimizados** (LGPD).
+- Nada de banco de imagem genérico nem clipart.
+
+## 4. Gerar
+```bash
+cd videomaker-viral
+python3 -m videomaker carrossel pasta/carrossel.json --formato 4x5 9x16 --saida pasta/saida
+```
+Saída: `slide_NN_4x5.png` (Instagram), `slide_NN_9x16.png` (TikTok), `carrossel_*.pdf` (LinkedIn), `mosaico_*.png` (revisão) e `relatorio_*.json` (alertas de excesso de palavras, número de slides, CTA e contraste).
+**Revise o mosaico e 2-3 slides em tamanho real** (leia com Read) antes de entregar.
+
+## 5. Canva (opcional)
+Se o conector oficial do Canva estiver ativo (Configurações → Conectores; servidor `mcp.canva.com/mcp`), use-o para: preencher modelos do escritório (autofill), aplicar o Brand Kit e exportar. Neste ambiente ele **falhou ao conectar** (proxy); o gerador próprio cobre o fluxo sem depender dele.
+
+## 6. Mix com vídeo
+Para cada tema forte: Reel (alcance) → carrossel aprofundando (salvamentos), 1-3 dias depois. Registre o desempenho com `videomaker-publicacao` (salvamentos e envios são as métricas do carrossel).

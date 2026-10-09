@@ -1,6 +1,6 @@
 ---
 name: videomaker
-description: Skill-mãe do videomaker profissional (Reels/TikTok/Shorts) para advocacia e política. Use SEMPRE que o usuário pedir para editar, produzir, cortar, fazer react, deixar "viral" ou "cinematográfico", publicar ou operar o CapCut com um vídeo. Orquestra as skills-filhas videomaker-analise, videomaker-producao, videomaker-react, videomaker-audio, videomaker-capcut, videomaker-conformidade e videomaker-publicacao.
+description: Skill-mãe do núcleo de conteúdo (vídeo e carrossel) para advocacia e política. Use SEMPRE que o usuário pedir para editar, produzir, cortar, fazer react, deixar "viral" ou "cinematográfico", publicar ou operar o CapCut com um vídeo. Orquestra as skills-filhas videomaker-analise, videomaker-producao, videomaker-react, videomaker-audio, videomaker-capcut, videomaker-conformidade, videomaker-publicacao e social-carrossel.
 ---
 
 # Videomaker (skill-mãe)
@@ -25,6 +25,7 @@ Registro de pesquisa (fontes e confiabilidade): `videomaker-viral/pesquisa/regis
 | 6 | **Revisão de qualidade** (checklist E16 §6) olhando quadros extraídos | — | aprovado / ajustes |
 | 7 | **Entregar** ao usuário: vídeo, resumo das decisões, alertas | — | — |
 | 8 | (Se pedido) **executar no CapCut** (Pro/Desktop ou Web) | `videomaker-capcut` | projeto no CapCut |
+| 8b | **Carrossel complementar** (o tema do vídeo vira carrossel para salvamentos) | `social-carrossel` | PNG/PDF |
 | 9 | **Publicação e aprendizado**: capa, legenda do post, hashtags, Trial Reel; depois registrar métricas e feedback | `videomaker-publicacao` | registro no `aprendizado` |
 
 ## Decisões que são suas (diretor)

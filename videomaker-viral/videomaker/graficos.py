@@ -202,7 +202,7 @@ def _quebrar(palavras, max_chars):
 def lower_third(nome, cargo, ini, fim, fonte, cor_destaque):
     y = 1240
     est = [estilo("LTNome", fonte, 66, cor="&H00FFFFFF", borda=1, esp_contorno=0, sombra=2, fundo="&H78000000", alinh=7),
-           estilo("LTCargo", fonte, 40, cor="&H00DDDDDD", borda=1, esp_contorno=0, sombra=1, fundo="&H78000000",
+           estilo("LTCargo", fonte, 46, cor="&H00DDDDDD", borda=1, esp_contorno=0, sombra=1, fundo="&H78000000",
                   alinh=7, negrito=0),
            estilo("LTBarra", fonte, 10, cor=cor_destaque, borda=1, esp_contorno=0, alinh=7)]
     out = [

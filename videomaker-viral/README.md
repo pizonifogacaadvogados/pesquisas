@@ -14,6 +14,7 @@ Núcleo de vídeo profissional operado pelo Claude: assiste ao material bruto, d
   videomaker-capcut/          execução no CapCut Pro (Desktop/EditPilot ou Web)
   videomaker-conformidade/    LDA, imagem, OAB, TSE, LGPD, termos do CapCut
   videomaker-publicacao/      capa, legenda, hashtags, Trial Reels, métricas
+  social-carrossel/           carrosséis e posts (gestor de redes, Fase 8)
 videomaker-viral/
   00-cronograma.md            plano de estudos e desenvolvimento (fases 1-8)
   estudos/01-16               base de conhecimento (ver índice abaixo)
@@ -51,6 +52,7 @@ videomaker-viral/
 | `react` | dividida, PIP, green screen, tela cheia; congelar + zoom + círculo, replay, carimbos, crédito |
 | `capcut` | roteiro CapCut Pro por camadas + pacote de assets + instruções para o EditPilot |
 | `aprendizado` | registro, feedback → ajustes, métricas → ranking |
+| `carrossel` | carrosséis e posts: JSON → PNG (4:5, 3:4, 9:16) + PDF, 4 identidades visuais |
 
 ## Uso
 ```bash

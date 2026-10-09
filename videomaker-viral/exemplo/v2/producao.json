@@ -1,0 +1,714 @@
+{
+ "versao": 2,
+ "estilo": "estudio",
+ "preset": "juridico",
+ "duracao": 41.13,
+ "camadas": {
+  "fundo": {
+   "tipo": "estudio",
+   "imagem": "escritorio_noturno"
+  },
+  "camera": [
+   {
+    "tipo": "punch",
+    "ini": 4.679,
+    "fim": 11.541,
+    "escala": 1.08
+   },
+   {
+    "tipo": "punch",
+    "ini": 16.304,
+    "fim": 20.216,
+    "escala": 1.08
+   },
+   {
+    "tipo": "punch",
+    "ini": 25.189,
+    "fim": 28.149,
+    "escala": 1.08
+   },
+   {
+    "tipo": "punch",
+    "ini": 32.432,
+    "fim": 36.364,
+    "escala": 1.08
+   },
+   {
+    "tipo": "push_in",
+    "ini": 0.08,
+    "fim": 4.599,
+    "escala": 1.06
+   },
+   {
+    "tipo": "push_in",
+    "ini": 11.621,
+    "fim": 16.224,
+    "escala": 1.06
+   },
+   {
+    "tipo": "push_in",
+    "ini": 20.296,
+    "fim": 25.109,
+    "escala": 1.06
+   },
+   {
+    "tipo": "push_in",
+    "ini": 28.229,
+    "fim": 32.352,
+    "escala": 1.06
+   },
+   {
+    "tipo": "push_in",
+    "ini": 36.444,
+    "fim": 41.05,
+    "escala": 1.06
+   }
+  ],
+  "abertura": {
+   "tipo": "texto_atras",
+   "texto": "Você sabia?",
+   "ini": 0.0,
+   "fim": 3.4,
+   "rotulo": "ENTENDA",
+   "sobrelinha": null
+  },
+  "lower_third": {
+   "nome": "Dra. Ana Souza",
+   "cargo": "Advogada · OAB/RS 00.000",
+   "ini": 3.8,
+   "fim": 7.6
+  },
+  "cartoes": [
+   {
+    "titulo": "Art. 49 · CDC",
+    "subtitulo": "Código de Defesa do Consumidor",
+    "ini": 4.941,
+    "fim": 8.341
+   }
+  ],
+  "transicoes": [
+   {
+    "tipo": "light_leak",
+    "t": 20.296
+   },
+   {
+    "tipo": "light_leak",
+    "t": 32.512
+   }
+  ],
+  "broll": [],
+  "emojis": [],
+  "legenda": {
+   "tipo": "premium",
+   "fonte": "Inter"
+  },
+  "sfx": [
+   {
+    "som": "hit_suave",
+    "t": 0.0,
+    "vol": 0.5
+   },
+   {
+    "som": "whoosh_suave",
+    "t": 3.8,
+    "vol": 0.35
+   },
+   {
+    "som": "pop",
+    "t": 4.941,
+    "vol": 0.4
+   },
+   {
+    "som": "whoosh_suave",
+    "t": 20.046,
+    "vol": 0.35
+   },
+   {
+    "som": "whoosh_suave",
+    "t": 32.262,
+    "vol": 0.35
+   }
+  ],
+  "musica": null,
+  "cor": {
+   "look": "teal_orange",
+   "intensidade": 0.65,
+   "halation": 0.12,
+   "vinheta": 0.16,
+   "grao": 0.03,
+   "barras": false
+  }
+ },
+ "palavras": [
+  {
+   "w": "Você",
+   "ini": 0.08,
+   "fim": 0.436,
+   "destaque": true
+  },
+  {
+   "w": "sabia",
+   "ini": 0.467,
+   "fim": 0.882,
+   "destaque": false
+  },
+  {
+   "w": "que",
+   "ini": 0.918,
+   "fim": 1.214,
+   "destaque": false
+  },
+  {
+   "w": "pode",
+   "ini": 1.24,
+   "fim": 1.596,
+   "destaque": false
+  },
+  {
+   "w": "cancelar",
+   "ini": 1.627,
+   "fim": 2.22,
+   "destaque": false
+  },
+  {
+   "w": "uma",
+   "ini": 2.271,
+   "fim": 2.568,
+   "destaque": false
+  },
+  {
+   "w": "compra",
+   "ini": 2.594,
+   "fim": 3.068,
+   "destaque": true
+  },
+  {
+   "w": "feita",
+   "ini": 3.109,
+   "fim": 3.524,
+   "destaque": false
+  },
+  {
+   "w": "pela",
+   "ini": 3.56,
+   "fim": 3.916,
+   "destaque": false
+  },
+  {
+   "w": "internet?",
+   "ini": 3.947,
+   "fim": 4.599,
+   "destaque": true
+  },
+  {
+   "w": "O",
+   "ini": 4.759,
+   "fim": 4.926,
+   "destaque": false
+  },
+  {
+   "w": "artigo",
+   "ini": 4.941,
+   "fim": 5.387,
+   "destaque": true
+  },
+  {
+   "w": "quarenta",
+   "ini": 5.425,
+   "fim": 5.983,
+   "destaque": false
+  },
+  {
+   "w": "e",
+   "ini": 6.031,
+   "fim": 6.198,
+   "destaque": false
+  },
+  {
+   "w": "nove",
+   "ini": 6.213,
+   "fim": 6.547,
+   "destaque": false
+  },
+  {
+   "w": "do",
+   "ini": 6.576,
+   "fim": 6.799,
+   "destaque": false
+  },
+  {
+   "w": "Código",
+   "ini": 6.818,
+   "fim": 7.264,
+   "destaque": false
+  },
+  {
+   "w": "de",
+   "ini": 7.303,
+   "fim": 7.526,
+   "destaque": false
+  },
+  {
+   "w": "Defesa",
+   "ini": 7.545,
+   "fim": 7.991,
+   "destaque": false
+  },
+  {
+   "w": "do",
+   "ini": 8.03,
+   "fim": 8.253,
+   "destaque": false
+  },
+  {
+   "w": "Consumidor",
+   "ini": 8.272,
+   "fim": 8.941,
+   "destaque": false
+  },
+  {
+   "w": "garante",
+   "ini": 8.999,
+   "fim": 9.501,
+   "destaque": false
+  },
+  {
+   "w": "o",
+   "ini": 9.544,
+   "fim": 9.711,
+   "destaque": false
+  },
+  {
+   "w": "direito",
+   "ini": 9.726,
+   "fim": 10.227,
+   "destaque": true
+  },
+  {
+   "w": "de",
+   "ini": 10.271,
+   "fim": 10.494,
+   "destaque": false
+  },
+  {
+   "w": "arrependimento.",
+   "ini": 10.513,
+   "fim": 11.461,
+   "destaque": false
+  },
+  {
+   "w": "O",
+   "ini": 11.621,
+   "fim": 11.802,
+   "destaque": false
+  },
+  {
+   "w": "prazo",
+   "ini": 11.818,
+   "fim": 12.24,
+   "destaque": true
+  },
+  {
+   "w": "é",
+   "ini": 12.277,
+   "fim": 12.458,
+   "destaque": false
+  },
+  {
+   "w": "de",
+   "ini": 12.473,
+   "fim": 12.715,
+   "destaque": false
+  },
+  {
+   "w": "sete",
+   "ini": 12.736,
+   "fim": 13.097,
+   "destaque": false
+  },
+  {
+   "w": "dias,",
+   "ini": 13.129,
+   "fim": 13.551,
+   "destaque": true
+  },
+  {
+   "w": "contados",
+   "ini": 13.588,
+   "fim": 14.191,
+   "destaque": false
+  },
+  {
+   "w": "do",
+   "ini": 14.244,
+   "fim": 14.485,
+   "destaque": false
+  },
+  {
+   "w": "recebimento",
+   "ini": 14.506,
+   "fim": 15.29,
+   "destaque": false
+  },
+  {
+   "w": "do",
+   "ini": 15.358,
+   "fim": 15.599,
+   "destaque": false
+  },
+  {
+   "w": "produto.",
+   "ini": 15.62,
+   "fim": 16.224,
+   "destaque": false
+  },
+  {
+   "w": "E",
+   "ini": 16.384,
+   "fim": 16.558,
+   "destaque": false
+  },
+  {
+   "w": "atenção,",
+   "ini": 16.573,
+   "fim": 17.154,
+   "destaque": true
+  },
+  {
+   "w": "a",
+   "ini": 17.205,
+   "fim": 17.379,
+   "destaque": false
+  },
+  {
+   "w": "loja",
+   "ini": 17.394,
+   "fim": 17.742,
+   "destaque": true
+  },
+  {
+   "w": "não",
+   "ini": 17.773,
+   "fim": 18.063,
+   "destaque": true
+  },
+  {
+   "w": "pode",
+   "ini": 18.088,
+   "fim": 18.437,
+   "destaque": false
+  },
+  {
+   "w": "cobrar",
+   "ini": 18.467,
+   "fim": 18.931,
+   "destaque": false
+  },
+  {
+   "w": "multa",
+   "ini": 18.972,
+   "fim": 19.378,
+   "destaque": true
+  },
+  {
+   "w": "por",
+   "ini": 19.414,
+   "fim": 19.704,
+   "destaque": false
+  },
+  {
+   "w": "isso.",
+   "ini": 19.729,
+   "fim": 20.136,
+   "destaque": false
+  },
+  {
+   "w": "Muita",
+   "ini": 20.296,
+   "fim": 20.701,
+   "destaque": false
+  },
+  {
+   "w": "gente",
+   "ini": 20.737,
+   "fim": 21.142,
+   "destaque": false
+  },
+  {
+   "w": "acha",
+   "ini": 21.177,
+   "fim": 21.525,
+   "destaque": false
+  },
+  {
+   "w": "que",
+   "ini": 21.555,
+   "fim": 21.845,
+   "destaque": false
+  },
+  {
+   "w": "precisa",
+   "ini": 21.87,
+   "fim": 22.391,
+   "destaque": false
+  },
+  {
+   "w": "explicar",
+   "ini": 22.437,
+   "fim": 23.016,
+   "destaque": false
+  },
+  {
+   "w": "o",
+   "ini": 23.066,
+   "fim": 23.24,
+   "destaque": false
+  },
+  {
+   "w": "motivo,",
+   "ini": 23.255,
+   "fim": 23.776,
+   "destaque": false
+  },
+  {
+   "w": "mas",
+   "ini": 23.822,
+   "fim": 24.111,
+   "destaque": false
+  },
+  {
+   "w": "isso",
+   "ini": 24.137,
+   "fim": 24.484,
+   "destaque": false
+  },
+  {
+   "w": "é",
+   "ini": 24.514,
+   "fim": 24.688,
+   "destaque": false
+  },
+  {
+   "w": "mito.",
+   "ini": 24.703,
+   "fim": 25.109,
+   "destaque": true
+  },
+  {
+   "w": "Você",
+   "ini": 25.269,
+   "fim": 25.671,
+   "destaque": false
+  },
+  {
+   "w": "não",
+   "ini": 25.706,
+   "fim": 26.041,
+   "destaque": false
+  },
+  {
+   "w": "precisa",
+   "ini": 26.07,
+   "fim": 26.673,
+   "destaque": false
+  },
+  {
+   "w": "justificar",
+   "ini": 26.726,
+   "fim": 27.53,
+   "destaque": false
+  },
+  {
+   "w": "nada.",
+   "ini": 27.6,
+   "fim": 28.069,
+   "destaque": false
+  },
+  {
+   "w": "E",
+   "ini": 28.229,
+   "fim": 28.399,
+   "destaque": false
+  },
+  {
+   "w": "o",
+   "ini": 28.413,
+   "fim": 28.583,
+   "destaque": false
+  },
+  {
+   "w": "pior:",
+   "ini": 28.598,
+   "fim": 28.993,
+   "destaque": true
+  },
+  {
+   "w": "tem",
+   "ini": 29.028,
+   "fim": 29.31,
+   "destaque": false
+  },
+  {
+   "w": "loja",
+   "ini": 29.335,
+   "fim": 29.674,
+   "destaque": true
+  },
+  {
+   "w": "que",
+   "ini": 29.703,
+   "fim": 29.986,
+   "destaque": false
+  },
+  {
+   "w": "se",
+   "ini": 30.01,
+   "fim": 30.236,
+   "destaque": false
+  },
+  {
+   "w": "recusa",
+   "ini": 30.256,
+   "fim": 30.708,
+   "destaque": false
+  },
+  {
+   "w": "a",
+   "ini": 30.747,
+   "fim": 30.917,
+   "destaque": false
+  },
+  {
+   "w": "devolver",
+   "ini": 30.932,
+   "fim": 31.497,
+   "destaque": false
+  },
+  {
+   "w": "o",
+   "ini": 31.546,
+   "fim": 31.716,
+   "destaque": false
+  },
+  {
+   "w": "dinheiro.",
+   "ini": 31.73,
+   "fim": 32.352,
+   "destaque": true
+  },
+  {
+   "w": "Isso",
+   "ini": 32.512,
+   "fim": 32.889,
+   "destaque": false
+  },
+  {
+   "w": "é",
+   "ini": 32.921,
+   "fim": 33.11,
+   "destaque": false
+  },
+  {
+   "w": "ilegal,",
+   "ini": 33.126,
+   "fim": 33.691,
+   "destaque": true
+  },
+  {
+   "w": "e",
+   "ini": 33.74,
+   "fim": 33.928,
+   "destaque": false
+  },
+  {
+   "w": "você",
+   "ini": 33.945,
+   "fim": 34.322,
+   "destaque": false
+  },
+  {
+   "w": "pode",
+   "ini": 34.354,
+   "fim": 34.731,
+   "destaque": false
+  },
+  {
+   "w": "reclamar",
+   "ini": 34.764,
+   "fim": 35.391,
+   "destaque": false
+  },
+  {
+   "w": "no",
+   "ini": 35.446,
+   "fim": 35.697,
+   "destaque": false
+  },
+  {
+   "w": "Procon.",
+   "ini": 35.719,
+   "fim": 36.284,
+   "destaque": false
+  },
+  {
+   "w": "Salve",
+   "ini": 36.444,
+   "fim": 36.866,
+   "destaque": false
+  },
+  {
+   "w": "esse",
+   "ini": 36.902,
+   "fim": 37.264,
+   "destaque": false
+  },
+  {
+   "w": "vídeo",
+   "ini": 37.295,
+   "fim": 37.717,
+   "destaque": false
+  },
+  {
+   "w": "e",
+   "ini": 37.753,
+   "fim": 37.934,
+   "destaque": false
+  },
+  {
+   "w": "compartilhe",
+   "ini": 37.95,
+   "fim": 38.733,
+   "destaque": false
+  },
+  {
+   "w": "com",
+   "ini": 38.801,
+   "fim": 39.102,
+   "destaque": false
+  },
+  {
+   "w": "quem",
+   "ini": 39.128,
+   "fim": 39.489,
+   "destaque": false
+  },
+  {
+   "w": "precisa",
+   "ini": 39.521,
+   "fim": 40.063,
+   "destaque": false
+  },
+  {
+   "w": "saber",
+   "ini": 40.11,
+   "fim": 40.532,
+   "destaque": false
+  },
+  {
+   "w": "disso.",
+   "ini": 40.568,
+   "fim": 41.05,
+   "destaque": false
+  }
+ ]
+}

@@ -93,10 +93,13 @@
 | ✅ | `videomaker-publicacao` | formatos, capa, legenda do post, hashtags, horários, métricas |
 
 ## Fase 8 (depois dos vídeos): Gestor de redes – posts e carrosséis
+
+Primeira versão entregue: `estudos/17`, `pesquisa/registro/R10`, `videomaker/carrossel.py`, skill `social-carrossel`. Próximos passos: Canva (quando o conector estiver ativo), mais identidades, tratamento automático de prints.
+
 | # | Etapa |
 |---|---|
-| ⏳ G1 | Pesquisa: carrosséis que mais engajam (texto, design, estrutura), formatos aceitos (Instagram/TikTok/LinkedIn), tratamento de imagem e prints |
-| ⬜ G2 | Pesquisa: design minimalista profissional para advocacia e política (tipografia, grid, paleta, padrão visual) |
-| ⬜ G3 | Ferramentas: Canva (conector/MCP), geração por código (HTML/Pillow → PNG), fluxo pelo Cowork |
-| ⬜ G4 | Skill-filha `social-carrossel` (+ `social-imagem`) e templates do escritório |
-| ⬜ G5 | Estratégia de mix: carrossel × vídeo, calendário editorial |
+| ✅ G1 | Pesquisa: carrosséis que mais engajam (texto, design, estrutura), formatos aceitos (Instagram/TikTok/LinkedIn), tratamento de imagem e prints |
+| ✅ G2 | Pesquisa: design minimalista profissional para advocacia e política (tipografia, grid, paleta, padrão visual) |
+| ✅ G3 | Ferramentas: Canva (conector/MCP), geração por código (HTML/Pillow → PNG), fluxo pelo Cowork |
+| ✅ G4 | Skill-filha `social-carrossel` (+ `social-imagem`) e templates do escritório |
+| ✅ G5 | Estratégia de mix: carrossel × vídeo, calendário editorial |
