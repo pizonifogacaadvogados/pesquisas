@@ -32,3 +32,7 @@
 | R08.28 | Recorte com suavização assimétrica + curva de matte | ✅ rastro eliminado (cabeça virando sem "cúpula" de fundo) | `recorte.py` |
 | R08.29 | Carrossel HTML→PNG via Chrome headless (9 slides, 2 identidades, 4:5 e 9:16, PDF) | ✅ ~16s; rodapé cortado na 1ª versão → render com folga e recorte | `carrossel.py` |
 | R08.30 | Contraste WCAG das identidades | ✅ 14,3:1 (clássico), 19,3:1 (manifesto) | — |
+| R08.31 | Recorte RVM (modelo de vídeo, ONNX do GitHub) × rembg (foto), 12 s 768×432 | ✅ tremor médio na borda **0,059 × 0,093 (−37%)**; fim do halo branco da parede no cabelo; ~1m40 para os dois em CPU | `recorte.matte_rvm` |
+| R08.32 | Composição v3 (casar cor + light wrap) 1ª versão | ⚠️ borda natural, mas **rosto azulado e enevoado** (ganho por canal batendo no limite de ±15%, wrap largo) → regra de compositor: tinta nas sombras (±8%), pele ±4%, wrap σ 7 e 35% | `composicao.py` |
+| R08.33 | HyperFrames 0.8.143 neste servidor | ✅ npm e Chrome headless OK; ❌ CDN do GSAP bloqueado → GSAP local via `npm pack`; overlay 9,5 s 1080×1920 ProRes 4444 com alfa em ~1 min (4 núcleos) | `motion.py` |
+| R08.34 | HuggingFace (SAM 2, MatAnyone, BiRefNet) | ❌ bloqueado pelo proxy; RVM é o melhor modelo de vídeo baixável daqui | — |

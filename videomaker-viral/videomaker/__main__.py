@@ -68,6 +68,7 @@ def main(argv=None):
     p.add_argument("--cargo", help="qualificação (ex.: 'Advogada · OAB/RS 00.000')")
     p.add_argument("--titulo", help="texto da abertura (padrão: derivado do gancho)")
     p.add_argument("--broll-dir", help="pasta de B-roll nomeado por tema (contrato.mp4, stf.jpg…)")
+    p.add_argument("--fundo-foto", help="foto real do ambiente para o estúdio virtual (escritório, gabinete…)")
     p.add_argument("--musica"); p.add_argument("--sfx-dir")
     p.add_argument("--enquadramento", choices=["corte", "desfoque"], default="corte")
     p.add_argument("--saida", default="saida")
@@ -111,7 +112,7 @@ def main(argv=None):
             print(f"4/5 produção, estilo '{a.estilo}' (recorte por IA pode levar alguns minutos)…")
             prod, final = producao.produzir(pl, pasta / "base.mp4", pasta, a.estilo, nome=a.nome, cargo=a.cargo,
                                             titulo=a.titulo, broll_dir=a.broll_dir, musica=a.musica, sfx_dir=a.sfx_dir,
-                                            biblioteca_musica=a.biblioteca_musica)
+                                            biblioteca_musica=a.biblioteca_musica, fundo_foto=a.fundo_foto)
             vid = aprendizado.registrar_video(prod, pl, pasta)
             print(f"  estilo usado: {prod['estilo']} · registro no aprendizado: {vid}")
             print(f"  final: {final}")

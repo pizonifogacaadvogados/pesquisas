@@ -17,7 +17,7 @@ import shutil
 import subprocess
 from pathlib import Path
 
-from . import aprendizado, assets, audio, estilos, fundos, graficos, luts, recorte, regras
+from . import aprendizado, assets, audio, composicao, estilos, fundos, motion, graficos, luts, recorte, regras
 
 W, H, FPS = 1080, 1920, 30
 
@@ -103,7 +103,7 @@ def _titulo_curto(gancho):
 
 
 def dirigir(plano, estilo="estudio", nome=None, cargo=None, titulo=None, broll_dir=None, musica=None,
-            biblioteca_musica=None, diagnostico=None):
+            biblioteca_musica=None, diagnostico=None, fundo_foto=None):
     e = estilos.ESTILOS[estilo]
     pal = _palavras(plano)
     dur = plano["duracao_final"]
@@ -117,6 +117,8 @@ def dirigir(plano, estilo="estudio", nome=None, cargo=None, titulo=None, broll_d
     fundo = {"tipo": e["fundo"]}
     if e["fundo"] == "estudio":
         fundo["imagem"] = {"juridico": "escritorio_noturno", "politico": "marca_azul"}.get(plano["preset"], "neutro_premium")
+    if fundo_foto:  # foto real do ambiente (padrão profissional); o procedural fica só como reserva
+        fundo.update(tipo="estudio", foto=str(Path(fundo_foto).resolve()))
     prod["camadas"]["fundo"] = fundo
 
     # câmera: punch por corte + push-in alternado por frase + snap no clímax (se o estilo usa)
@@ -260,6 +262,12 @@ def _expr_camera(mov):
     return "1+" + "+".join(termos) if termos else "1"
 
 
+def _ass_para_hex(cor):
+    """'&H00BBGGRR' (ASS) → '#RRGGBB' (CSS)."""
+    v = cor.replace("&H", "").replace("&", "")[-6:]
+    return f"#{v[4:6]}{v[2:4]}{v[0:2]}"
+
+
 def _tem_audio(video):
     out = subprocess.run(["ffprobe", "-v", "error", "-select_streams", "a", "-show_entries", "stream=index",
                           "-of", "csv=p=0", str(video)], capture_output=True, text=True).stdout
@@ -284,18 +292,24 @@ def renderizar(prod, base, pasta, sfx_dir=None):
 
     # ---------- 1. fundo + pessoa
     if precisa_matte:
-        matte = recorte.matte_ia(base, a_dir / "matte.mp4")
+        matte, motor = recorte.matte_auto(base, a_dir / "matte.mp4")
+        prod.setdefault("composicao", {})["recorte"] = motor
         entradas += ["-i", str(matte)]
         k_m = k
         k += 1
-        partes.append(f"[{k_m}:v]format=gray,lut=y='clip((val-150)*2.6+128,0,255)',erosion,erosion,gblur=sigma=1.6[m]")
+        partes.append(f"[{k_m}:v]{composicao.filtro_matte(motor)},split[m][mlw]")
         if cam["fundo"]["tipo"] == "estudio":
-            bg = fundos.gerar(cam["fundo"]["imagem"], a_dir / f"fundo_{cam['fundo']['imagem']}.png")
+            if cam["fundo"].get("foto"):
+                bg = composicao.placa_de_fundo(cam["fundo"]["foto"], a_dir / "fundo_foto.png")
+            else:
+                bg = fundos.gerar(cam["fundo"]["imagem"], a_dir / f"fundo_{cam['fundo']['imagem']}.png")
             entradas += ["-loop", "1", "-framerate", str(FPS), "-t", f"{dur:.3f}", "-i", str(bg)]
             partes.append(f"[{k}:v]scale={W}:{H},format=yuv420p[bg0]")
             k += 1
             partes.append("[0:v]split[v0][v1]")
-            partes.append("[v1]eq=brightness=-0.035:contrast=1.05:saturation=0.98[vp]")
+            casar, medidas = composicao.casar_cor(base, matte, bg)
+            prod["composicao"]["cor"] = medidas
+            partes.append(f"[v1]{casar}[vp]")
         else:
             partes.append("[0:v]split=3[v0][v1][v2]")
             fonte_bg = "[v2]gblur=sigma=16,eq=brightness=-0.05:saturation=0.85[bg0]" \
@@ -313,7 +327,12 @@ def renderizar(prod, base, pasta, sfx_dir=None):
             partes.append("[bg0]subtitles=fundo.ass:fontsdir=fontes[bg1]")
         else:
             partes.append("[bg0]null[bg1]")
-        partes.append("[bg1][pessoa]overlay=0:0:format=auto[cena]")
+        partes.append("[bg1]split[bg2][bglw]")
+        partes.append("[bg2][pessoa]overlay=0:0:format=auto[cena0]")
+        if cam["fundo"]["tipo"] == "estudio":  # luz do ambiente abraçando a borda
+            partes.append(composicao.light_wrap("bglw", "mlw", "cena0", "cena"))
+        else:
+            partes.append("[bglw]nullsink;[mlw]nullsink;[cena0]null[cena]")
     else:
         partes.append("[0:v]null[cena]")
 
@@ -354,10 +373,19 @@ def renderizar(prod, base, pasta, sfx_dir=None):
         partes.append(f"[{atual}][b{n}]overlay=0:0:enable='between(t,{b['ini']:.3f},{b['fim']:.3f})':eof_action=pass[ob{n}]")
         atual, k = f"ob{n}", k + 1
 
-    # ---------- 5. cartões (entram subindo com fade)
+    # ---------- 4b. motion graphics (HyperFrames + GSAP): lower third, cartões e chamada em overlay com alfa
     e = estilos.ESTILOS[prod["estilo"]]
+    overlay = None
+    if prod.get("motion", True):
+        fins = [c["fim"] for c in cam["cartoes"]] + ([cam["lower_third"]["fim"]] if cam.get("lower_third") else [])
+        if fins:
+            proj = motion.composicao(prod, a_dir / "motion", acento=_ass_para_hex(e["cor_destaque"]), fim=min(max(fins) + 0.3, dur))
+            overlay = motion.renderizar_overlay(proj.parent, a_dir / "motion.mov", fps=FPS)
+    prod.setdefault("composicao", {})["motion"] = bool(overlay)
+
+    # ---------- 5. cartões (entram subindo com fade) — só sem overlay de motion
     tema = "papel" if prod["estilo"] == "documental" else "vidro"
-    for n, c in enumerate(cam["cartoes"]):
+    for n, c in enumerate([] if overlay else cam["cartoes"]):
         png = graficos.cartao(c["titulo"], c["subtitulo"], a_dir / f"cartao_{n}.png", tema=tema,
                               fonte_titulo=e["fonte_titulo"], fonte_texto=e["fonte_texto"])
         entradas += ["-loop", "1", "-framerate", str(FPS), "-t", f"{dur:.3f}", "-i", str(png)]
@@ -394,13 +422,17 @@ def renderizar(prod, base, pasta, sfx_dir=None):
         # legenda só começa depois da abertura em aberturas grandes (evita disputa visual)
         if ab["tipo"] in ("cinetica", "cinetica_mono", "manchete"):
             lin = [x for x in lin if not x.startswith("Dialogue: 0,") or _ini_ass(x) >= ab["fim"] - 0.05]
-    if cam.get("lower_third"):
+    if cam.get("lower_third") and not overlay:
         lt = cam["lower_third"]
         e3, l3 = graficos.lower_third(lt["nome"], lt["cargo"], lt["ini"], lt["fim"], e["fonte_texto"], e["cor_destaque"])
         est, lin = est + e3, lin + l3
     graficos.escrever_ass(pasta / "frente.ass", est, lin)
     partes.append(f"[{atual}]subtitles=frente.ass:fontsdir=fontes[txt]")
     atual = "txt"
+    if overlay:
+        entradas += ["-i", str(overlay)]
+        partes.append(f"[{k}:v]format=yuva420p[mg];[{atual}][mg]overlay=0:0:format=auto:eof_action=pass[mgo]")
+        atual, k = "mgo", k + 1
 
     # ---------- 8. trilha de luz (light leak / flash) em modo Tela
     luz = [t for t in cam["transicoes"] if t["tipo"] in ("light_leak", "flash")]

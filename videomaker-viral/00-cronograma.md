@@ -103,3 +103,22 @@ Primeira versão entregue: `estudos/17`, `pesquisa/registro/R10`, `videomaker/ca
 | ✅ G3 | Ferramentas: Canva (conector/MCP), geração por código (HTML/Pillow → PNG), fluxo pelo Cowork |
 | ✅ G4 | Skill-filha `social-carrossel` (+ `social-imagem`) e templates do escritório |
 | ✅ G5 | Estratégia de mix: carrossel × vídeo, calendário editorial |
+
+---
+
+# Fase 9 (pedido de 09/10/2026): padrão de cinema, benchmark profissional
+
+**Diagnóstico honesto da versão 2:** o resultado ainda é amador. Causas: (1) material de teste ruim (amostra 768×432, parede branca, luz chapada), (2) recorte por um modelo feito para fotos (sem coerência temporal), (3) composição sem "colagem" de luz e cor entre pessoa e fundo, (4) gráficos estáticos em vez de motion design. **Meta:** toda decisão com as lentes de um editor profissional de cinema; o CapCut é uma das ferramentas, não o teto.
+
+| # | Etapa | Entregável | Status |
+|---|---|---|---|
+| B1 | **Levantamento de referências**: os vídeos e carrosséis tecnicamente mais bem produzidos (YouTube, TikTok, Instagram) em: cinematográfico geral, política (BR e internacional), advocacia; carrosséis minimalistas e ricos em elementos | `estudos/18-referencias.md` + registro R11 | ✅ |
+| B1b | **Criadores que editam com IA / Claude Code** (Tiago Lemos @tiagolemosx, HyperFrames, Remotion, skills de motion e recorte) e paralelo "por que o deles é bom e o nosso não" (pedido de 09/10/2026) | `estudos/21-criadores-ia.md` + R11 §C | ✅ |
+| B2 | **Decomposição técnica** de cada referência: captação (câmera, lente, luz, cenário), montagem, motion graphics, cor, som, tipografia | `estudos/18` (fichas) | ✅ |
+| B3 | **Ferramentas dos profissionais** (Premiere, After Effects, DaVinci Resolve, Blender, Figma…) × **CapCut Pro**: o que dá, o que dá em parte, o que não dá | `estudos/19-ferramentas-pro-x-capcut.md` | ✅ |
+| B4 | **Comparativo e gap analysis**: nosso teste × referências, item a item | `estudos/19` §gap | ✅ |
+| B5 | **Guia de captação cinematográfica** (o que fazer ANTES de editar: luz, lente, cenário, áudio, enquadramento, celular × câmera) | `estudos/20-captacao.md` | ✅ |
+| B6 | **Evolução técnica do motor**: recorte de vídeo profissional (matting temporal), motion graphics de verdade (HTML/GSAP, Remotion/HyperFrames), composição com light wrap e correspondência de cor | código + testes (`recorte.matte_rvm`, `composicao.py`, `motion.py`; R08.31-34) | ✅ 1ª rodada |
+| B7 | **Re-teste com material decente** (seu vídeo real ou amostra 1080p+) e comparação lado a lado com as referências | `exemplo/v3` | 🟡 re-render da amostra feito; falta **o seu vídeo real** |
+
+**Limitação:** este servidor não reproduz vídeos do YouTube, TikTok e Instagram (bloqueio de rede). O levantamento usa reportagens, entrevistas, bastidores, cursos e análises escritas sobre como cada peça foi feita. Os links ficam no estudo para você assistir.
