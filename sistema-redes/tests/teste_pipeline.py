@@ -58,7 +58,7 @@ def main():
     falhas = []
     for preset in ("juridico", "politico", "dinamico"):
         saida = pasta / preset
-        r = subprocess.run([sys.executable, "-m", "videomaker", "tudo", str(pasta / "bruto.mp4"), "--srt",
+        r = subprocess.run([sys.executable, "-m", "redes", "tudo", str(pasta / "bruto.mp4"), "--srt",
                             str(pasta / "bruto.srt"), "--preset", preset, "--dur", "20-45", "--saida", str(saida)],
                            cwd=RAIZ, capture_output=True, text=True)
         if r.returncode != 0:

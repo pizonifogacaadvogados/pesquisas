@@ -68,7 +68,7 @@ Tamanho ideal: **7-10 slides**. Legenda do post complementa (não repete) e traz
 
 | Ferramenta | Uso | Status |
 |---|---|---|
-| **Gerador do sistema (HTML → PNG)** | carrosséis por código com as identidades acima; exporta 4:5, 9:16 e PDF | implementado (`videomaker/carrossel.py`) |
+| **Gerador do sistema (HTML → PNG)** | carrosséis por código com as identidades acima; exporta 4:5, 9:16 e PDF | implementado (`redes/foto/carrossel.py`) |
 | **Canva (conector oficial do Claude)** | autofill de modelos do escritório, Brand Kit, edição fina, exportação | ⚠️ conector falhou neste ambiente (proxy); habilitar nas configurações de conectores |
 | **CapCut Design Studio 2.0** | canvas infinito com agente de design | alternativa |
 | Cowork / pasta do projeto | fotos e prints que o usuário entrega | fluxo de entrada |

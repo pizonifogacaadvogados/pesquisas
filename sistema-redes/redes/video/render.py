@@ -12,7 +12,8 @@ import shutil
 import subprocess
 from pathlib import Path
 
-from . import assets, regras
+from . import assets
+from ..nucleo import regras
 
 W, H, FPS = 1080, 1920, 30
 FONTES_PREFERIDAS = ["Montserrat ExtraBold", "Montserrat Black", "Poppins Black", "Anton", "Arial Black",

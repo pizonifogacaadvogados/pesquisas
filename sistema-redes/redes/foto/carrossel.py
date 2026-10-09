@@ -28,7 +28,7 @@ import shutil
 import subprocess
 from pathlib import Path
 
-from . import graficos
+from ..nucleo import caminhos
 
 FORMATOS = {"4x5": (1080, 1350), "3x4": (1080, 1440), "9x16": (1080, 1920)}
 IDENTIDADES = {
@@ -60,7 +60,7 @@ def contraste(a, b):
 
 # ------------------------------------------------------------------ HTML
 def _css(idv, w, h):
-    faces = "\n".join(f"@font-face {{ font-family: '{n}'; src: url('file://{(graficos.FONTES_DIR / a).as_posix()}'); "
+    faces = "\n".join(f"@font-face {{ font-family: '{n}'; src: url('file://{(caminhos.FONTES / a).as_posix()}'); "
                       f"font-weight: 100 900; }}" for n, a in ARQ.items())
     return f"""{faces}
 * {{ box-sizing: border-box; margin: 0; padding: 0; }}

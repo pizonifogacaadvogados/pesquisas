@@ -12,7 +12,7 @@ Modos:
 import json
 from pathlib import Path
 
-from . import regras
+from ..nucleo import regras
 
 NOME_SFX = {"whoosh": "whoosh", "pop": "pop", "hit": "impact / hit", "riser": "riser", "ding": "ding / bell",
             "buzzer": "buzzer / wrong"}

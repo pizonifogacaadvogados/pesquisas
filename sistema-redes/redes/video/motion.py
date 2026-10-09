@@ -15,12 +15,13 @@ import json
 import shutil
 import subprocess
 from pathlib import Path
+from ..nucleo import caminhos
 
-FONTES = Path(__file__).resolve().parent.parent / "fontes"
+FONTES = caminhos.FONTES
 W, H = 1080, 1920
 VERSAO_HF = "0.8.143"
 VERSAO_GSAP = "3.14.2"
-CACHE = Path(__file__).resolve().parent.parent / "modelos" / "js"
+CACHE = caminhos.MODELOS / "js"
 
 
 def _gsap_local():

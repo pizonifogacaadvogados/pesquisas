@@ -13,7 +13,7 @@ from pathlib import Path
 
 import numpy as np
 
-from . import regras
+from ..nucleo import regras
 
 HUMORES = {
     "confiante": "jurídico educativo, dicas, direitos do dia a dia",

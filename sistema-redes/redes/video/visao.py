@@ -9,8 +9,9 @@ import subprocess
 from pathlib import Path
 
 import numpy as np
+from ..nucleo import caminhos
 
-MODELO_ROSTO = Path(__file__).resolve().parents[1] / "modelos" / "haarcascade_frontalface_default.xml"
+MODELO_ROSTO = caminhos.MODELOS / "haarcascade_frontalface_default.xml"
 
 
 def _quadros(video, fps=4, largura=360):

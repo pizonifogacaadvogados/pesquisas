@@ -15,7 +15,7 @@ Núcleo de vídeo profissional operado pelo Claude: assiste ao material bruto, d
   videomaker-conformidade/    LDA, imagem, OAB, TSE, LGPD, termos do CapCut
   videomaker-publicacao/      capa, legenda, hashtags, Trial Reels, métricas
   social-carrossel/           carrosséis e posts (gestor de redes, Fase 8)
-videomaker-viral/
+sistema-redes/
   00-cronograma.md            plano de estudos e desenvolvimento (fases 1-9)
   estudos/01-21               base de conhecimento (ver índice abaixo)
   pesquisa/registro/          registro de TODAS as pesquisas (consultas, fontes, achados, confiabilidade)
@@ -62,13 +62,13 @@ videomaker-viral/
 ## Uso
 ```bash
 pip install -r requirements.txt          # + ffmpeg instalado
-python -m videomaker produzir gravacao.mp4 --preset juridico --estilo auto \
+python -m redes produzir gravacao.mp4 --preset juridico --estilo auto \
     --nome "Dra. Ana Souza" --cargo "Advogada · OAB/RS 00.000" --saida saida/video1
-python -m videomaker react original.mp4 minha_reacao.mp4 react.json --saida saida/react1
-python -m videomaker visao gravacao.mp4
-python -m videomaker feedback v0001 "zoom demais, legenda pequena"
-python -m videomaker metricas v0001 --views 12000 --taxa-pulo 0.38 --envios 310
-python -m videomaker licoes
+python -m redes react original.mp4 minha_reacao.mp4 react.json --saida saida/react1
+python -m redes visao gravacao.mp4
+python -m redes feedback v0001 "zoom demais, legenda pequena"
+python -m redes metricas v0001 --views 12000 --taxa-pulo 0.38 --envios 310
+python -m redes licoes
 ```
 Ou simplesmente peça ao Claude ("edita esse vídeo no estilo do escritório") e a skill-mãe conduz tudo.
 

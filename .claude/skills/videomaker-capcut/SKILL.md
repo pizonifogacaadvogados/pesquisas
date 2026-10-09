@@ -5,7 +5,7 @@ description: Skill-filha do videomaker para executar a edição dentro do CapCut
 
 # CapCut (execução)
 
-Base: `videomaker-viral/estudos/14-capcut-pro.md` (o que o Pro libera e quando usar), `13` (inventário menu a menu), `07` (técnicas T1-T9), `04` (receitas R0-R12), `06` (automação e riscos).
+Base: `sistema-redes/estudos/14-capcut-pro.md` (o que o Pro libera e quando usar), `13` (inventário menu a menu), `07` (técnicas T1-T9), `04` (receitas R0-R12), `06` (automação e riscos).
 
 ## 0. Pré-requisitos (o usuário faz)
 - **Desktop (preferido):** CapCut PC aberto e logado (Pro) + computer use habilitado no app do Claude. Necessário para o **EditPilot** e o conjunto Pro completo.
@@ -32,4 +32,4 @@ Depois de **cada** etapa: print → conferir o item "Verificar" → seguir. Dois
 - Guardar `look.cube` e fontes do escritório na nuvem do CapCut (só material público).
 
 ## 4. Quando o roteiro não bate com a tela
-Procure pelo **sentido** (PT/EN), descreva o que vê e adapte. Recurso Pro ausente: alternativa mais próxima + anotação no relatório. Mudanças de interface relevantes → acrescente em `videomaker-viral/memoria/LICOES_MANUAIS.md`.
+Procure pelo **sentido** (PT/EN), descreva o que vê e adapte. Recurso Pro ausente: alternativa mais próxima + anotação no relatório. Mudanças de interface relevantes → acrescente em `sistema-redes/memoria/LICOES_MANUAIS.md`.

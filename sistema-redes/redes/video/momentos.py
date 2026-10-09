@@ -1,7 +1,7 @@
 """D2: frases, pontuação e escolha dos melhores momentos (estudos/02-viral.md §4)."""
 import re
 
-from . import regras
+from ..nucleo import regras
 
 
 def frases(palavras, pausa_frase=0.6):

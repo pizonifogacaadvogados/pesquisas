@@ -5,19 +5,19 @@ description: Skill-filha do videomaker. "Assiste" o material bruto (transcriçã
 
 # Análise (os olhos e ouvidos do videomaker)
 
-Trabalhe em `videomaker-viral/`. Base: `estudos/16-matriz-decisao.md` (§1-§5), `estudos/02-viral.md` §4.
+Trabalhe em `sistema-redes/`. Base: `estudos/16-matriz-decisao.md` (§1-§5), `estudos/02-viral.md` §4.
 
 ## 1. Ouvir: transcrição e momentos
 ```bash
-python3 -m videomaker analisar VIDEO --saida saida/NOME            # Whisper local
-python3 -m videomaker analisar VIDEO --srt legenda.srt --saida …    # sem Whisper (legenda do CapCut)
-python3 -m videomaker planejar saida/NOME/analise.json --preset juridico --dur 30-60
+python3 -m redes analisar VIDEO --saida saida/NOME            # Whisper local
+python3 -m redes analisar VIDEO --srt legenda.srt --saida …    # sem Whisper (legenda do CapCut)
+python3 -m redes planejar saida/NOME/analise.json --preset juridico --dur 30-60
 ```
 Leia `plano.json` → `selecao` (trecho, gancho, clímax, notas por frase). **Releia a transcrição inteira você mesmo**: a pontuação automática é pré-seleção; você entende ironia, contexto e sentido.
 
 ## 2. Ver: análise de quadros
 ```bash
-python3 -m videomaker visao VIDEO
+python3 -m redes visao VIDEO
 ```
 Dá: presença e posição do rosto, deriva, luz do rosto × fundo, textura do fundo, movimento, trocas de cena e **recomendações** (estúdio virtual, reenquadrar no rosto, relight, estabilizar, rastreamento, color match, mais movimento).
 

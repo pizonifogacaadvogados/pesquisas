@@ -5,7 +5,7 @@ description: Skill-filha do videomaker para checagem jurídica de vídeos e post
 
 # Conformidade
 
-Base: `videomaker-viral/estudos/10-react.md` §8 (checklists), `05` e `12` (OAB/TSE), registros R04.12-R04.24, R06, R07.04. **Você sinaliza riscos; quem decide é o advogado responsável.** Em dúvida relevante, recomende consulta ao texto oficial (norma ou acórdão).
+Base: `sistema-redes/estudos/10-react.md` §8 (checklists), `05` e `12` (OAB/TSE), registros R04.12-R04.24, R06, R07.04. **Você sinaliza riscos; quem decide é o advogado responsável.** Em dúvida relevante, recomende consulta ao texto oficial (norma ou acórdão).
 
 ## Semáforo
 - 🟢 **Verde:** pode seguir.

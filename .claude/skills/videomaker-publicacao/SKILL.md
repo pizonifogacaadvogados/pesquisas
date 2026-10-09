@@ -5,7 +5,7 @@ description: Skill-filha do videomaker para publicar e medir - formato por rede 
 
 # Publicação e métricas
 
-Base: `videomaker-viral/estudos/11-algoritmos-engajamento.md` e registro `R05`.
+Base: `sistema-redes/estudos/11-algoritmos-engajamento.md` e registro `R05`.
 
 ## 1. Pacote de publicação (gere para o usuário)
 - **Arquivo:** 1080×1920, 30fps, H.264, sem marca d'água.
@@ -19,9 +19,9 @@ Base: `videomaker-viral/estudos/11-algoritmos-engajamento.md` e registro `R05`.
 ## 2. Medir (24-72h depois) e ensinar o sistema
 Peça ao usuário os números (ou prints dos Insights) e registre:
 ```bash
-python3 -m videomaker metricas <id> --plataforma instagram --views 12000 --taxa-pulo 0.38 \
+python3 -m redes metricas <id> --plataforma instagram --views 12000 --taxa-pulo 0.38 \
    --retencao-media 0.52 --envios 310 --salvamentos 180 --comentarios 45
-python3 -m videomaker licoes      # ranking de estilos e ganchos que funcionaram
+python3 -m redes licoes      # ranking de estilos e ganchos que funcionaram
 ```
 Interprete para o usuário: **taxa de pulo** alta → gancho/1º quadro; **retenção** baixa no meio → ritmo/clareza; **envios** altos → tema compartilhável (repita o formato); salvamentos → conteúdo de referência (vire carrossel).
 

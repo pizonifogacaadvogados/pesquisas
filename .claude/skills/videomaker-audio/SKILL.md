@@ -5,7 +5,7 @@ description: Skill-filha do videomaker para som - escolha de trilha por clima, l
 
 # Áudio
 
-Base: `videomaker-viral/estudos/15-audio-musica.md` (camadas, clima por tipo de vídeo, dinâmica, fontes e licenças, paleta de SFX) e `pesquisa/registro/R09` (R09.09-14).
+Base: `sistema-redes/estudos/15-audio-musica.md` (camadas, clima por tipo de vídeo, dinâmica, fontes e licenças, paleta de SFX) e `pesquisa/registro/R09` (R09.09-14).
 
 ## 1. Clima
 O motor sugere (`producao.json` → `humor_trilha`): confiante, sobrio, tensao, investigativo, dramatico, esperanca, urgente, leve. Confirme lendo o texto: a música **muda com a história** (tensa no problema, resolve na solução).
@@ -31,4 +31,4 @@ Biblioteca local do escritório: pasta com faixas licenciadas nomeadas `<humor>_
 ## 4. Conferir
 - Voz clara no **alto-falante do celular**; loudness ≈ −14 LUFS; pico ≤ −1,5 dBTP.
 - Nenhum SFX repetido 3 vezes seguidas; o pico do whoosh no corte.
-- Feedback do usuário sobre música → `python3 -m videomaker feedback <id> "música alta"` (o sistema ajusta).
+- Feedback do usuário sobre música → `python3 -m redes feedback <id> "música alta"` (o sistema ajusta).

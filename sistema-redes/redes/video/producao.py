@@ -17,7 +17,8 @@ import shutil
 import subprocess
 from pathlib import Path
 
-from . import aprendizado, assets, audio, composicao, estilos, fundos, motion, graficos, luts, recorte, regras
+from ..nucleo import aprendizado, regras
+from . import assets, audio, composicao, estilos, fundos, graficos, luts, motion, recorte
 
 W, H, FPS = 1080, 1920, 30
 

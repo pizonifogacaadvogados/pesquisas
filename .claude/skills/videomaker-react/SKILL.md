@@ -5,7 +5,7 @@ description: Skill-filha do videomaker para reacts - reagir ou se manifestar sob
 
 # React (reagir a vídeo em alta)
 
-Base obrigatória: `videomaker-viral/estudos/10-react.md` (formatos F1-F16, layouts, técnicas, velocidade, checklists) e registro `pesquisa/registro/R04-react.md`.
+Base obrigatória: `sistema-redes/estudos/10-react.md` (formatos F1-F16, layouts, técnicas, velocidade, checklists) e registro `pesquisa/registro/R04-react.md`.
 **Regra de ouro:** o react precisa **transformar** o original (crítica/análise real). Sem isso ele é ilegal (art. 46, III LDA), antiético (OAB) e não tem alcance (originalidade do Instagram desde 30/04/2026 e do TikTok).
 
 ## 1. Triagem (antes de qualquer coisa) → `videomaker-conformidade`
@@ -38,7 +38,7 @@ Regras: gancho = trecho mais forte do original (1-2s) + reação; trechos do ori
 
 ## 4. Renderizar e revisar
 ```bash
-python3 -m videomaker react ORIGINAL.mp4 REACAO.mp4 react.json --saida saida_react/NOME
+python3 -m redes react ORIGINAL.mp4 REACAO.mp4 react.json --saida saida_react/NOME
 ```
 Leia `react_relatorio.json` (proporção de comentário e alertas). Extraia quadros (congelamentos, carimbos, replay) e olhe. Legendas: rode a reação pelo CapCut (Legendas automáticas) ou passe o vídeo final por `videomaker analisar … --srt` + `producao` com estilo `autentico`.
 

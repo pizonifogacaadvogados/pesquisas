@@ -25,7 +25,7 @@
 | # | Etapa | Entregável |
 |---|---|---|
 | ✅ P1 | Arquitetura e formato do "plano de edição" (JSON) | `estudos/06-automacao.md` §3 + formato do plano na skill |
-| ✅ P2 | Regras de decisão (quando dar zoom, emoji, SFX, cortar) extraídas dos estudos | `videomaker/regras.py` |
+| ✅ P2 | Regras de decisão (quando dar zoom, emoji, SFX, cortar) extraídas dos estudos | `redes/nucleo/regras.py` |
 
 ## Fase 3: Desenvolvimento
 
@@ -94,7 +94,7 @@
 
 ## Fase 8 (depois dos vídeos): Gestor de redes – posts e carrosséis
 
-Primeira versão entregue: `estudos/17`, `pesquisa/registro/R10`, `videomaker/carrossel.py`, skill `social-carrossel`. Próximos passos: Canva (quando o conector estiver ativo), mais identidades, tratamento automático de prints.
+Primeira versão entregue: `estudos/17`, `pesquisa/registro/R10`, `redes/foto/carrossel.py`, skill `social-carrossel`. Próximos passos: Canva (quando o conector estiver ativo), mais identidades, tratamento automático de prints.
 
 | # | Etapa |
 |---|---|

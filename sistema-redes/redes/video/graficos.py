@@ -12,10 +12,11 @@ from pathlib import Path
 
 import numpy as np
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
+from ..nucleo import caminhos
 
 W, H = 1080, 1920
-RAIZ = Path(__file__).resolve().parents[1]
-FONTES_DIR = RAIZ / "fontes"
+RAIZ = caminhos.RAIZ
+FONTES_DIR = caminhos.FONTES
 ARQ_FONTE = {
     "Inter": "Inter.ttf", "Playfair Display": "PlayfairDisplay.ttf", "Bebas Neue": "BebasNeue-Regular.ttf",
     "Montserrat": "Montserrat.ttf", "Courier Prime": "CourierPrime-Bold.ttf", "DM Serif Display": "DMSerifDisplay-Regular.ttf",

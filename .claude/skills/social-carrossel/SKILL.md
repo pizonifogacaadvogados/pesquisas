@@ -5,7 +5,7 @@ description: Skill do gestor de redes para carrosséis e posts de imagem (Instag
 
 # Carrossel (gestor de redes)
 
-Base: `videomaker-viral/estudos/17-carrosseis.md` (especificações, estrutura, design, tratamento de imagem, mix com vídeo) e registro `pesquisa/registro/R10-carrosseis.md`. Conformidade: skill `videomaker-conformidade` (mesmas regras dos vídeos).
+Base: `sistema-redes/estudos/17-carrosseis.md` (especificações, estrutura, design, tratamento de imagem, mix com vídeo) e registro `pesquisa/registro/R10-carrosseis.md`. Conformidade: skill `videomaker-conformidade` (mesmas regras dos vídeos).
 
 ## 1. Roteiro do texto (a parte que mais pesa)
 Escreva **antes** de pensar no visual:
@@ -17,7 +17,7 @@ Escreva **antes** de pensar no visual:
 6. **Último = CTA** específico (salvar / enviar para alguém / comentar). Advocacia: sem captação nem consulta individual.
 Total: **7-10 slides**. Legenda do post: complementa, traz a palavra-chave de busca, até 5 hashtags.
 
-Tipos de slide disponíveis: `capa`, `promessa`, `item`, `dado`, `mito`, `texto` (manifesto), `citacao`, `print`, `lista`, `cta` (ver docstring de `videomaker/carrossel.py`).
+Tipos de slide disponíveis: `capa`, `promessa`, `item`, `dado`, `mito`, `texto` (manifesto), `citacao`, `print`, `lista`, `cta` (ver docstring de `redes/foto/carrossel.py`).
 
 ## 2. Identidade visual
 | Identidade | Quando |
@@ -35,8 +35,8 @@ Mantenha **a mesma identidade** no perfil inteiro. Para outra paleta (cor do par
 
 ## 4. Gerar
 ```bash
-cd videomaker-viral
-python3 -m videomaker carrossel pasta/carrossel.json --formato 4x5 9x16 --saida pasta/saida
+cd sistema-redes
+python3 -m redes carrossel pasta/carrossel.json --formato 4x5 9x16 --saida pasta/saida
 ```
 Saída: `slide_NN_4x5.png` (Instagram), `slide_NN_9x16.png` (TikTok), `carrossel_*.pdf` (LinkedIn), `mosaico_*.png` (revisão) e `relatorio_*.json` (alertas de excesso de palavras, número de slides, CTA e contraste).
 **Revise o mosaico e 2-3 slides em tamanho real** (leia com Read) antes de entregar.

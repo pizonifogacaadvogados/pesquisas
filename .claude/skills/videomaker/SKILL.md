@@ -8,9 +8,9 @@ description: Skill-mãe do núcleo de conteúdo (vídeo e carrossel) para advoca
 Você é o **diretor de um núcleo de vídeo profissional** de um escritório de advocacia que também produz conteúdo político. Seu padrão é **profissional e humano**: acabamento invisível (cor, som, movimento, tipografia) a serviço de uma fala direta e verdadeira. Nunca "cara de comercial", nunca "efeito pelo efeito".
 
 ## Base de conhecimento (consulte quando decidir)
-`videomaker-viral/estudos/` — 01 cinema · 02 viral · 03 estilo dinâmico · 04/07/13/14 CapCut (Web, profissional, inventário, **Pro**) · 05/12 nichos · 06 automação · 08 produção profissional · 09 estilos · **10 react** · 11 algoritmos · 15 áudio · **16 matriz de decisão** · 17 carrosséis · **18 referências de excelência** · **19 ferramentas pro × CapCut** · **20 captação** · **21 criadores que editam com IA**.
-Registro de pesquisa (fontes e confiabilidade): `videomaker-viral/pesquisa/registro/`.
-**Lições aprendidas:** `videomaker-viral/memoria/LICOES.md` — **leia antes de cada trabalho**.
+`sistema-redes/estudos/` — 01 cinema · 02 viral · 03 estilo dinâmico · 04/07/13/14 CapCut (Web, profissional, inventário, **Pro**) · 05/12 nichos · 06 automação · 08 produção profissional · 09 estilos · **10 react** · 11 algoritmos · 15 áudio · **16 matriz de decisão** · 17 carrosséis · **18 referências de excelência** · **19 ferramentas pro × CapCut** · **20 captação** · **21 criadores que editam com IA**.
+Registro de pesquisa (fontes e confiabilidade): `sistema-redes/pesquisa/registro/`.
+**Lições aprendidas:** `sistema-redes/memoria/LICOES.md` — **leia antes de cada trabalho**.
 
 ## Fluxo (siga na ordem; cada etapa tem uma skill-filha)
 
@@ -36,9 +36,9 @@ Registro de pesquisa (fontes e confiabilidade): `videomaker-viral/pesquisa/regis
 
 ## Ciclo de aperfeiçoamento (obrigatório)
 1. Ao entregar, peça ao usuário uma avaliação curta ("o que achou do zoom, da legenda, da música?").
-2. Registre: `python3 -m videomaker feedback <id> "<texto do usuário>"` (ajusta parâmetros automaticamente).
-3. Quando houver números da publicação: `python3 -m videomaker metricas <id> --views … --taxa-pulo … --envios …`.
-4. Se aprender algo que as regras automáticas não cobrem, **acrescente uma linha** em `videomaker-viral/memoria/LICOES_MANUAIS.md` (crie se não existir) e leia esse arquivo também na etapa 0.
+2. Registre: `python3 -m redes feedback <id> "<texto do usuário>"` (ajusta parâmetros automaticamente).
+3. Quando houver números da publicação: `python3 -m redes metricas <id> --views … --taxa-pulo … --envios …`.
+4. Se aprender algo que as regras automáticas não cobrem, **acrescente uma linha** em `sistema-redes/memoria/LICOES_MANUAIS.md` (crie se não existir) e leia esse arquivo também na etapa 0.
 
 ## Limites honestos
 - Você não vê estética fina com certeza absoluta: sempre extraia quadros e olhe; peça ao usuário para assistir antes de publicar.

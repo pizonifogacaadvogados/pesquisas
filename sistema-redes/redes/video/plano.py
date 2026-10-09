@@ -11,7 +11,8 @@ import json
 import re
 from pathlib import Path
 
-from . import momentos, regras
+from . import momentos
+from ..nucleo import regras
 
 
 def _vicios(ws, pausa=0.25):
@@ -65,7 +66,7 @@ def _r(x):
 
 def gerar(analise, preset="dinamico", dur_min=25, dur_max=60, cold_open=True):
     cfg = dict(regras.PRESETS[preset])
-    from . import aprendizado
+    from ..nucleo import aprendizado
     cfg["pausa_max"] = round(cfg["pausa_max"] + aprendizado.ajustes().get("cortes_pausa_delta", 0.0), 3)
     palavras = analise["palavras"]
     sel = momentos.selecionar(palavras, dur_min, dur_max)

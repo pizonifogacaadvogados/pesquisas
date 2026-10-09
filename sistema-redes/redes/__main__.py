@@ -1,17 +1,19 @@
 """Linha de comando.
 
-  python -m videomaker tudo VIDEO --preset juridico            # análise → plano → render → roteiro
-  python -m videomaker analisar VIDEO [--srt legenda.srt]
-  python -m videomaker planejar saida/analise.json --preset politico --dur 20-45
-  python -m videomaker renderizar saida/plano.json [--musica trilha.mp3]
-  python -m videomaker capcut saida/plano.json [--modo base|bruto]
+  python -m redes tudo VIDEO --preset juridico            # análise → plano → render → roteiro
+  python -m redes analisar VIDEO [--srt legenda.srt]
+  python -m redes planejar saida/analise.json --preset politico --dur 20-45
+  python -m redes renderizar saida/plano.json [--musica trilha.mp3]
+  python -m redes capcut saida/plano.json [--modo base|bruto]
 """
 import argparse
 import json
 import sys
 from pathlib import Path
 
-from . import analise, aprendizado, capcut, carrossel, estilos, plano, producao, react, regras, render, visao
+from .foto import carrossel
+from .nucleo import aprendizado, regras
+from .video import analise, capcut, estilos, plano, producao, react, render, visao
 
 
 def _dur(txt):
@@ -34,7 +36,7 @@ def _resumo(p):
 
 
 def main(argv=None):
-    ap = argparse.ArgumentParser(prog="videomaker", description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap = argparse.ArgumentParser(prog="redes", description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = ap.add_subparsers(dest="cmd", required=True)
 
     def comuns_analise(p):

@@ -15,6 +15,7 @@ import subprocess
 from pathlib import Path
 
 import numpy as np
+from ..nucleo import caminhos
 
 
 def _sonda(video):
@@ -26,7 +27,7 @@ def _sonda(video):
 
 
 RVM_URL = "https://github.com/PeterL1n/RobustVideoMatting/releases/download/v1.0.0/rvm_mobilenetv3_fp32.onnx"
-MODELOS = Path(__file__).resolve().parent.parent / "modelos"
+MODELOS = caminhos.MODELOS
 
 
 def _modelo_rvm():

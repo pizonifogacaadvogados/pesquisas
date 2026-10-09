@@ -14,8 +14,9 @@ import json
 import re
 from datetime import datetime
 from pathlib import Path
+from . import caminhos
 
-MEM = Path(__file__).resolve().parents[1] / "memoria"
+MEM = caminhos.MEMORIA
 LIMITES = {"camera_mult": (0.5, 1.6), "legenda_tam_delta": (-16, 30), "musica_db_delta": (-10, 8),
            "transicao_intensidade": (0.2, 1.5), "lut_intensidade_delta": (-0.3, 0.2), "emoji_freq_mult": (0.3, 2.0),
            "cortes_pausa_delta": (-0.15, 0.25)}
