@@ -105,6 +105,38 @@ def sintetizar():
     n = int(SR * 0.45)
     t = np.arange(n) / SR
     sons["buzzer"] = _norm(np.sign(np.sin(2 * np.pi * 140 * t)) * np.minimum(1, (0.45 - t) * 20) * np.minimum(1, t * 200), 0.4)
+    # --- paleta profissional (mais discreta) ---
+    n = int(SR * 0.7)
+    t = np.linspace(0, 1, n)
+    forma = np.sin(np.pi * t) ** 3
+    sons["whoosh_suave"] = _norm(_lowpass(rng.standard_normal(n), 0.01 + 0.12 * forma) * forma, 0.5)
+    n = int(SR * 0.6)
+    t = np.arange(n) / SR
+    sons["hit_suave"] = _norm(np.sin(2 * np.pi * (52 + 18 * np.exp(-t * 10)) * t) * np.exp(-t * 6)
+                              * np.minimum(1, t * 400), 0.7)
+    n = int(SR * 0.45)  # papel: rajadas de ruído agudo com envelope irregular
+    t = np.arange(n) / SR
+    env = np.zeros(n)
+    for c in rng.uniform(0, 0.4, 9):
+        env += np.exp(-((t - c) / 0.012) ** 2) * rng.uniform(0.3, 1)
+    ruido = rng.standard_normal(n)
+    agudo = ruido - _lowpass(ruido, 0.25)
+    sons["papel"] = _norm(agudo * (env + 0.05), 0.45)
+    n = int(SR * 0.5)  # máquina de escrever: 4 cliques
+    t = np.arange(n) / SR
+    clique = np.zeros(n)
+    for c in (0.0, 0.11, 0.2, 0.33):
+        i = int(c * SR)
+        k = min(int(SR * 0.03), n - i)
+        clique[i:i + k] += rng.standard_normal(k) * np.exp(-np.arange(k) / (SR * 0.004))
+    sons["maquina"] = _norm(clique, 0.5)
+    n = int(SR * 0.12)  # obturador (flash)
+    t = np.arange(n) / SR
+    obt = rng.standard_normal(n) * (np.exp(-t / 0.006) + 0.7 * np.exp(-np.maximum(t - 0.05, 0) / 0.008) * (t > 0.05))
+    sons["flash"] = _norm(obt, 0.45)
+    sons["tape_stop"] = _norm(np.sin(2 * np.pi * np.cumsum(np.linspace(300, 40, int(SR * 0.5))) / SR)
+                              * np.linspace(1, 0, int(SR * 0.5)), 0.5)
+
     for k, v in sons.items():  # fade de 5ms nas pontas (evita estalo)
         f = min(int(SR * 0.005), len(v) // 2)
         v[:f] *= np.linspace(0, 1, f)
