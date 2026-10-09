@@ -9,15 +9,17 @@ import subprocess
 from pathlib import Path
 
 import numpy as np
-from ..nucleo import caminhos
+from ..nucleo import rosto
 
-MODELO_ROSTO = caminhos.MODELOS / "haarcascade_frontalface_default.xml"
+
+def _dimensoes(video):
+    info = subprocess.run(["ffprobe", "-v", "error", "-select_streams", "v:0", "-show_entries", "stream=width,height",
+                           "-of", "csv=p=0", str(video)], capture_output=True, text=True, check=True).stdout
+    return tuple(map(int, info.strip().split(",")[:2]))
 
 
 def _quadros(video, fps=4, largura=360):
-    info = subprocess.run(["ffprobe", "-v", "error", "-select_streams", "v:0", "-show_entries", "stream=width,height",
-                           "-of", "csv=p=0", str(video)], capture_output=True, text=True, check=True).stdout
-    w, h = map(int, info.strip().split(",")[:2])
+    w, h = _dimensoes(video)
     lh = int(largura * h / w) // 2 * 2
     proc = subprocess.Popen(["ffmpeg", "-v", "error", "-i", str(video), "-vf", f"fps={fps},scale={largura}:{lh}",
                              "-f", "rawvideo", "-pix_fmt", "rgb24", "-"], stdout=subprocess.PIPE)
@@ -34,12 +36,12 @@ def _quadros(video, fps=4, largura=360):
 
 def analisar(video, destino=None, fps=4):
     import cv2
-    detector = cv2.CascadeClassifier(str(MODELO_ROSTO))
+    detector = rosto.Detector()
     amostras, anterior, hist_ant = [], None, None
     for t, q in _quadros(video, fps):
         cinza = cv2.cvtColor(q, cv2.COLOR_RGB2GRAY)
         hh, ww = cinza.shape
-        rostos = detector.detectMultiScale(cinza, scaleFactor=1.15, minNeighbors=5, minSize=(ww // 12, ww // 12))
+        rostos = [r[:4] for r in detector(q)]
         a = {"t": round(t, 2)}
         mascara_fundo = np.ones_like(cinza, bool)
         if len(rostos):
@@ -59,17 +61,22 @@ def analisar(video, destino=None, fps=4):
         a["corte_cena"] = bool(hist_ant is not None and 0.5 * np.abs(hist - hist_ant).sum() > 0.45)
         anterior, hist_ant = cinza.astype(int), hist
         amostras.append(a)
-    diag = diagnosticar(amostras)
-    res = {"fonte": str(video), "amostras": amostras, "diagnostico": diag}
+    diag = diagnosticar(amostras, _dimensoes(video))
+    res = {"fonte": str(video), "detector": detector.motor, "amostras": amostras, "diagnostico": diag}
     if destino:
         Path(destino).write_text(json.dumps(res, ensure_ascii=False, indent=1), encoding="utf-8")
     return res
 
 
-def diagnosticar(am):
+def diagnosticar(am, dimensoes=None):
     com = [a for a in am if a.get("rosto")]
     d = {"quadros": len(am), "presenca_rosto": round(len(com) / max(len(am), 1), 2)}
     rec = []
+    if dimensoes:
+        d["resolucao"] = f"{dimensoes[0]}x{dimensoes[1]}"
+        if min(dimensoes) < 1080:
+            rec.append({"acao": "captacao", "motivo": f"resolução {d['resolucao']} abaixo de 1080p: gravar em 4K/1080p "
+                                                      "(estudos/20 §2); acabamento de cinema fica limitado"})
     if com:
         cx = np.array([a["cx"] for a in com])
         d.update(rosto_x=round(float(np.median(cx)), 3), rosto_y=round(float(np.median([a["cy"] for a in com])), 3),
@@ -89,6 +96,9 @@ def diagnosticar(am):
         d["fundo"] = "liso" if liso else "com_textura"
         if liso:
             rec.append({"acao": "estudio_virtual", "motivo": "fundo liso e sem profundidade: candidato a estúdio virtual"})
+            if d["luz_fundo"] > 0.6:
+                rec.append({"acao": "captacao", "motivo": "parede clara e lisa atrás: na próxima gravação, fundo com "
+                                                          "profundidade e luz própria (estudos/20 §1)"})
         if com and d["luz_fundo"] - d.get("luz_rosto", 0) > 0.25:
             rec.append({"acao": "contraluz", "motivo": "fundo bem mais claro que o rosto: reduzir realces do fundo ou trocar o fundo"})
     mov = [a["movimento"] for a in am[1:] if not a["corte_cena"]]

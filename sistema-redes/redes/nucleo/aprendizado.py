@@ -13,7 +13,6 @@ e o resumo legível (memoria/LICOES.md) é lido pela skill-mãe antes de cada ed
 import json
 import re
 from datetime import datetime
-from pathlib import Path
 from . import caminhos
 
 MEM = caminhos.MEMORIA

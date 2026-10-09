@@ -1,0 +1,98 @@
+{
+ "id": "escritorio-exemplo",
+ "nome": "Escritório Exemplo Advocacia",
+ "tipo": "advocacia",
+ "assinatura": {
+  "nome": "Dra. Ana Souza",
+  "cargo": "Advogada",
+  "registro": "OAB/RS 00.000",
+  "handle": "@escritorio.exemplo"
+ },
+ "especialista_titulo": false,
+ "email_publico": "",
+ "preset_video": "juridico",
+ "estilo_video": "auto",
+ "identidade_foto": "juridico_classico",
+ "cores": {
+  "primaria": "#14213D",
+  "destaque": "#B08D57",
+  "fundo": "#F6F2EA"
+ },
+ "fundo_foto": "",
+ "foto_autor": "",
+ "tom": "didático, sóbrio, próximo; frases curtas; sem juridiquês; sem promessa",
+ "pilares": [
+  {
+   "nome": "Direitos do dia a dia",
+   "peso": 0.4,
+   "exemplos": [
+    "consumidor",
+    "trabalho",
+    "família"
+   ]
+  },
+  {
+   "nome": "Mitos e verdades",
+   "peso": 0.2
+  },
+  {
+   "nome": "Mudanças na lei e decisões",
+   "peso": 0.2
+  },
+  {
+   "nome": "Bastidores e autoridade (sem ostentação)",
+   "peso": 0.2
+  }
+ ],
+ "redes": {
+  "instagram": {
+   "handle": "@escritorio.exemplo",
+   "semana": {
+    "reels": 3,
+    "carrossel": 2,
+    "post": 1,
+    "stories": 5
+   }
+  },
+  "tiktok": {
+   "handle": "@escritorio.exemplo",
+   "semana": {
+    "video": 3
+   }
+  },
+  "youtube": {
+   "handle": "@escritorioexemplo",
+   "semana": {
+    "shorts": 3,
+    "video": 0
+   }
+  },
+  "linkedin": {
+   "handle": "escritorio-exemplo",
+   "semana": {
+    "documento": 1,
+    "video": 1
+   }
+  }
+ },
+ "horarios": {
+  "seg-sex": [
+   "12:00",
+   "19:00"
+  ],
+  "sab": [
+   "10:00"
+  ]
+ },
+ "hashtags_base": [
+  "#direito",
+  "#advocacia"
+ ],
+ "cta_permitidos": [
+  "Salve para consultar depois",
+  "Envie para quem precisa saber disso",
+  "Comente sua dúvida (respondo em vídeo)"
+ ],
+ "musica_biblioteca": "",
+ "observacoes": ""
+}

@@ -117,7 +117,7 @@ def analisar(video, saida, srt=None, transcricao=None, modelo="small", idioma="p
     info = sonda(video)
     if transcricao:
         dados = json.loads(Path(transcricao).read_text(encoding="utf-8"))
-        palavras, origem = dados.get("palavras", dados), "json"
+        palavras, origem = (dados.get("palavras", []) if isinstance(dados, dict) else dados), "json"
     elif srt:
         palavras, origem = ler_srt(srt), "srt"
     else:

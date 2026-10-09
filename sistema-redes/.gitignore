@@ -3,3 +3,5 @@ __pycache__/
 *.pyc
 modelos/*.onnx
 modelos/js/
+!modelos/face_detection_yunet_2023mar.onnx
+dados/

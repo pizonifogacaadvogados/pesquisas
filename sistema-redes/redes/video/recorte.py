@@ -87,6 +87,29 @@ def matte_rvm(video, destino, lado_ref=512, fundo_verde=False):
     return destino
 
 
+def matte_imagem(rgb, lado_ref=512, passes=4):
+    """Matte de uma imagem (foto ou quadro) com o RVM: roda o mesmo quadro algumas vezes para o estado
+    recorrente convergir (truque conhecido para usar modelo de vídeo em foto). Devolve float32 0-1 (H×W)."""
+    import onnxruntime as ort
+    h, w = rgb.shape[:2]
+    ew, eh = max(4, w // 4 * 4), max(4, h // 4 * 4)
+    if (ew, eh) != (w, h):
+        from PIL import Image
+        rgb = np.asarray(Image.fromarray(rgb).resize((ew, eh)))
+    sessao = ort.InferenceSession(str(_modelo_rvm()), providers=["CPUExecutionProvider"])
+    src = rgb.transpose(2, 0, 1)[None].astype(np.float32) / 255
+    rec = [np.zeros((1, 1, 1, 1), np.float32)] * 4
+    ratio = np.array([min(1.0, lado_ref / max(ew, eh))], dtype=np.float32)
+    for _ in range(passes):
+        _, pha, *rec = sessao.run(None, {"src": src, "r1i": rec[0], "r2i": rec[1], "r3i": rec[2], "r4i": rec[3],
+                                          "downsample_ratio": ratio})
+    m = np.clip(pha[0, 0], 0, 1)
+    if (ew, eh) != (w, h):
+        from PIL import Image
+        m = np.asarray(Image.fromarray((m * 255).astype(np.uint8)).resize((w, h), Image.BILINEAR), np.float32) / 255
+    return m
+
+
 def matte_auto(video, destino):
     """RVM (vídeo) quando possível; rembg (foto) como reserva. Devolve (caminho, motor)."""
     try:

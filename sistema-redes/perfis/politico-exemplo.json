@@ -1,0 +1,105 @@
+{
+ "id": "politico-exemplo",
+ "nome": "Mandato Exemplo",
+ "tipo": "politico",
+ "assinatura": {
+  "nome": "Fulano de Tal",
+  "cargo": "Vereador",
+  "registro": "",
+  "handle": "@fulano"
+ },
+ "email_publico": "",
+ "candidato": true,
+ "cnpj_campanha": "",
+ "preset_video": "politico",
+ "estilo_video": "auto",
+ "identidade_foto": "politico_sobrio",
+ "cores": {
+  "primaria": "#0B1F3A",
+  "destaque": "#1F6FEB",
+  "fundo": "#FFFFFF"
+ },
+ "fundo_foto": "",
+ "foto_autor": "",
+ "tom": "direto, humano, propositivo; histórias reais; nada de ataque pessoal sem prova",
+ "pilares": [
+  {
+   "nome": "Propostas explicadas",
+   "peso": 0.3
+  },
+  {
+   "nome": "Prestação de contas / trabalho",
+   "peso": 0.25
+  },
+  {
+   "nome": "Bastidores e pessoas",
+   "peso": 0.25
+  },
+  {
+   "nome": "Resposta e checagem",
+   "peso": 0.2
+  }
+ ],
+ "redes": {
+  "instagram": {
+   "handle": "@fulano",
+   "semana": {
+    "reels": 5,
+    "carrossel": 2,
+    "post": 2,
+    "stories": 7
+   }
+  },
+  "tiktok": {
+   "handle": "@fulano",
+   "semana": {
+    "video": 5
+   }
+  },
+  "youtube": {
+   "handle": "@fulano",
+   "semana": {
+    "shorts": 5
+   }
+  },
+  "kwai": {
+   "handle": "@fulano",
+   "semana": {
+    "video": 3
+   }
+  },
+  "facebook": {
+   "handle": "fulano",
+   "semana": {
+    "reels": 3,
+    "post": 2
+   }
+  },
+  "whatsapp": {
+   "semana": {
+    "status": 5
+   }
+  }
+ },
+ "horarios": {
+  "seg-sex": [
+   "07:30",
+   "12:00",
+   "19:30"
+  ],
+  "sab": [
+   "10:00"
+  ],
+  "dom": [
+   "11:00"
+  ]
+ },
+ "hashtags_base": [],
+ "cta_permitidos": [
+  "Compartilhe com quem precisa ver",
+  "Comente sua opinião",
+  "Salve e confira depois"
+ ],
+ "musica_biblioteca": "",
+ "observacoes": ""
+}

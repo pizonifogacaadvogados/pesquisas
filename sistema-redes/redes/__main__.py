@@ -1,5 +1,16 @@
-"""Linha de comando.
+"""Sistema de produção e gestão de redes sociais (advocacia e política) — linha de comando.
 
+GESTÃO      perfil · pauta · calendario · executar · relatorio · checar · legenda · diagnostico · destinos
+VÍDEO       produzir · rerender · react · exportar · visao · capcut · tudo · analisar · planejar · renderizar
+FOTO        carrossel · post · capa · thumbnail · foto (tratar | recortar | anonimizar | print)
+APRENDIZADO feedback · metricas · licoes
+
+Fluxo típico:
+  python -m redes perfil criar escritorio-souza --tipo advocacia      # 1x: edite perfis/escritorio-souza.json
+  python -m redes pauta criar escritorio-souza "Direito de arrependimento" --formato reels --material bruto.mp4
+  python -m redes calendario escritorio-souza --semanas 2
+  python -m redes executar p0001                                       # gera peças + pacote PUBLICAR.md
+Comandos avulsos (sem perfil/pauta):
   python -m redes tudo VIDEO --preset juridico            # análise → plano → render → roteiro
   python -m redes analisar VIDEO [--srt legenda.srt]
   python -m redes planejar saida/analise.json --preset politico --dur 20-45
@@ -11,6 +22,7 @@ import json
 import sys
 from pathlib import Path
 
+from . import cli_sistema
 from .foto import carrossel
 from .nucleo import aprendizado, regras
 from .video import analise, capcut, estilos, plano, producao, react, render, visao
@@ -30,7 +42,7 @@ def _resumo(p):
     print(f"  trecho do bruto : {s['trecho_bruto'][0]:.1f}s → {s['trecho_bruto'][1]:.1f}s")
     print(f"  duração final   : {p['duracao_final']:.1f}s, {p['cortes_removidos']} cortes")
     print(f"  gancho          : {s['gancho']}{'  (cold open)' if s['cold_open'] else ''}")
-    print(f"  eventos         : " + ", ".join(f"{k}={v}" for k, v in sorted(tipos.items())))
+    print("  eventos         : " + ", ".join(f"{k}={v}" for k, v in sorted(tipos.items())))
     for a in p["alertas"]:
         print(f"  ⚠ {a}")
 
@@ -98,9 +110,12 @@ def main(argv=None):
     p = sub.add_parser("renderizar"); p.add_argument("plano"); comuns_render(p)
     p.add_argument("--so-base", action="store_true"); p.add_argument("--sem-base", action="store_true")
     p = sub.add_parser("capcut"); p.add_argument("plano"); p.add_argument("--modo", choices=["base", "bruto"], default="base")
+    cli_sistema.registrar(sub)
 
     a = ap.parse_args(argv)
     try:
+        if a.cmd in cli_sistema.COMANDOS:
+            return cli_sistema.executar(a)
         if a.cmd == "produzir":
             pasta = Path(a.saida); pasta.mkdir(parents=True, exist_ok=True)
             print("1/5 analisando…")
@@ -183,7 +198,7 @@ def main(argv=None):
         if a.cmd == "tudo":
             print("4/4 roteiro do CapCut…")
             print(f"  {capcut.salvar(pl, pasta, a.modo_capcut)}")
-    except RuntimeError as e:
+    except (RuntimeError, FileNotFoundError, FileExistsError, KeyError, ValueError) as e:
         print(f"ERRO: {e}", file=sys.stderr)
         return 1
     return 0

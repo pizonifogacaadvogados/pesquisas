@@ -59,7 +59,7 @@ def renderizar(original, reacao, roteiro, pasta):
     lay = roteiro.get("layout", "dividida")
     cred = roteiro.get("credito", "")
     clipes, t_orig, t_com = [], 0.0, 0.0
-    matte = recorte.matte_ia(reacao, pasta / "assets" / "matte_reacao.mp4") if lay == "greenscreen" else None
+    matte = recorte.matte_auto(reacao, pasta / "assets" / "matte_reacao.mp4")[0] if lay == "greenscreen" else None
     ultimo_quadro = None
     for n, p in enumerate(roteiro["passos"]):
         out = pasta / f"passo_{n:02d}.mp4"
@@ -111,7 +111,7 @@ def _congelar(original, t, c, cred, pasta, n, dur=1.4):
     """Congela o quadro, dá zoom com easing até o ponto e desenha o destaque (círculo)."""
     out = pasta / f"passo_{n:02d}_cong.mp4"
     x, y, esc = c.get("x", 0.5), c.get("y", 0.4), c.get("escala", 1.5)
-    p = f"clip(t/0.45,0,1)"
+    p = "clip(t/0.45,0,1)"
     z = f"(1+{esc - 1:.3f}*(1-pow(1-{p},3)))"
     cx, cy = x * W, y * H
     # círculo desenhado em ASS (vetor), entra depois do zoom

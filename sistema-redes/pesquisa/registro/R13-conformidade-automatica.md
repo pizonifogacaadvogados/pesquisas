@@ -1,0 +1,28 @@
+# R13: Regras para a conformidade automática do sistema (09/10/2026)
+
+Contexto: o sistema passa a checar automaticamente legenda, roteiro e slides antes de publicar (`redes/nucleo/conformidade.py`). Hoje (09/10/2026) é **entre o 1º e o 2º turno** das eleições gerais de 2026, então o calendário eleitoral precisa estar no código.
+
+| ID | Ferramenta | Consulta | Fontes | Achados | Conf. |
+|---|---|---|---|---|---|
+| R13.01 | busca estendida | "calendário eleitoral 2026 propaganda eleitoral internet 16 de agosto segundo turno… Res TSE 23.610" | [TSE: calendário eleitoral](https://www.tse.jus.br/eleicoes/calendario-eleitoral), [TSE: propaganda começa em 16/08](https://www.tse.jus.br/comunicacao/noticias/2026/Agosto/eleicoes-2026-propaganda-eleitoral-nas-ruas-e-na-internet-comeca-neste-domingo-16), [Res. TSE 23.760/2026 (calendário)](https://www.tse.jus.br/legislacao/compilada/res/2026/resolucao-no-23-760-de-2-de-marco-de-2026), [TRE-RJ: cartilha propaganda 2026](https://apps.tre-rj.jus.br/site/cartilha-eleicoes-2026/index.html), [TRE-SC](https://www.tre-sc.jus.br/comunicacao/noticias/2026/Agosto/eleicoes-2026-propaganda-eleitoral-nas-ruas-e-na-internet-comeca-neste-domingo-16) | Propaganda (inclusive na internet) **a partir de 16/08/2026**. Impulsionamento pago no 1º turno **de 16/08 a 01/10**. 1º turno em **04/10/2026**. **Conteúdo sintético por IA** (Res. 23.755/2026, que alterou a 23.610): proibido publicar, republicar ou impulsionar **novo** conteúdo gerado ou alterado por IA **de 72 h antes do pleito até 24 h depois**. | A |
+| R13.02 | busca | "segundo turno 2026 25 de outubro propaganda internet impulsionamento até quando…" | [Congresso em Foco: prazos do 2º turno](https://www.congressoemfoco.com.br/noticia/122787/reta-final-confira-os-prazos-e-principais-datas-do-segundo-turno), [TRE-PR: campanhas retomadas em 05/10](https://www.tre-pr.jus.br/comunicacao/noticias/2026/Outubro/eleicoes-2026-candidatos-e-partidos-que-disputam-o-segundo-turno-podem-retomar-suas-campanhas-a-partir-desta-segunda-feira-5), [TRE-SP: calendário resumido](https://www.tre-sp.jus.br/eleicoes/eleicoes-2026/arquivos/calendario-eleitoral-2026-versao-resumida), [Artigo 19: nota sobre a Res. 23.755](https://artigo19.org/wp-content/blogs.dir/24/files/2026/03/NOTA_TSE2026-VF.pdf) | Campanha do 2º turno retomada em **05/10** (24 h após o 1º turno). Impulsionamento pago até **22/10/2026** (quinta). 2º turno em **25/10/2026**. A janela de IA vale de novo (72 h antes até 24 h depois). Base: Res. 23.760/2026 (calendário) e 23.755/2026 (internet). | A/B |
+| R13.03 | conhecimento consolidado (Lei 9.504/97) | — | Lei 9.504/97, art. 36-A (pré-campanha sem pedido explícito de voto) e art. 39, § 5º, IV (crime: publicar **novos** conteúdos ou impulsionar no **dia da eleição**) | **Antes de 16/08**: pedido explícito de voto = propaganda antecipada. **No dia da eleição**: não publicar conteúdo novo nem impulsionar (é crime eleitoral). | A |
+| R13.04 | busca | "Provimento 205/2021 OAB publicidade advocacia vedações…" | [Provimento 205/2021 (PDF, Conjur)](https://www.conjur.com.br/dl/pr/provimento-2052021.pdf), [OAB: publicação do provimento](https://www.oab.org.br/noticia/59010/oab-publica-no-diario-eletronico-o-provimento-sobre-a-publicidade-na-advocacia), [Estratégia OAB](https://oab.estrategia.com/portal/publicidade-advocacia-provimento-205-2021/), [CESA: parecer ética 43/25](https://cesa.org.br/wp-content/uploads/2025/12/CADEP-INFORMA-ETICA-No-43-25.pdf), [ConJur: ostentação](https://www.conjur.com.br/?p=375308) | Marketing jurídico **permitido**, com caráter **informativo, discrição e sobriedade**. Vedados: **captação** de clientela, **autopromoção**, **promessa de resultado** (arts. 4º §2º, 5º §3º, 6º); **ostentação** de bens (veículos, viagens, consumo) e **uso de casos concretos** para ofertar serviço (art. 6º, par. ún.). **Impulsionamento é permitido** sem mercantilização. Uso promocional da imagem de partes, autoridades e terceiros viola a personalidade (Súmula 403/STJ). Preço e honorários: o CED (art. 39-42) e a jurisprudência dos TEDs vedam a mercantilização; tratar oferta de preço e "consulta grátis" como **vermelho**. | A/B |
+
+## Regras implementadas (`conformidade.py`)
+| Regra | Gatilho | Sinal |
+|---|---|---|
+| OAB: promessa de resultado | "garanto", "garantimos", "100%", "causa ganha", "resultado garantido", "você vai ganhar" | 🔴 |
+| OAB: captação e mercantilização | "contrate", "ligue já", "chame no direct/whatsapp para contratar", "consulta grátis/gratuita", "preço", "R$", "desconto", "promoção", "orçamento" | 🔴 |
+| OAB: autopromoção e superlativos | "melhor advogado", "o maior escritório", "nº 1", "imbatível", "o mais", "especialista" sem título formal | 🟡 |
+| OAB: ostentação | "minha ferrari", "carro novo", "viagem", "iate", "mansão" (contexto de autoexibição) | 🟡 |
+| OAB: caso concreto | "meu cliente", "ganhei a causa", "consegui para", "processo nº" | 🟡 |
+| TSE: pedido de voto antes de 16/08 | "vote em", "votem", "peço seu voto", "número XX na urna" | 🔴 se perfil político e data < 16/08 |
+| TSE: dia da eleição | publicação agendada em 04/10 ou 25/10 | 🔴 |
+| TSE: impulsionamento fora do prazo | `impulsionar=true` após 01/10 (1º turno) ou 22/10 (2º turno) | 🔴 |
+| TSE: IA na janela de 72 h | `usa_ia=true` entre 01-05/10 e 22-26/10 | 🔴 |
+| TSE: rotulagem de IA | `usa_ia=true` sem o rótulo "conteúdo gerado/alterado por IA" | 🔴 |
+| Deepfake | `ia_rosto_voz_real=true` | 🔴 sempre |
+| LGPD | CPF, CNPJ, telefone, e-mail, nº de processo CNJ no texto | 🟡 anonimizar |
+| Direito autoral | música sem licença declarada; react sem `credito` | 🟡 |
+| Plataforma | legenda acima do limite da rede, hashtags acima do limite | 🟡 |
