@@ -1,0 +1,1020 @@
+{
+ "versao": 1,
+ "preset": "juridico",
+ "fonte": "exemplo/bruto.mp4",
+ "fonte_info": {
+  "duracao": 54.238,
+  "largura": 1920,
+  "altura": 1080,
+  "fps": 30.0
+ },
+ "saida": {
+  "largura": 1080,
+  "altura": 1920,
+  "fps": 30
+ },
+ "duracao_final": 41.13,
+ "selecao": {
+  "trecho_bruto": [
+   5.299,
+   53.596
+  ],
+  "gancho": "Você sabia que pode cancelar uma compra feita pela internet?",
+  "cold_open": false,
+  "climax": "E o pior: tem loja que se recusa a devolver o dinheiro.",
+  "notas": [
+   {
+    "texto": "Você sabia que pode cancelar uma compra feita pela internet?",
+    "nota": 61.8,
+    "ini": 5.299
+   },
+   {
+    "texto": "hã",
+    "nota": 5.0,
+    "ini": 10.375
+   },
+   {
+    "texto": "O artigo quarenta e nove do Código de Defesa do Consumidor garante o direito de arrependimento.",
+    "nota": 63.7,
+    "ini": 11.777
+   },
+   {
+    "texto": "O prazo é de sete dias, contados do recebimento do produto.",
+    "nota": 40.2,
+    "ini": 19.761
+   },
+   {
+    "texto": "E atenção, a loja não pode cobrar multa por isso.",
+    "nota": 64.0,
+    "ini": 25.016
+   },
+   {
+    "texto": "Muita gente acha que precisa explicar o motivo, mas isso é mito.",
+    "nota": 52.5,
+    "ini": 30.203
+   },
+   {
+    "texto": "Você não precisa justificar nada.",
+    "nota": 26.8,
+    "ini": 35.551
+   },
+   {
+    "texto": "E o pior: tem loja que se recusa a devolver o dinheiro.",
+    "nota": 54.7,
+    "ini": 39.292
+   },
+   {
+    "texto": "Isso é ilegal, e você pode reclamar no Procon.",
+    "nota": 54.0,
+    "ini": 44.169
+   },
+   {
+    "texto": "Salve esse vídeo e compartilhe com quem precisa saber disso.",
+    "nota": 41.8,
+    "ini": 48.99
+   }
+  ]
+ },
+ "segmentos": [
+  {
+   "ini": 5.219,
+   "fim": 9.898,
+   "papel": "corpo",
+   "out_ini": 0.0,
+   "out_fim": 4.679
+  },
+  {
+   "ini": 11.697,
+   "fim": 18.559,
+   "papel": "corpo",
+   "out_ini": 4.679,
+   "out_fim": 11.541
+  },
+  {
+   "ini": 19.681,
+   "fim": 24.444,
+   "papel": "corpo",
+   "out_ini": 11.541,
+   "out_fim": 16.304
+  },
+  {
+   "ini": 24.936,
+   "fim": 28.848,
+   "papel": "corpo",
+   "out_ini": 16.304,
+   "out_fim": 20.216
+  },
+  {
+   "ini": 30.123,
+   "fim": 35.096,
+   "papel": "corpo",
+   "out_ini": 20.216,
+   "out_fim": 25.189
+  },
+  {
+   "ini": 35.471,
+   "fim": 38.431,
+   "papel": "corpo",
+   "out_ini": 25.189,
+   "out_fim": 28.149
+  },
+  {
+   "ini": 39.212,
+   "fim": 43.495,
+   "papel": "corpo",
+   "out_ini": 28.149,
+   "out_fim": 32.432
+  },
+  {
+   "ini": 44.089,
+   "fim": 48.021,
+   "papel": "corpo",
+   "out_ini": 32.432,
+   "out_fim": 36.364
+  },
+  {
+   "ini": 48.91,
+   "fim": 53.676,
+   "papel": "corpo",
+   "out_ini": 36.364,
+   "out_fim": 41.13
+  }
+ ],
+ "cortes_removidos": 8,
+ "eventos": [
+  {
+   "tipo": "titulo",
+   "texto": "Você sabia que pode cancelar uma compra",
+   "ini": 0.0,
+   "fim": 3.0
+  },
+  {
+   "tipo": "sfx",
+   "som": "whoosh",
+   "t": 2.514,
+   "motivo": "snap zoom"
+  },
+  {
+   "tipo": "emoji",
+   "emoji": "🛒",
+   "palavra": "compra",
+   "ini": 2.594,
+   "fim": 3.994,
+   "lado": "esquerda"
+  },
+  {
+   "tipo": "sfx",
+   "som": "pop",
+   "t": 2.594,
+   "motivo": "emoji 🛒"
+  },
+  {
+   "tipo": "zoom",
+   "modo": "snap",
+   "ini": 2.594,
+   "fim": 3.668,
+   "escala": 1.22,
+   "palavra": "compra"
+  },
+  {
+   "tipo": "zoom",
+   "modo": "punch",
+   "ini": 4.679,
+   "fim": 11.541,
+   "escala": 1.1
+  },
+  {
+   "tipo": "emoji",
+   "emoji": "⏳",
+   "palavra": "dias,",
+   "ini": 13.129,
+   "fim": 14.529,
+   "lado": "esquerda"
+  },
+  {
+   "tipo": "sfx",
+   "som": "pop",
+   "t": 13.129,
+   "motivo": "emoji ⏳"
+  },
+  {
+   "tipo": "zoom",
+   "modo": "punch",
+   "ini": 16.304,
+   "fim": 20.216,
+   "escala": 1.1
+  },
+  {
+   "tipo": "sfx",
+   "som": "whoosh",
+   "t": 16.493,
+   "motivo": "snap zoom"
+  },
+  {
+   "tipo": "zoom",
+   "modo": "snap",
+   "ini": 16.573,
+   "fim": 17.754,
+   "escala": 1.22,
+   "palavra": "atenção,"
+  },
+  {
+   "tipo": "emoji",
+   "emoji": "❌",
+   "palavra": "mito.",
+   "ini": 24.703,
+   "fim": 26.103,
+   "lado": "esquerda"
+  },
+  {
+   "tipo": "sfx",
+   "som": "pop",
+   "t": 24.703,
+   "motivo": "emoji ❌"
+  },
+  {
+   "tipo": "zoom",
+   "modo": "punch",
+   "ini": 25.189,
+   "fim": 28.149,
+   "escala": 1.1
+  },
+  {
+   "tipo": "sfx",
+   "som": "whoosh",
+   "t": 28.518,
+   "motivo": "snap zoom"
+  },
+  {
+   "tipo": "zoom",
+   "modo": "snap",
+   "ini": 28.598,
+   "fim": 29.593,
+   "escala": 1.22,
+   "palavra": "pior:"
+  },
+  {
+   "tipo": "zoom",
+   "modo": "lento",
+   "ini": 29.593,
+   "fim": 32.352,
+   "escala": 1.08,
+   "motivo": "clímax"
+  },
+  {
+   "tipo": "zoom",
+   "modo": "punch",
+   "ini": 32.432,
+   "fim": 36.364,
+   "escala": 1.1
+  }
+ ],
+ "legendas": [
+  {
+   "ini": 0.08,
+   "fim": 1.627,
+   "palavras": [
+    {
+     "w": "Você",
+     "ini": 0.08,
+     "fim": 0.436,
+     "destaque": true
+    },
+    {
+     "w": "sabia",
+     "ini": 0.467,
+     "fim": 0.882,
+     "destaque": false
+    },
+    {
+     "w": "que",
+     "ini": 0.918,
+     "fim": 1.214,
+     "destaque": false
+    },
+    {
+     "w": "pode",
+     "ini": 1.24,
+     "fim": 1.596,
+     "destaque": false
+    }
+   ]
+  },
+  {
+   "ini": 1.627,
+   "fim": 3.56,
+   "palavras": [
+    {
+     "w": "cancelar",
+     "ini": 1.627,
+     "fim": 2.22,
+     "destaque": false
+    },
+    {
+     "w": "uma",
+     "ini": 2.271,
+     "fim": 2.568,
+     "destaque": false
+    },
+    {
+     "w": "compra",
+     "ini": 2.594,
+     "fim": 3.068,
+     "destaque": true
+    },
+    {
+     "w": "feita",
+     "ini": 3.109,
+     "fim": 3.524,
+     "destaque": false
+    }
+   ]
+  },
+  {
+   "ini": 3.56,
+   "fim": 4.759,
+   "palavras": [
+    {
+     "w": "pela",
+     "ini": 3.56,
+     "fim": 3.916,
+     "destaque": false
+    },
+    {
+     "w": "internet?",
+     "ini": 3.947,
+     "fim": 4.599,
+     "destaque": true
+    }
+   ]
+  },
+  {
+   "ini": 4.759,
+   "fim": 6.213,
+   "palavras": [
+    {
+     "w": "O",
+     "ini": 4.759,
+     "fim": 4.926,
+     "destaque": false
+    },
+    {
+     "w": "artigo",
+     "ini": 4.941,
+     "fim": 5.387,
+     "destaque": true
+    },
+    {
+     "w": "quarenta",
+     "ini": 5.425,
+     "fim": 5.983,
+     "destaque": false
+    },
+    {
+     "w": "e",
+     "ini": 6.031,
+     "fim": 6.198,
+     "destaque": false
+    }
+   ]
+  },
+  {
+   "ini": 6.213,
+   "fim": 7.545,
+   "palavras": [
+    {
+     "w": "nove",
+     "ini": 6.213,
+     "fim": 6.547,
+     "destaque": false
+    },
+    {
+     "w": "do",
+     "ini": 6.576,
+     "fim": 6.799,
+     "destaque": false
+    },
+    {
+     "w": "Código",
+     "ini": 6.818,
+     "fim": 7.264,
+     "destaque": false
+    },
+    {
+     "w": "de",
+     "ini": 7.303,
+     "fim": 7.526,
+     "destaque": false
+    }
+   ]
+  },
+  {
+   "ini": 7.545,
+   "fim": 9.544,
+   "palavras": [
+    {
+     "w": "Defesa",
+     "ini": 7.545,
+     "fim": 7.991,
+     "destaque": false
+    },
+    {
+     "w": "do",
+     "ini": 8.03,
+     "fim": 8.253,
+     "destaque": false
+    },
+    {
+     "w": "Consumidor",
+     "ini": 8.272,
+     "fim": 8.941,
+     "destaque": false
+    },
+    {
+     "w": "garante",
+     "ini": 8.999,
+     "fim": 9.501,
+     "destaque": false
+    }
+   ]
+  },
+  {
+   "ini": 9.544,
+   "fim": 11.621,
+   "palavras": [
+    {
+     "w": "o",
+     "ini": 9.544,
+     "fim": 9.711,
+     "destaque": false
+    },
+    {
+     "w": "direito",
+     "ini": 9.726,
+     "fim": 10.227,
+     "destaque": true
+    },
+    {
+     "w": "de",
+     "ini": 10.271,
+     "fim": 10.494,
+     "destaque": false
+    },
+    {
+     "w": "arrependimento.",
+     "ini": 10.513,
+     "fim": 11.461,
+     "destaque": false
+    }
+   ]
+  },
+  {
+   "ini": 11.621,
+   "fim": 12.736,
+   "palavras": [
+    {
+     "w": "O",
+     "ini": 11.621,
+     "fim": 11.802,
+     "destaque": false
+    },
+    {
+     "w": "prazo",
+     "ini": 11.818,
+     "fim": 12.24,
+     "destaque": true
+    },
+    {
+     "w": "é",
+     "ini": 12.277,
+     "fim": 12.458,
+     "destaque": false
+    },
+    {
+     "w": "de",
+     "ini": 12.473,
+     "fim": 12.715,
+     "destaque": false
+    }
+   ]
+  },
+  {
+   "ini": 12.736,
+   "fim": 13.588,
+   "palavras": [
+    {
+     "w": "sete",
+     "ini": 12.736,
+     "fim": 13.097,
+     "destaque": false
+    },
+    {
+     "w": "dias,",
+     "ini": 13.129,
+     "fim": 13.551,
+     "destaque": true
+    }
+   ]
+  },
+  {
+   "ini": 13.588,
+   "fim": 15.62,
+   "palavras": [
+    {
+     "w": "contados",
+     "ini": 13.588,
+     "fim": 14.191,
+     "destaque": false
+    },
+    {
+     "w": "do",
+     "ini": 14.244,
+     "fim": 14.485,
+     "destaque": false
+    },
+    {
+     "w": "recebimento",
+     "ini": 14.506,
+     "fim": 15.29,
+     "destaque": false
+    },
+    {
+     "w": "do",
+     "ini": 15.358,
+     "fim": 15.599,
+     "destaque": false
+    }
+   ]
+  },
+  {
+   "ini": 15.62,
+   "fim": 16.384,
+   "palavras": [
+    {
+     "w": "produto.",
+     "ini": 15.62,
+     "fim": 16.224,
+     "destaque": false
+    }
+   ]
+  },
+  {
+   "ini": 16.384,
+   "fim": 17.205,
+   "palavras": [
+    {
+     "w": "E",
+     "ini": 16.384,
+     "fim": 16.558,
+     "destaque": false
+    },
+    {
+     "w": "atenção,",
+     "ini": 16.573,
+     "fim": 17.154,
+     "destaque": true
+    }
+   ]
+  },
+  {
+   "ini": 17.205,
+   "fim": 18.467,
+   "palavras": [
+    {
+     "w": "a",
+     "ini": 17.205,
+     "fim": 17.379,
+     "destaque": false
+    },
+    {
+     "w": "loja",
+     "ini": 17.394,
+     "fim": 17.742,
+     "destaque": true
+    },
+    {
+     "w": "não",
+     "ini": 17.773,
+     "fim": 18.063,
+     "destaque": true
+    },
+    {
+     "w": "pode",
+     "ini": 18.088,
+     "fim": 18.437,
+     "destaque": false
+    }
+   ]
+  },
+  {
+   "ini": 18.467,
+   "fim": 20.296,
+   "palavras": [
+    {
+     "w": "cobrar",
+     "ini": 18.467,
+     "fim": 18.931,
+     "destaque": false
+    },
+    {
+     "w": "multa",
+     "ini": 18.972,
+     "fim": 19.378,
+     "destaque": true
+    },
+    {
+     "w": "por",
+     "ini": 19.414,
+     "fim": 19.704,
+     "destaque": false
+    },
+    {
+     "w": "isso.",
+     "ini": 19.729,
+     "fim": 20.136,
+     "destaque": false
+    }
+   ]
+  },
+  {
+   "ini": 20.296,
+   "fim": 21.87,
+   "palavras": [
+    {
+     "w": "Muita",
+     "ini": 20.296,
+     "fim": 20.701,
+     "destaque": false
+    },
+    {
+     "w": "gente",
+     "ini": 20.737,
+     "fim": 21.142,
+     "destaque": false
+    },
+    {
+     "w": "acha",
+     "ini": 21.177,
+     "fim": 21.525,
+     "destaque": false
+    },
+    {
+     "w": "que",
+     "ini": 21.555,
+     "fim": 21.845,
+     "destaque": false
+    }
+   ]
+  },
+  {
+   "ini": 21.87,
+   "fim": 23.822,
+   "palavras": [
+    {
+     "w": "precisa",
+     "ini": 21.87,
+     "fim": 22.391,
+     "destaque": false
+    },
+    {
+     "w": "explicar",
+     "ini": 22.437,
+     "fim": 23.016,
+     "destaque": false
+    },
+    {
+     "w": "o",
+     "ini": 23.066,
+     "fim": 23.24,
+     "destaque": false
+    },
+    {
+     "w": "motivo,",
+     "ini": 23.255,
+     "fim": 23.776,
+     "destaque": false
+    }
+   ]
+  },
+  {
+   "ini": 23.822,
+   "fim": 25.269,
+   "palavras": [
+    {
+     "w": "mas",
+     "ini": 23.822,
+     "fim": 24.111,
+     "destaque": false
+    },
+    {
+     "w": "isso",
+     "ini": 24.137,
+     "fim": 24.484,
+     "destaque": false
+    },
+    {
+     "w": "é",
+     "ini": 24.514,
+     "fim": 24.688,
+     "destaque": false
+    },
+    {
+     "w": "mito.",
+     "ini": 24.703,
+     "fim": 25.109,
+     "destaque": true
+    }
+   ]
+  },
+  {
+   "ini": 25.269,
+   "fim": 27.6,
+   "palavras": [
+    {
+     "w": "Você",
+     "ini": 25.269,
+     "fim": 25.671,
+     "destaque": false
+    },
+    {
+     "w": "não",
+     "ini": 25.706,
+     "fim": 26.041,
+     "destaque": false
+    },
+    {
+     "w": "precisa",
+     "ini": 26.07,
+     "fim": 26.673,
+     "destaque": false
+    },
+    {
+     "w": "justificar",
+     "ini": 26.726,
+     "fim": 27.53,
+     "destaque": false
+    }
+   ]
+  },
+  {
+   "ini": 27.6,
+   "fim": 28.229,
+   "palavras": [
+    {
+     "w": "nada.",
+     "ini": 27.6,
+     "fim": 28.069,
+     "destaque": false
+    }
+   ]
+  },
+  {
+   "ini": 28.229,
+   "fim": 29.028,
+   "palavras": [
+    {
+     "w": "E",
+     "ini": 28.229,
+     "fim": 28.399,
+     "destaque": false
+    },
+    {
+     "w": "o",
+     "ini": 28.413,
+     "fim": 28.583,
+     "destaque": false
+    },
+    {
+     "w": "pior:",
+     "ini": 28.598,
+     "fim": 28.993,
+     "destaque": true
+    }
+   ]
+  },
+  {
+   "ini": 29.028,
+   "fim": 30.256,
+   "palavras": [
+    {
+     "w": "tem",
+     "ini": 29.028,
+     "fim": 29.31,
+     "destaque": false
+    },
+    {
+     "w": "loja",
+     "ini": 29.335,
+     "fim": 29.674,
+     "destaque": true
+    },
+    {
+     "w": "que",
+     "ini": 29.703,
+     "fim": 29.986,
+     "destaque": false
+    },
+    {
+     "w": "se",
+     "ini": 30.01,
+     "fim": 30.236,
+     "destaque": false
+    }
+   ]
+  },
+  {
+   "ini": 30.256,
+   "fim": 31.73,
+   "palavras": [
+    {
+     "w": "recusa",
+     "ini": 30.256,
+     "fim": 30.708,
+     "destaque": false
+    },
+    {
+     "w": "a",
+     "ini": 30.747,
+     "fim": 30.917,
+     "destaque": false
+    },
+    {
+     "w": "devolver",
+     "ini": 30.932,
+     "fim": 31.497,
+     "destaque": false
+    },
+    {
+     "w": "o",
+     "ini": 31.546,
+     "fim": 31.716,
+     "destaque": false
+    }
+   ]
+  },
+  {
+   "ini": 31.73,
+   "fim": 32.512,
+   "palavras": [
+    {
+     "w": "dinheiro.",
+     "ini": 31.73,
+     "fim": 32.352,
+     "destaque": true
+    }
+   ]
+  },
+  {
+   "ini": 32.512,
+   "fim": 33.74,
+   "palavras": [
+    {
+     "w": "Isso",
+     "ini": 32.512,
+     "fim": 32.889,
+     "destaque": false
+    },
+    {
+     "w": "é",
+     "ini": 32.921,
+     "fim": 33.11,
+     "destaque": false
+    },
+    {
+     "w": "ilegal,",
+     "ini": 33.126,
+     "fim": 33.691,
+     "destaque": true
+    }
+   ]
+  },
+  {
+   "ini": 33.74,
+   "fim": 35.446,
+   "palavras": [
+    {
+     "w": "e",
+     "ini": 33.74,
+     "fim": 33.928,
+     "destaque": false
+    },
+    {
+     "w": "você",
+     "ini": 33.945,
+     "fim": 34.322,
+     "destaque": false
+    },
+    {
+     "w": "pode",
+     "ini": 34.354,
+     "fim": 34.731,
+     "destaque": false
+    },
+    {
+     "w": "reclamar",
+     "ini": 34.764,
+     "fim": 35.391,
+     "destaque": false
+    }
+   ]
+  },
+  {
+   "ini": 35.446,
+   "fim": 36.444,
+   "palavras": [
+    {
+     "w": "no",
+     "ini": 35.446,
+     "fim": 35.697,
+     "destaque": false
+    },
+    {
+     "w": "Procon.",
+     "ini": 35.719,
+     "fim": 36.284,
+     "destaque": false
+    }
+   ]
+  },
+  {
+   "ini": 36.444,
+   "fim": 37.95,
+   "palavras": [
+    {
+     "w": "Salve",
+     "ini": 36.444,
+     "fim": 36.866,
+     "destaque": false
+    },
+    {
+     "w": "esse",
+     "ini": 36.902,
+     "fim": 37.264,
+     "destaque": false
+    },
+    {
+     "w": "vídeo",
+     "ini": 37.295,
+     "fim": 37.717,
+     "destaque": false
+    },
+    {
+     "w": "e",
+     "ini": 37.753,
+     "fim": 37.934,
+     "destaque": false
+    }
+   ]
+  },
+  {
+   "ini": 37.95,
+   "fim": 40.11,
+   "palavras": [
+    {
+     "w": "compartilhe",
+     "ini": 37.95,
+     "fim": 38.733,
+     "destaque": false
+    },
+    {
+     "w": "com",
+     "ini": 38.801,
+     "fim": 39.102,
+     "destaque": false
+    },
+    {
+     "w": "quem",
+     "ini": 39.128,
+     "fim": 39.489,
+     "destaque": false
+    },
+    {
+     "w": "precisa",
+     "ini": 39.521,
+     "fim": 40.063,
+     "destaque": false
+    }
+   ]
+  },
+  {
+   "ini": 40.11,
+   "fim": 41.2,
+   "palavras": [
+    {
+     "w": "saber",
+     "ini": 40.11,
+     "fim": 40.532,
+     "destaque": false
+    },
+    {
+     "w": "disso.",
+     "ini": 40.568,
+     "fim": 41.05,
+     "destaque": false
+    }
+   ]
+  }
+ ],
+ "texto": "Você sabia que pode cancelar uma compra feita pela internet? O artigo quarenta e nove do Código de Defesa do Consumidor garante o direito de arrependimento. O prazo é de sete dias, contados do recebimento do produto. E atenção, a loja não pode cobrar multa por isso. Muita gente acha que precisa explicar o motivo, mas isso é mito. Você não precisa justificar nada. E o pior: tem loja que se recusa a devolver o dinheiro. Isso é ilegal, e você pode reclamar no Procon. Salve esse vídeo e compartilhe com quem precisa saber disso.",
+ "alertas": []
+}
