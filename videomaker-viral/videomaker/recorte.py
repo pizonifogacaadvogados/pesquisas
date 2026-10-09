@@ -21,7 +21,7 @@ def _sonda(video):
     return int(out[0]), int(out[1]), float(num) / float(den or 1)
 
 
-def matte_ia(video, destino, lado=384, suavizar=0.55, modelo="u2net_human_seg"):
+def matte_ia(video, destino, lado=384, suavizar=0.45, modelo="u2net_human_seg"):
     """Gera o matte por IA. `lado` = resolução de inferência (maior = borda melhor e mais lento)."""
     try:
         from rembg import new_session, remove
@@ -54,8 +54,10 @@ def matte_ia(video, destino, lado=384, suavizar=0.55, modelo="u2net_human_seg"):
                            dtype=np.float32) / 255.0
             # curva de contraste no matte: borda mais definida, sem halo
             m = np.clip((m - 0.12) / 0.76, 0, 1)
-            if anterior is not None:  # suavização temporal (EMA) contra tremulação
-                m = suavizar * anterior + (1 - suavizar) * m
+            if anterior is not None:
+                # suavização assimétrica: onde a pessoa SAIU (máscara caiu), segue rápido (sem rastro);
+                # onde ficou/entrou, suaviza para a borda não tremer
+                m = np.where(m < anterior, 0.15 * anterior + 0.85 * m, suavizar * anterior + (1 - suavizar) * m)
             anterior = m
             escritor.stdin.write((m * 255).astype(np.uint8).tobytes())
     finally:

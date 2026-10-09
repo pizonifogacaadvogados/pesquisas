@@ -73,7 +73,7 @@ def legendas(palavras, tipo, fonte, cor_destaque):
     """Retorna (estilos, linhas) da legenda no estilo pedido."""
     out = []
     if tipo == "premium":
-        est = [estilo("Leg", fonte, 62, contorno="&H50000000", fundo="&H96000000", borda=1, esp_contorno=2.2,
+        est = [estilo("Leg", fonte, 70, contorno="&H50000000", fundo="&H96000000", borda=1, esp_contorno=2.2,
                       sombra=2, mv=420, ml=110, mr=110)]
         for b in blocos_frase(palavras):
             ini, fim = b[0]["ini"], b[-1]["fim"] + 0.12
@@ -201,17 +201,17 @@ def _quebrar(palavras, max_chars):
 # ------------------------------------------------------------------ lower third
 def lower_third(nome, cargo, ini, fim, fonte, cor_destaque):
     y = 1240
-    est = [estilo("LTNome", fonte, 52, cor="&H00FFFFFF", borda=1, esp_contorno=0, sombra=2, fundo="&H78000000", alinh=7),
-           estilo("LTCargo", fonte, 34, cor="&H00DDDDDD", borda=1, esp_contorno=0, sombra=1, fundo="&H78000000",
+    est = [estilo("LTNome", fonte, 66, cor="&H00FFFFFF", borda=1, esp_contorno=0, sombra=2, fundo="&H78000000", alinh=7),
+           estilo("LTCargo", fonte, 40, cor="&H00DDDDDD", borda=1, esp_contorno=0, sombra=1, fundo="&H78000000",
                   alinh=7, negrito=0),
            estilo("LTBarra", fonte, 10, cor=cor_destaque, borda=1, esp_contorno=0, alinh=7)]
     out = [
         # barra vertical que cresce (máscara animada) e depois o texto desliza
-        dialogo(ini, fim, "LTBarra", f"{{\\pos(84,{y})\\p1\\clip(80,{y + 120},92,{y + 120})"
-                                     f"\\t(0,260,0.5,\\clip(80,{y},92,{y + 120}))\\fad(0,250)}}m 0 0 l 8 0 8 120 0 120{{\\p0}}", 4),
+        dialogo(ini, fim, "LTBarra", f"{{\\pos(84,{y})\\p1\\clip(80,{y + 150},96,{y + 150})"
+                                     f"\\t(0,260,0.5,\\clip(80,{y},96,{y + 150}))\\fad(0,250)}}m 0 0 l 10 0 10 150 0 150{{\\p0}}", 4),
         dialogo(ini + 0.15, fim, "LTNome", f"{{\\move(76,{y - 2},108,{y - 2},0,380)\\clip(100,0,1080,1920)"
                                            f"\\alpha&HFF&\\t(0,320,0.5,\\alpha&H00&)\\fad(0,250)}}{esc(nome)}", 4),
-        dialogo(ini + 0.30, fim, "LTCargo", f"{{\\move(76,{y + 66},108,{y + 66},0,380)\\clip(100,0,1080,1920)"
+        dialogo(ini + 0.30, fim, "LTCargo", f"{{\\move(76,{y + 84},108,{y + 84},0,380)\\clip(100,0,1080,1920)"
                                             f"\\alpha&HFF&\\t(0,320,0.5,\\alpha&H00&)\\fad(0,250)}}{esc(cargo)}", 4),
     ]
     return est, out
@@ -307,15 +307,16 @@ def trilha_luz(eventos, duracao, destino, fps=30):
             dt = t - e["t"]
             if e["tipo"] == "flash" and -0.04 <= dt <= 0.16:
                 k = max(0.0, 1 - abs(dt) / 0.16) ** 1.5
-                q = np.full((lh, lw, 3), 255.0 * k * 0.85)
+                q = np.full((lh, lw, 3), 255.0 * k * 0.6)
             elif e["tipo"] == "light_leak" and -0.45 <= dt <= 0.75:
                 k = np.sin(np.pi * (dt + 0.45) / 1.2) ** 2
                 q = np.zeros((lh, lw, 3))
                 for j in range(3):
-                    cx = (xs[j] + dt * 0.5) * lw
-                    cy = ys[j] * lh
+                    lado = -0.25 if j % 2 == 0 else 1.25  # nasce fora do quadro, nas bordas
+                    cx = (lado + (0.35 if lado < 0 else -0.35) * (dt + 0.45) / 1.2) * lw
+                    cy = ys[j] * lh * 0.8
                     blob = np.exp(-(((xx - cx) / (lw * 0.45)) ** 2 + ((yy - cy) / (lh * 0.35)) ** 2))
-                    q += blob[..., None] * np.array(cores[j], float) * k
+                    q += blob[..., None] * np.array(cores[j], float) * k * 0.55
             else:
                 continue
             quadro = q if quadro is None else quadro + q

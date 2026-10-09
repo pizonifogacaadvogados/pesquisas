@@ -17,7 +17,7 @@ import shutil
 import subprocess
 from pathlib import Path
 
-from . import assets, estilos, fundos, graficos, luts, recorte, regras
+from . import assets, audio, estilos, fundos, graficos, luts, recorte, regras
 
 W, H, FPS = 1080, 1920, 30
 
@@ -102,7 +102,8 @@ def _titulo_curto(gancho):
     return " ".join(ws[:3]) if ws else g
 
 
-def dirigir(plano, estilo="estudio", nome=None, cargo=None, titulo=None, broll_dir=None, musica=None):
+def dirigir(plano, estilo="estudio", nome=None, cargo=None, titulo=None, broll_dir=None, musica=None,
+            biblioteca_musica=None, diagnostico=None):
     e = estilos.ESTILOS[estilo]
     pal = _palavras(plano)
     dur = plano["duracao_final"]
@@ -202,7 +203,22 @@ def dirigir(plano, estilo="estudio", nome=None, cargo=None, titulo=None, broll_d
         sons += [{"som": ev["som"], "t": ev["t"], "vol": 0.4} for ev in plano["eventos"] if ev["tipo"] == "sfx"]
     prod["camadas"]["legenda"] = {"tipo": e["legenda"], "fonte": e["fonte_texto"] if e["legenda"] != "forte" else "Inter"}
     prod["camadas"]["sfx"] = sorted(sons, key=lambda s: s["t"])
-    prod["camadas"]["musica"] = {"arquivo": str(Path(musica).resolve()), "volume": 0.16} if musica else None
+    # trilha: clima pelo conteúdo; faixa da biblioteca licenciada (ou a indicada); automação de volume
+    humor = audio.humor_do_video(plano["texto"], plano["preset"], estilo)
+    musica = musica or audio.escolher_musica(biblioteca_musica, humor)
+    if musica:
+        pontos = audio.automacao(pal, dur, clim["ini"] if clim else None)
+        prod["camadas"]["musica"] = {"arquivo": str(Path(musica).resolve()), "humor": humor, "automacao_db": pontos}
+        # transições caem na batida da música (até 0,3s de ajuste)
+        bat = audio.batidas(musica)
+        novos = audio.alinhar_a_batidas([t["t"] for t in trans], bat)
+        for t, n in zip(trans, novos):
+            t["t"] = round(n, 3)
+    else:
+        prod["camadas"]["musica"] = None
+    prod["humor_trilha"] = humor
+    if diagnostico:
+        prod["diagnostico_visual"] = diagnostico
     prod["camadas"]["cor"] = {"look": e["look"], "intensidade": e["lut_intensidade"], "halation": e["halation"],
                               "vinheta": e["vinheta"], "grao": e["grao"], "barras": e["barras"]}
     return prod
@@ -257,7 +273,7 @@ def renderizar(prod, base, pasta, sfx_dir=None):
         entradas += ["-i", str(matte)]
         k_m = k
         k += 1
-        partes.append(f"[{k_m}:v]format=gray,erosion,gblur=sigma=1.4[m]")
+        partes.append(f"[{k_m}:v]format=gray,lut=y='clip((val-150)*2.6+128,0,255)',erosion,erosion,gblur=sigma=1.6[m]")
         if cam["fundo"]["tipo"] == "estudio":
             bg = fundos.gerar(cam["fundo"]["imagem"], a_dir / f"fundo_{cam['fundo']['imagem']}.png")
             entradas += ["-loop", "1", "-framerate", str(FPS), "-t", f"{dur:.3f}", "-i", str(bg)]
@@ -407,9 +423,12 @@ def renderizar(prod, base, pasta, sfx_dir=None):
         k += 1
     if musica:
         entradas += ["-stream_loop", "-1", "-i", musica["arquivo"]]
-        partes.append(f"[{k}:a]aformat=sample_rates=48000:channel_layouts=stereo,volume={musica['volume']},"
-                      f"atrim=0:{dur:.3f},afade=t=in:d=0.6,afade=t=out:st={max(dur - 1.8, 0):.3f}:d=1.8[mus0]")
-        partes.append("[mus0][vozsc]sidechaincompress=threshold=0.025:ratio=10:attack=15:release=350[mus]")
+        vol = audio.expressao_volume(musica["automacao_db"]) if musica.get("automacao_db") else str(musica.get("volume", 0.12))
+        # automação de volume (como keyframes manuais) + passa-baixa leve para abrir espaço à voz
+        partes.append(f"[{k}:a]aformat=sample_rates=48000:channel_layouts=stereo,atrim=0:{dur:.3f},"
+                      f"volume=volume='{vol}':eval=frame,lowpass=f=9000[mus0]")
+        # ducking residual suave, só como rede de segurança
+        partes.append("[mus0][vozsc]sidechaincompress=threshold=0.05:ratio=3:attack=30:release=400[mus]")
         mix.append("[mus]")
         k += 1
     partes.append("".join(mix) + f"amix=inputs={len(mix)}:duration=first:normalize=0,"
@@ -428,6 +447,11 @@ def _ini_ass(linha):
 
 
 def produzir(plano, base, pasta, estilo="estudio", **kw):
+    if estilo == "auto":
+        from . import visao
+        diag = visao.analisar(base, Path(pasta) / "visao.json")["diagnostico"]
+        estilo = visao.estilo_sugerido(diag, plano["preset"])
+        kw["diagnostico"] = diag
     sfx_dir = kw.pop("sfx_dir", None)
     prod = dirigir(plano, estilo, **kw)
     salvar(prod, Path(pasta) / "producao.json")
