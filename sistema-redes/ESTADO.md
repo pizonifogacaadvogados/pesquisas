@@ -62,7 +62,7 @@ Documento para **outra sessão continuar de onde paramos**. Leia nesta ordem: es
 | 2b | **Transcrição neste servidor está quebrada**: faster-whisper não baixa modelo (proxy 403) → `analise._whisper` falha aqui; use `--srt`. Alternativa testada: sherpa-onnx (PyPI) com modelos das releases do GitHub — Whisper turbo int8 WER 5,4 % (sem tempo por palavra) + Parakeet v3 int8 (tempo por palavra, erro médio 104 ms) combinados por `difflib` | testado, não integrado | `redes/video/analise.py`: backend sherpa-onnx; scripts `asr_*.py` em `pesquisa/testes-r17/` |
 | 2c | R17 não testado: reenquadramento seguindo o rosto, nitidez/denoise de imagem, LUTs, batida (librosa/aubio), licenças de música (freesound/pixabay bloqueados) | créditos | ver `R17` §Pendente |
 | 3 | **Versão "limpa" (sem legenda queimada)** no pacote de entrega (R18) | precisa de render sem a camada ASS | em `producao.py`, flag para pular `subtitles=`; chamar em `entrega.preparar` |
-| 4 | **Duas opções de capa** por vídeo (R18) | não implementado | `capas.capa_reels` com 2 quadros de `melhor_quadro` |
+| ~~4~~ | ✅ FEITO (Fase 12b): **duas opções de capa** (`capa_reels.png` e `capa_reels_B.png`, estilos diferentes) — registro original: | não implementado | `capas.capa_reels` com 2 quadros de `melhor_quadro` |
 | 5 | **WhisperX / alinhamento fino de palavras** (R16: Whisper erra 100-300 ms) | Hugging Face bloqueado neste servidor | testar no computador do escritório; fallback `--srt` |
 | 6 | **Mãos no HUD** (MediaPipe Hands) | falta `libegl1` no sistema | `apt install libegl1` onde houver permissão; modelo já baixa |
 | 7 | **Exportar a edição para o CapCut** (pyCapCut gerou rascunho no Linux, R16) e XML Premiere/Resolve (auto-editor) | falta validar abrindo no CapCut do escritório | módulo `capcut_rascunho.py`; validar com o usuário |
@@ -82,7 +82,7 @@ Documento para **outra sessão continuar de onde paramos**. Leia nesta ordem: es
   `gestao/` pautas, calendario, publicacao, fluxo (`executar`), relatorio, **entrega**.
 - **Comandos novos (Fases 11-12):** `efeitos`, `cortes`, `variacoes`, `qc`, `entrega`, `voz`.
 - **Fluxo `executar` de vídeo:** análise → plano → produção v3 → efeitos da pauta → **QC** → exportação por rede → capa/thumbnail → conformidade → pacote `PUBLICAR.md` → **entrega/vNN** (prévia 720p com marca d'água, `.srt`, QC, nota com o que medir).
-- **Testes:** `tests/test_sistema.py` (25 testes; 4 pulados no modo rápido; último resultado: OK em 93 s).
+- **Testes:** `tests/test_sistema.py` (26 testes; suíte completa OK em 11m46s em 10/10/2026; 4 pulados no modo rápido).
 - **Exemplos:** `exemplo/v3` (motor v3), `exemplo/v4` (demo dos 8 efeitos + carrossel editorial), `exemplo/sistema` (posts, calendário, pacote).
 - **Conhecimento:** estudos 01-23, registros R01-R18, `memoria/DIARIO.md` (como cada coisa foi descoberta).
 

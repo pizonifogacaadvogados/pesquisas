@@ -42,8 +42,9 @@ def _sem_graficos(fonte):
     return base if f.name.startswith("final") and base.exists() else f
 
 
-def melhor_quadro(fonte, amostras=24, evitar_inicio=0.6):
-    """Devolve (rgb, t, pontuação). `fonte` pode ser vídeo ou imagem."""
+def melhor_quadro(fonte, amostras=24, evitar_inicio=0.6, excluir=(), distancia=3.0):
+    """Devolve (rgb, t, pontuação). `fonte` pode ser vídeo ou imagem.
+    `excluir`: tempos já usados (outra opção de capa); o quadro escolhido fica a ≥ `distancia` s deles."""
     fonte = _sem_graficos(fonte)
     if Path(fonte).suffix.lower() in (".jpg", ".jpeg", ".png", ".webp"):
         return np.asarray(Image.open(fonte).convert("RGB")), 0.0, 1.0
@@ -53,6 +54,8 @@ def melhor_quadro(fonte, amostras=24, evitar_inicio=0.6):
     melhor = (None, 0.0, -1.0)
     for i in range(amostras):
         t = evitar_inicio + (dur - evitar_inicio - 0.3) * (i + 0.5) / amostras
+        if any(abs(t - e) < distancia for e in excluir):
+            continue
         q = _quadro(fonte, t, 480)
         h, w = q.shape[:2]
         rs = det(q)
@@ -85,6 +88,13 @@ CSS_CAPA = """
 .capa .tit {{ font-family: '{fonte}', sans-serif; font-weight: 800; font-size: {tam}px; line-height: 1.02; color: #fff;
   letter-spacing: -1px; text-shadow: 0 6px 30px rgba(0,0,0,.5); }}
 .capa .tit mark {{ background: none; color: var(--acento); padding: 0; }}
+/* opção B: manchete em caixa branca (outro estilo, para o cliente escolher) */
+.capa .b .vel {{ background: linear-gradient(180deg, rgba(0,0,0,0) 45%, rgba(0,0,0,.45) 100%); }}
+.capa .b .bloco {{ top: 1120px; }}
+.capa .b .rot {{ display: table; background: var(--acento); color: #fff; padding: 10px 18px; letter-spacing: 5px; margin-bottom: 22px; }}
+.capa .b .tit {{ display: inline; background: #fff; color: #111; line-height: 1.32; padding: 4px 20px; text-shadow: none;
+  -webkit-box-decoration-break: clone; box-decoration-break: clone; }}
+.capa .b .tit mark {{ color: var(--acento); }}
 """
 
 CSS_THUMB = """
@@ -108,23 +118,37 @@ def _tam_titulo(titulo):
     return 104 if n <= 6 else 88 if n <= 9 else 76
 
 
-def capa_reels(fonte, titulo, pasta, perfil=None, rotulo="", fonte_titulo="Inter"):
+def capa_reels(fonte, titulo, pasta, perfil=None, rotulo="", fonte_titulo="Inter", opcoes=2):
+    """Capa de Reels 9:16 + prévia da grade 3:4. `opcoes=2` (R18): uma segunda capa com outro momento do vídeo
+    (`capa_reels_B.png`) para o cliente escolher; a principal continua `capa_reels.png`."""
     pasta = Path(pasta)
     pasta.mkdir(parents=True, exist_ok=True)
     p = _perfis.carregar(perfil)
     idv = identidade(p)
-    rgb, t, pont = melhor_quadro(fonte)
-    bg = _salvar_rgb(rgb, pasta / "capa_quadro.jpg")
-    corpo = ('<div class="bg"></div><div class="vel"></div><div class="bloco">'
-             + (f'<div class="rot">{_esc(rotulo)}</div>' if rotulo else "")
-             + f'<div class="tit">{_esc(titulo)}</div></div>')
-    png = renderizar(pagina(corpo, idv, 1080, 1920, CSS_CAPA.format(bg=bg.resolve().as_uri(), fonte=fonte_titulo, tam=_tam_titulo(titulo)), "capa"),
-                     pasta / "capa_reels.png", 1080, 1920)
-    Image.open(png).crop((0, 240, 1080, 1680)).save(pasta / "capa_grade.png")
+    usados, nomes, pts = [], [], []
+    for n in range(max(1, opcoes)):
+        rgb, t, pont = melhor_quadro(fonte, excluir=usados)
+        if n and t in usados:
+            break
+        suf = "" if n == 0 else f"_{chr(65 + n)}"
+        bg = _salvar_rgb(rgb, pasta / f"capa_quadro{suf}.jpg")
+        corpo = ('<div class="bg"></div><div class="vel"></div><div class="bloco">'
+                 + (f'<div class="rot">{_esc(rotulo)}</div>' if rotulo else "")
+                 + f'<div class="tit">{_esc(titulo)}</div></div>')
+        if n:
+            corpo = f'<div class="b">{corpo}</div>'
+        png = renderizar(pagina(corpo, idv, 1080, 1920, CSS_CAPA.format(bg=bg.resolve().as_uri(), fonte=fonte_titulo,
+                                                                     tam=_tam_titulo(titulo)), "capa"),
+                         pasta / f"capa_reels{suf}.png", 1080, 1920)
+        Image.open(png).crop((0, 240, 1080, 1680)).save(pasta / f"capa_grade{suf}.png")
+        usados.append(t)
+        nomes.append(png.name)
+        pts.append(pont)
     al = []
     if len(titulo.replace("==", "").split()) > 8:
         al.append("título da capa com mais de 8 palavras: a grade fica ilegível")
-    rel = {"capa": png.name, "grade": "capa_grade.png", "quadro_t": round(t, 2), "pontuacao": pont, "alertas": al}
+    rel = {"capa": nomes[0], "grade": "capa_grade.png", "quadro_t": round(usados[0], 2), "pontuacao": pts[0],
+           "opcoes": nomes, "quadros_t": [round(x, 2) for x in usados], "alertas": al}
     (pasta / "capa.json").write_text(json.dumps(rel, ensure_ascii=False, indent=1), encoding="utf-8")
     return rel
 
