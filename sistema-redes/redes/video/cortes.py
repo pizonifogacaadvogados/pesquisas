@@ -30,7 +30,8 @@ def _blocos_livres(palavras, usados):
 
 
 def escolher_clipes(analise, n=10, dur_min=25, dur_max=60):
-    """Janelas não sobrepostas, da melhor para a pior. Devolve [{ini, fim, idx, nota, gancho}]."""
+    """Janelas não sobrepostas, da melhor para a pior. Devolve [{ini, fim, idx, nota, gancho}].
+    Nota do clipe: gancho forte, faz sentido sem o contexto anterior, conteúdo denso e termina fechando a frase."""
     palavras = analise["palavras"]
     usados, clipes = set(), []
     for _ in range(n):
@@ -43,7 +44,10 @@ def escolher_clipes(analise, n=10, dur_min=25, dur_max=60):
             i, j = sel["janela"]
             fs = sel["frases"][i:j + 1]
             notas = [f["nota"] for f in fs if not f.get("descartavel")] or [0]
-            nota = sum(notas) / len(notas) + 0.25 * sel["gancho"]["nota"]
+            # pesos inspirados no claude-shorts (R16): gancho 0,30 · sentido sozinho 0,25 · conteúdo 0,35 · fecho 0,10
+            sozinho = 0 if momentos._depende_do_anterior(fs[0]) else 100
+            fecho = 100 if palavras[fs[-1]["idx"][-1]]["w"].rstrip().endswith((".", "!", "?")) else 40
+            nota = (0.30 * sel["gancho"]["nota"] + 0.25 * sozinho + 0.35 * sum(notas) / len(notas) + 0.10 * fecho)
             idx = [bloco[k] for f in fs for k in f["idx"]]
             if melhor is None or nota > melhor["nota"]:
                 melhor = {"idx": idx, "nota": round(nota, 1), "gancho": sel["gancho"]["texto"],

@@ -210,6 +210,20 @@ class Exportacao(unittest.TestCase):
 
 
 class Reutilizar(unittest.TestCase):
+    def test_tomada_repetida(self):
+        from redes.video import momentos, plano
+        txt = ("O prazo para desistir é de sete dias. Você pode desistir da compra. O consumidor tem direito de arre. "
+               "O consumidor tem direito de arrependimento em compras online. Isso vale para tudo.")
+        pal, t = [], 0.0
+        for w in txt.split():
+            pal.append({"w": w, "ini": round(t, 2), "fim": round(t + 0.3, 2)})
+            t += 0.35 + (0.7 if w.endswith(".") else 0)
+        fs = momentos.marcar_retomadas(momentos.frases(pal), pal)
+        self.assertEqual([bool(f.get("retomada")) for f in fs], [False, False, True, False, False])
+        pl = plano.gerar({"palavras": pal, "duracao": t, "fonte": "x.mp4"}, "juridico", 12, 60)
+        self.assertNotIn("arre.", pl["texto"])
+        self.assertIn("arrependimento", pl["texto"])
+
     def test_cortes_e_variacoes(self):
         from redes.video import cortes
         frases = ["Você sabia que pode cancelar uma compra online?", "O artigo 49 do CDC garante isso.",

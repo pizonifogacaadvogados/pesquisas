@@ -77,7 +77,7 @@ def gerar(analise, preset="dinamico", dur_min=25, dur_max=60, cold_open=True, ga
     pos = {k: n for n, k in enumerate(idx)}           # índice global -> índice na janela
 
     climax_ini = pos.get(sel["climax"]["idx"][0])
-    fora = _vicios(ws)
+    fora = _vicios(ws) | {pos[k] for f in fs[i:j + 1] if f.get("retomada") for k in f["idx"]}
     corpo = _segmentos(ws, fora, cfg, pausas_permitidas={climax_ini} if climax_ini is not None else ())
     for s in corpo:
         s["papel"] = "corpo"

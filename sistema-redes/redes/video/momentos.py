@@ -80,6 +80,21 @@ def escolher_janela(fs, dur_min, dur_max):
     return melhor
 
 
+def marcar_retomadas(fs, palavras, olhar=3, n=4, limiar=0.75):
+    """Tomada repetida ("deixa eu falar de novo"): se uma das próximas frases recomeça igual a esta, fica só a
+    ÚLTIMA tomada (regra dos fluxos de edição com IA, R16: video-use, cut-video). Marca `retomada=True`."""
+    import difflib
+    chave = [[regras.limpa(palavras[k]["w"]) for k in f["idx"]][:n] for f in fs]
+    for a in range(len(fs)):
+        if len(chave[a]) < 3:
+            continue
+        for b in range(a + 1, min(a + 1 + olhar, len(fs))):
+            if difflib.SequenceMatcher(None, chave[a], chave[b]).ratio() >= limiar:
+                fs[a]["retomada"] = True
+                break
+    return fs
+
+
 def selecionar(palavras, dur_min=25, dur_max=60, gancho_forcado=None):
     """`gancho_forcado`: índice (em `frases`) de uma frase da janela para abrir o vídeo (variações de gancho)."""
     fs = frases(palavras)
@@ -87,6 +102,10 @@ def selecionar(palavras, dur_min=25, dur_max=60, gancho_forcado=None):
         f["nota"] = pontuar(f, palavras)
         ws = [regras.limpa(palavras[k]["w"]) for k in f["idx"]]
         f["descartavel"] = all(w in regras.VICIOS_SEMPRE | regras.VICIOS_CONTEXTO for w in ws)
+    marcar_retomadas(fs, palavras)
+    for f in fs:
+        if f.get("retomada"):
+            f["descartavel"] = True
     i, j = escolher_janela(fs, dur_min, dur_max)
     janela = fs[i:j + 1]
     # gancho: melhor frase da janela; se não for a primeira e for bem melhor, vira "cold open"
