@@ -56,7 +56,7 @@ def dialogo(ini, fim, est, txt, camada=0):
 
 
 # ------------------------------------------------------------------ legendas
-def blocos_frase(palavras, max_palavras=7, max_chars=34):
+def blocos_frase(palavras, max_palavras=7, max_chars=32):
     """Agrupa palavras em blocos de frase (legenda premium): quebra em pontuação, pausa ou tamanho."""
     blocos, atual = [], []
     for n, w in enumerate(palavras):
@@ -75,7 +75,7 @@ def legendas(palavras, tipo, fonte, cor_destaque, delta_tam=0):
     out = []
     if tipo == "premium":
         est = [estilo("Leg", fonte, 70 + delta_tam, contorno="&H50000000", fundo="&H96000000", borda=1, esp_contorno=2.2,
-                      sombra=2, mv=420, ml=110, mr=110)]
+                      sombra=2, mv=500, ml=110, mr=110)]   # R18: barra do Reels cresceu (fim de 2025), ≥ 480 px
         for b in blocos_frase(palavras):
             ini, fim = b[0]["ini"], b[-1]["fim"] + 0.12
             for k, atual in enumerate(b):

@@ -27,17 +27,20 @@ Pauta com `--formato reels|react|video_longo` e `--material` → `python3 -m red
 | 4 | **Produzir**: talking head → `videomaker-producao`; vídeo em alta → `videomaker-react` | produção / react | `produzir`, `react` |
 | 4b | **Efeitos de edição IA** (título com brilho, pergunta, card, lista, camadas 3D, transcrição, HUD) e reutilização (cortes, variações) | `videomaker-efeitos` | `efeitos`, `cortes`, `variacoes` |
 | 5 | **Som**: trilha (licença!), automação, SFX | `videomaker-audio` | `--biblioteca-musica`, `--musica` |
-| 6 | **Revisão de qualidade** olhando quadros extraídos (checklist E16 §6) | — | — |
+| 6 | **Revisão de qualidade**: QC automático (som, imagem, rosto, ritmo) + folha de quadros; depois olhe os quadros (checklist E16 §6) | — | `qc` |
 | 7 | **Exportar por rede** + capa + thumbnail | `social-foto` (capas) | `exportar`, `capa`, `thumbnail` |
 | 8 | (Se pedido) **executar no CapCut** | `videomaker-capcut` | roteiro_capcut_pro.md |
 | 9 | Carrossel complementar (salvamentos) | `social-carrossel` | `carrossel` |
-| 10 | **Publicação e aprendizado** | `social-publicacao` | pacote, `metricas`, `feedback` |
+| 10 | **Entrega versionada** (prévia 720p com marca d'água, `.srt`, QC, nota com o que medir em 24-48 h) | — | `entrega` (o `executar` já gera) |
+| 11 | **Publicação e aprendizado** | `social-publicacao` | pacote, `metricas`, `feedback` |
 
 ## Decisões que são suas (diretor)
 - Formato e estilo pela matriz `estudos/16` §2 (`--estilo auto` sugere pela visão; confirme pelo conteúdo).
 - O que manter e o que cortar: emoção > história > ritmo (Murch). Nunca corte que mude o sentido.
 - **Material fraco** (o `visao` devolve `captacao`): avise o usuário e mande o checklist de 1 minuto (`estudos/20` §1). Prefira `autentico` a trocar o fundo quando o ambiente gravado for bom: profissional filma no lugar, não recorta.
 - Quanto efeito: o mínimo que serve à mensagem.
+- Ritmo (R18, heurística de mercado): jurídico troca visual a cada 2-5 s; político 1,5-3 s; nunca > 8-10 s parado. Gancho em 3 camadas até 3 s (rosto + título de 3-7 palavras + fala dizendo o mesmo). 45-60 s é a faixa que mais rende.
+- Legenda: ≤ 32 caracteres por linha, 2 linhas, ≥ 480 px da base (a barra do Reels cresceu no fim de 2025).
 - Quando parar e perguntar: risco jurídico, material de terceiro sem clareza de uso, IA em rosto/voz de pessoa real.
 
 ## Ciclo de aperfeiçoamento (obrigatório)

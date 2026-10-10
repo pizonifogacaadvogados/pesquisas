@@ -7,11 +7,17 @@ from .gestao import calendario, fluxo, pautas, publicacao, relatorio
 from .nucleo import conformidade, diagnostico, perfis, plataformas
 from .video import exportar
 
-COMANDOS = {"efeitos", "cortes", "variacoes", "perfil", "pauta", "calendario", "executar", "exportar", "post", "capa", "thumbnail", "foto", "checar",
+COMANDOS = {"qc", "entrega", "efeitos", "cortes", "variacoes", "perfil", "pauta", "calendario", "executar", "exportar", "post", "capa", "thumbnail", "foto", "checar",
             "legenda", "relatorio", "diagnostico", "destinos"}
 
 
 def registrar(sub):
+    p = sub.add_parser("qc", help="controle de qualidade do vídeo final (som, imagem, rosto, ritmo) + folha de quadros")
+    p.add_argument("video"); p.add_argument("--saida"); p.add_argument("--destino", default="instagram_reels")
+    p.add_argument("--sem-rosto", action="store_true")
+    p = sub.add_parser("entrega", help="entrega versionada: prévia 720p com marca d'água, .srt, QC e nota de entrega")
+    p.add_argument("video"); p.add_argument("--producao", help="producao.json (palavras → legendas.srt)")
+    p.add_argument("--saida", default="."); p.add_argument("--titulo", default="")
     p = sub.add_parser("efeitos", help="aplica efeitos de edição IA (titulo, pergunta, card, hud, camadas, lista, transcricao, pb)")
     p.add_argument("video"); p.add_argument("spec", help="JSON com a lista de efeitos (ver redes/video/efeitos.py)")
     p.add_argument("--saida"); p.add_argument("--tema", default=None, help="roxo | dourado | azul (padrão: cores do perfil)")
@@ -90,6 +96,18 @@ def _j(x):
 
 def executar(a):
     c = a.cmd
+    if c == "qc":
+        from .video import qc
+        r = qc.revisar(a.video, a.saida, a.destino, rosto=not a.sem_rosto)
+        print(qc.formatar(r))
+        return {"verde": 0, "amarelo": 1, "vermelho": 2}[r["sinal"]]
+    if c == "entrega":
+        from .gestao import entrega
+        from .video import qc
+        r_qc = qc.revisar(a.video, Path(a.saida) / "qc")
+        pal = json.loads(Path(a.producao).read_text(encoding="utf-8"))["palavras"] if a.producao else None
+        r = entrega.preparar(a.saida, a.video, pal, r_qc, titulo=a.titulo)
+        print(f"{r['versao']}: {r['pasta']} (QC {r_qc['sinal']})"); return 0
     if c == "efeitos":
         from .video import efeitos
         lista = json.loads(Path(a.spec).read_text(encoding="utf-8"))

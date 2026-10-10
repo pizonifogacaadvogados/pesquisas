@@ -123,6 +123,9 @@ def _video(pauta, p, pasta, destinos):
         final = Path(r_ef["saida"])
         info["efeitos"] = r_ef["efeitos"]
         info.setdefault("avisos_efeitos", []).extend(r_ef["avisos"])
+    from ..video import qc       # o Claude revisa o próprio corte antes de entregar (R18)
+    r_qc = qc.revisar(final, pasta / "qc")
+    info["qc"] = {"sinal": r_qc["sinal"], "folha": r_qc["folha"]}
     exp = exportar.exportar(final, pasta / "exportar", destinos)
     pecas = {d: [pasta / "exportar" / f for f in v["arquivos"]] for d, v in exp["destinos"].items()}
     capa = capas.capa_reels(final, pauta.get("titulo_capa") or pauta.get("gancho") or pauta["tema"], pasta / "capa", p,
@@ -134,7 +137,8 @@ def _video(pauta, p, pasta, destinos):
         th = capas.thumbnail(final, pauta.get("thumb_texto") or pauta["tema"][:30], pasta / "thumb", p)
         pecas["youtube_video"].append(pasta / "thumb" / th["thumbnail"])
     alertas = [f"{d}: {a}" for d, v in exp["destinos"].items() for a in v["alertas"]] + \
-        [f"capa: {a}" for a in capa["alertas"]] + [f"efeitos: {a}" for a in info.get("avisos_efeitos", [])]
+        [f"capa: {a}" for a in capa["alertas"]] + [f"efeitos: {a}" for a in info.get("avisos_efeitos", [])] + \
+        [f"qc: {i['texto']}" for i in r_qc["itens"]]
     return pecas, texto, {"final": str(final), **info, "alertas_exportacao": alertas}
 
 
@@ -193,6 +197,12 @@ def executar(pauta_id, pasta=None, agenda=None):
     pac = publicacao.pacote(p, pasta / "pacote", pecas, pauta.get("gancho") or pauta["tema"],
                             pauta.get("legenda_corpo", ""), pauta.get("hashtags"), texto, peca, agenda,
                             alt=info.get("alt"), avisos=info.get("alertas_exportacao", []) + info.get("alertas_arte", []))
+    if info.get("qc"):          # entrega profissional versionada (R18): prévia, .srt, QC e nota de entrega
+        from . import entrega
+        pj = pasta / "video" / "producao.json"
+        pal = json.loads(pj.read_text(encoding="utf-8")).get("palavras") if pj.exists() else None
+        info["entrega"] = entrega.preparar(pasta, info["final"], pal, info["qc"], pasta / "pacote" / "PUBLICAR.md",
+                                           pauta.get("tema", ""), list(pecas))
     status = "produzido"
     _pautas.atualizar(pauta_id, status=status, pecas={"pasta": str(pasta), "pacote": str(pasta / "pacote"),
                                                      "conformidade": pac["conformidade"]["sinal"]})

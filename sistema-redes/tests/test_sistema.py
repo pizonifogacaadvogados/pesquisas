@@ -188,6 +188,26 @@ class Exportacao(unittest.TestCase):
         for a in arqs:
             self.assertLessEqual((TMP / "exp_wa" / a).stat().st_size, 16e6)
 
+    def test_qc(self):
+        from redes.video import qc
+        r = qc.revisar(TMP / "v12.mp4", TMP / "qc")
+        self.assertIn(r["sinal"], ("verde", "amarelo", "vermelho"))
+        self.assertIsNotNone(r["medidas"]["lufs"])
+        self.assertTrue((TMP / "qc" / "folha_quadros.png").exists())
+        self.assertTrue((TMP / "qc" / "QC.md").read_text(encoding="utf-8").startswith("# QC"))
+
+    def test_entrega_versionada(self):
+        from redes.gestao import entrega
+        pal = [{"w": w, "ini": i * 0.4, "fim": i * 0.4 + 0.35} for i, w in enumerate(
+            "Você sabia que pode cancelar uma compra feita pela internet? Sim, em sete dias.".split())]
+        r1 = entrega.preparar(TMP / "ent", TMP / "v12.mp4", pal)
+        r2 = entrega.preparar(TMP / "ent", TMP / "v12.mp4")
+        self.assertEqual((r1["versao"], r2["versao"]), ("v01", "v02"))
+        srt = (TMP / "ent" / "entrega" / "v01" / "legendas.srt").read_text(encoding="utf-8")
+        self.assertTrue(all(len(l) <= 32 for l in srt.splitlines()))
+        self.assertIn("internet?", srt)
+        self.assertTrue((TMP / "ent" / "entrega" / "v02" / "previa_720p.mp4").exists())
+
 
 class Reutilizar(unittest.TestCase):
     def test_cortes_e_variacoes(self):
