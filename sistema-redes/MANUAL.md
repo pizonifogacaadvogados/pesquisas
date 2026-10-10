@@ -84,6 +84,8 @@ Regras: vídeo-âncora no horário nobre e repetido nas redes irmãs (TikTok +1 
 | `analisar`, `planejar`, `renderizar`, `tudo`, `capcut` | etapas avulsas e motor v1 (corte rápido + roteiro CapCut) |
 | `efeitos VIDEO efeitos.json --perfil <id> [--tema roxo\|dourado\|azul]` | **edição IA** (estudo 22): título com brilho, card PERGUNTA, card inclinado, lista explicativa, camadas 3D, transcrição ao vivo, HUD com rastreamento real de rosto, trecho P&B; avisa se um efeito cobre um cartão da produção |
 | `cortes LONGO.mp4 --srt … -n 10 --dur 30-60 --saida cortes/` | vídeo longo (live, podcast, palestra) → N clipes sem sobreposição, cada um com o melhor gancho |
+| `qc final.mp4 [--destino instagram_reels]` | **controle de qualidade** automático: loudness, pico, silêncios, quadros pretos/congelados, rosto visível e sob a interface, ritmo de mudanças de plano + folha de quadros (`qc/QC.md`) |
+| `entrega final.mp4 --producao producao.json --saida pasta` | **entrega versionada** `entrega/vNN/`: prévia 720p com marca d'água, `legendas.srt`, QC, `ENTREGA.md` (como aprovar, publicar e o que medir em 24-48 h); o `executar` já gera |
 | `variacoes VIDEO --srt … -n 3 --saida variacoes/` | o mesmo trecho com ganchos diferentes (versões A/B/C para Trial Reels) |
 Motor v3: recorte de vídeo **RVM** (modelo temporal) com **light wrap** e **cor casada** entre pessoa e fundo; **motion graphics HyperFrames + GSAP** (lower third, cartões de norma, chamada); 6 estilos com LUT; legendas premium/forte/viral; câmera virtual com easing; desenho de som e automação de trilha.
 **Estratégia (estudo 22): o Claude é o editor.** Tudo sai por código, sem abrir editor; o CapCut é opcional para retoques. Pela pauta, o campo `efeitos` (lista JSON) é aplicado pelo `executar` depois da produção.
@@ -119,12 +121,12 @@ sistema-redes/
   redes/                      código (python -m redes)
     nucleo/   caminhos · regras · perfis · plataformas · conformidade · rosto · aprendizado · diagnostico
     video/    analise · momentos · plano · render · producao · estilos · luts · fundos · recorte · composicao
-              graficos · motion · audio · assets · visao · react · capcut · exportar · efeitos · cortes
+              graficos · motion · audio · assets · visao · react · capcut · exportar · efeitos · cortes · qc
     foto/     motor · carrossel · post · capas · tratamento
-    gestao/   pautas · calendario · publicacao · fluxo · relatorio
+    gestao/   pautas · calendario · publicacao · fluxo · relatorio · entrega
   perfis/     um JSON por conta          dados/      pautas, produção, pacotes (fora do git)
-  memoria/    LICOES.md e aprendizado    estudos/    01-22 base de conhecimento
-  pesquisa/registro/  R01-R15 todas as pesquisas com fontes      fontes/ modelos/ exemplo/ tests/
+  memoria/    LICOES.md e aprendizado    estudos/    01-23 base de conhecimento
+  pesquisa/registro/  R01-R18 todas as pesquisas com fontes      fontes/ modelos/ exemplo/ tests/
 ```
 
 ## 12. Testes

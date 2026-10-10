@@ -1,0 +1,4 @@
+{"arq": "asr_parakeet.json", "WER_%": 24.7, "decod_s": 5.1, "fillers": ["bom", "é", "é", "é", "é"], "erro_inicio_frase_ms_medio": 269, "erro_max_ms": 1291}
+{"arq": "asr_sherpa_whisper_small.json", "WER_%": 26.9, "decod_s": 19.7, "fillers": ["bom", "é", "ah", "é", "é", "é", "é"]}
+{"arq": "asr_sherpa_whisper_turbo.json", "WER_%": 5.4, "decod_s": 14.2, "fillers": ["bom", "é", "ah", "é", "é", "é"]}
+{"arq": "asr_whispercpp_base.json", "WER_%": 60.2, "decod_s": 12.3, "fillers": ["bom", "é", "ah", "é", "é", "é"], "erro_inicio_frase_ms_medio": 166, "erro_max_ms": 375}

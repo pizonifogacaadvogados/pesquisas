@@ -148,3 +148,13 @@ Pedido: analisar imagem a imagem as referências enviadas (Tiago Lemos, André N
 | F11-2 | Estudo e registro | `estudos/22-claude-editor.md` + `R15` (análise imagem a imagem, nível de edição, estratégia) | ✅ |
 | F11-3 | Reutilização e carrossel editorial | `video/cortes.py` (cortes e variações de gancho), identidades editoriais e 5 tipos novos de slide, regra de conformidade do "comente X que te mando no DM" | ✅ |
 | F11-4 | Integração | CLI (`efeitos`, `cortes`, `variacoes`), campo `efeitos` da pauta no `executar`, skill `videomaker-efeitos`, testes, demo `exemplo/v4`, relatório | ✅ |
+
+# Fase 12 (pedido de 10/10/2026): além dos exemplos — a melhor forma de entregar
+
+Pedido: "não se limite aos exemplos que dei, pesquise, aprofunde, e veja qual melhor forma de me entregar um vídeo editado; registre tudo no artefato". Depois: "registre tudo, feito e não feito, para outra sessão continuar".
+
+| # | Etapa | Entregável | Status |
+|---|---|---|---|
+| F12-1 | Pesquisa ampliada em 3 frentes | R16 ecossistema (90 entradas), R18 ofício/entrega (69), R17 blocos open-source (ver o registro e as pendências) | ✅ (R17 parcial) |
+| F12-2 | Integração | `qc` automático, `entrega` versionada, legenda ≥ 480 px e ≤ 32 car., retomadas, rubrica de cortes | ✅ |
+| F12-3 | Registro integral | estudo 23, `memoria/DIARIO.md`, `ESTADO.md` (tarefas feitas/pendentes), relatório com estudos, skills, registros e código completos | ✅ |

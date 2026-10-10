@@ -226,11 +226,13 @@ def gerar(saida, imagens=None):
     secoes = []
 
     secoes.append(("resumo", "Resumo executivo", "O que foi construído, em números", f"""
-<p>O pedido evoluiu em quatro movimentos: (1) pesquisar como editar vídeo com o Claude; (2) criar um especialista que
+<p>O pedido evoluiu em seis movimentos: (1) pesquisar como editar vídeo com o Claude; (2) criar um especialista que
 edite vídeos virais e cinematográficos para advocacia e política, operando o CapCut Pro; (3) elevar o padrão para
 "edição de cinema", estudando os melhores criadores e quem já edita com IA; (4) transformar tudo num <strong>sistema de
-produção e gestão de redes</strong> com dois braços (vídeo e foto) e uma camada de gestão. Este relatório documenta as
-quatro etapas: o que foi pesquisado (com todas as fontes), o que foi construído, como usar, os resultados e os limites.</p>
+produção e gestão de redes</strong> com dois braços (vídeo e foto) e uma camada de gestão; (5) estudar quem "deixa o
+Claude editar sozinho" e reproduzir esse nível (motor de efeitos IA); (6) pesquisar além dos exemplos a <strong>melhor forma de
+entregar um vídeo</strong> (QC automático, entrega versionada) e registrar tudo para a próxima sessão. Este relatório documenta
+todas as etapas: o que foi pesquisado (com todas as fontes), o que foi construído, como usar, os resultados e os limites.</p>
 <div class="numeros">
 <div><strong>{len(regs)}</strong><span>registros de pesquisa (R01–R{len(regs):02d})</span></div>
 <div><strong>{n_ent}</strong><span>buscas e testes registrados</span></div>
@@ -245,6 +247,21 @@ quatro etapas: o que foi pesquisado (com todas as fontes), o que foi construído
 sempre você</strong>. Nada de material sigiloso de cliente em serviços de terceiros; nada de IA em rosto ou voz de pessoa real
 em conteúdo político.</div>
 """))
+
+    est = (RAIZ / "ESTADO.md").read_text(encoding="utf-8").split("\n", 1)[1]
+    secoes.append(("estado", "Estado atual, tarefas feitas e pendentes", "Passagem de bastão para a próxima sessão (ESTADO.md)", md(est)))
+
+    secoes.append(("fase11", "Fases 11-12: o Claude como editor e a melhor entrega",
+                   "Análise das referências, motor de efeitos, QC, entrega e pesquisa além dos exemplos", f"""
+{fig("efeitos_demo", "Demo dos 8 efeitos (exemplo/v4) sobre a amostra de 41 s: camadas 3D, cartão da produção, pergunta, lista explicativa, HUD com rastreamento real, card SALVO, P&B com ATENÇÃO, transcrição ao vivo com forma de onda, título final. Nenhum efeito cobre o cartão da produção (função conflitos).")}
+{fig("comparacao_denoise", "R17: limpeza de voz medida neste servidor (bruto com ruído × DeepFilterNet 3 × RNNoise × afftdn). DeepFilterNet: ruído nas pausas −44,6 → −66,4 dBFS sem distorcer a fala; testado, integração pendente.")}
+{fig("carrossel_editorial", "Carrossel editorial (identidade editorial: fundo papel, itálico de ênfase, cabeçalho 03/07; slides fluxo, grade, terminal, antes/depois e CTA palavra).")}
+""" + md((RAIZ / "estudos" / "23-melhor-entrega.md").read_text(encoding="utf-8").split("\n", 1)[1])
+                   + "<h3>Estudo 22 — análise imagem a imagem das referências</h3>"
+                   + md((RAIZ / "estudos" / "22-claude-editor.md").read_text(encoding="utf-8").split("\n", 1)[1])))
+
+    secoes.append(("diario", "Diário de aprendizados", "Cada problema, como foi descoberto, a causa e o que mudou",
+                   md((RAIZ / "memoria" / "DIARIO.md").read_text(encoding="utf-8").split("\n", 1)[1])))
 
     secoes.append(("arquitetura", "Arquitetura", "Dois braços de produção sobre uma camada de gestão", """
 <pre class="mermaid">
@@ -374,7 +391,7 @@ para dados e documentos (estilo Vox/Johnny Harris); integração com agendadores
 <h1>Sistema de produção e gestão de redes sociais</h1>
 <p class="lead">Vídeo e foto para advocacia, conteúdo jurídico e política: o que foi pesquisado, o que foi construído,
 como usar e o que vem depois.</p>
-<div class="meta"><span><strong>Data</strong> 09/10/2026</span><span><strong>Versão</strong> 1.0</span>
+<div class="meta"><span><strong>Data</strong> 10/10/2026</span><span><strong>Versão</strong> 2.0</span>
 <span><strong>Código</strong> pesquisas/sistema-redes (branch claude/admiring-allen-ii0fmx)</span></div>
 </header>
 {corpo}

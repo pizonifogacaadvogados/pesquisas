@@ -20,3 +20,32 @@ Video.test_pipeline_v1: ok
 Video.test_react: ok
 
 Ran 18 tests in 462 s — OK (vídeo completo incluído)
+
+== Fase 12: suíte rápida (REDES_RAPIDO=1), 10/10/2026 ==
+test_entrega_versionada (test_sistema.Exportacao.test_entrega_versionada) ... ok
+test_multirrede (test_sistema.Exportacao.test_multirrede) ... ok
+test_qc (test_sistema.Exportacao.test_qc) ... ok
+test_whatsapp_divide (test_sistema.Exportacao.test_whatsapp_divide) ... ok
+test_capas (test_sistema.Foto.test_capas) ... ok
+test_carrossel (test_sistema.Foto.test_carrossel) ... ok
+test_carrossel_editorial (test_sistema.Foto.test_carrossel_editorial) ... ok
+test_posts_todos_os_tipos (test_sistema.Foto.test_posts_todos_os_tipos) ... ok
+test_tratamento (test_sistema.Foto.test_tratamento) ... ok
+test_cli (test_sistema.Gestao.test_cli) ... ok
+test_fluxo_foto (test_sistema.Gestao.test_fluxo_foto) ... ok
+test_legendas (test_sistema.Gestao.test_legendas) ... ok
+test_pautas_calendario (test_sistema.Gestao.test_pautas_calendario) ... ok
+test_conformidade_cta_dm (test_sistema.Nucleo.test_conformidade_cta_dm) ... ok
+test_conformidade_oab (test_sistema.Nucleo.test_conformidade_oab) ... ok
+test_conformidade_tse (test_sistema.Nucleo.test_conformidade_tse) ... ok
+test_perfis (test_sistema.Nucleo.test_perfis) ... ok
+test_plataformas (test_sistema.Nucleo.test_plataformas) ... ok
+test_rosto_detector (test_sistema.Nucleo.test_rosto_detector) ... ok
+test_cortes_e_variacoes (test_sistema.Reutilizar.test_cortes_e_variacoes) ... ok
+test_tomada_repetida (test_sistema.Reutilizar.test_tomada_repetida) ... ok
+test_efeitos_overlay (test_sistema.Video.test_efeitos_overlay) ... skipped 'REDES_RAPIDO=1'
+test_fluxo_video_autentico (test_sistema.Video.test_fluxo_video_autentico) ... skipped 'REDES_RAPIDO=1'
+test_pipeline_v1 (test_sistema.Video.test_pipeline_v1) ... skipped 'REDES_RAPIDO=1'
+test_react (test_sistema.Video.test_react) ... skipped 'REDES_RAPIDO=1'
+Ran 25 tests in 92.733s
+OK (skipped=4)

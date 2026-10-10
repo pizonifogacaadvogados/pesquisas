@@ -1,0 +1,13 @@
+{"arq": "ruidoso.wav", "SI-SDR_dB": 22.82, "atraso_ms": 0.0, "ruido_pausas_dBFS": -44.6, "fala_dBFS": -20.3, "SNR_pausa_dB": 24.3}
+{"arq": "d_afftdn.wav", "SI-SDR_dB": 23.72, "atraso_ms": 25.0, "ruido_pausas_dBFS": -46.0, "fala_dBFS": -20.3, "SNR_pausa_dB": 25.8}
+{"arq": "d_afftdn20.wav", "SI-SDR_dB": 23.9, "atraso_ms": 25.0, "ruido_pausas_dBFS": -46.8, "fala_dBFS": -20.3, "SNR_pausa_dB": 26.5}
+{"arq": "d_combo.wav", "SI-SDR_dB": 7.48, "atraso_ms": 34.98, "ruido_pausas_dBFS": -60.8, "fala_dBFS": -20.5, "SNR_pausa_dB": 40.4}
+{"arq": "d_dfn.wav", "SI-SDR_dB": 23.19, "atraso_ms": 0.0, "ruido_pausas_dBFS": -66.4, "fala_dBFS": -20.6, "SNR_pausa_dB": 45.8}
+{"arq": "d_dfn_a24.wav", "SI-SDR_dB": 23.56, "atraso_ms": 0.0, "ruido_pausas_dBFS": -62.9, "fala_dBFS": -20.5, "SNR_pausa_dB": 42.4}
+{"arq": "d_rnn_bd.wav", "SI-SDR_dB": 17.2, "atraso_ms": 10.0, "ruido_pausas_dBFS": -56.2, "fala_dBFS": -20.4, "SNR_pausa_dB": 35.8}
+{"arq": "d_rnn_cb.wav", "SI-SDR_dB": 17.2, "atraso_ms": 10.0, "ruido_pausas_dBFS": -56.4, "fala_dBFS": -20.5, "SNR_pausa_dB": 36.0}
+{"arq": "d_rnn_lq.wav", "SI-SDR_dB": 15.85, "atraso_ms": 10.0, "ruido_pausas_dBFS": -60.2, "fala_dBFS": -20.6, "SNR_pausa_dB": 39.6}
+{"arq": "d_rnn_mp.wav", "SI-SDR_dB": 11.42, "atraso_ms": 10.0, "ruido_pausas_dBFS": -57.1, "fala_dBFS": -21.5, "SNR_pausa_dB": 35.6}
+{"arq": "d_rnn_sh.wav", "SI-SDR_dB": 17.21, "atraso_ms": 10.0, "ruido_pausas_dBFS": -58.0, "fala_dBFS": -20.4, "SNR_pausa_dB": 37.6}
+{"arq": "d_rnn_sh07.wav", "SI-SDR_dB": 19.82, "atraso_ms": 10.0, "ruido_pausas_dBFS": -52.3, "fala_dBFS": -20.4, "SNR_pausa_dB": 32.0}
+{"arq": "d_rnn_std.wav", "SI-SDR_dB": 18.81, "atraso_ms": 10.0, "ruido_pausas_dBFS": -63.1, "fala_dBFS": -20.3, "SNR_pausa_dB": 42.8}
