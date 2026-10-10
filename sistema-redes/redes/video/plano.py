@@ -64,12 +64,12 @@ def _r(x):
     return round(x, 3)
 
 
-def gerar(analise, preset="dinamico", dur_min=25, dur_max=60, cold_open=True):
+def gerar(analise, preset="dinamico", dur_min=25, dur_max=60, cold_open=True, gancho_forcado=None):
     cfg = dict(regras.PRESETS[preset])
     from ..nucleo import aprendizado
     cfg["pausa_max"] = round(cfg["pausa_max"] + aprendizado.ajustes().get("cortes_pausa_delta", 0.0), 3)
     palavras = analise["palavras"]
-    sel = momentos.selecionar(palavras, dur_min, dur_max)
+    sel = momentos.selecionar(palavras, dur_min, dur_max, gancho_forcado)
     i, j = sel["janela"]
     fs = sel["frases"]
     idx = [k for f in fs[i:j + 1] for k in f["idx"]]

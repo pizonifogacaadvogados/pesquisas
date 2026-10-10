@@ -1,0 +1,23 @@
+{"identidade": "editorial_juridico", "autor": {"nome": "Dra. Ana Souza · OAB/RS 00.000", "handle": "@escritorio.exemplo"},
+ "slides": [
+  {"tipo": "capa", "kicker": "Direito do consumidor", "rotulo": "", "titulo": "Comprou online e __se arrependeu?__", "subtitulo": "A lei te dá um prazo que quase ninguém usa direito."},
+  {"tipo": "fluxo", "kicker": "Como funciona", "titulo": "Do clique à __devolução.__",
+   "de": {"rotulo": "Compra online", "imagem": "antes.jpg"}, "meio": {"icone": "§", "titulo": "7 dias", "sub": "art. 49 do CDC"},
+   "para": {"rotulo": "Dinheiro de volta", "imagem": "depois.jpg"},
+   "cards": [{"icone": "1", "titulo": "Conte do recebimento", "texto": "não da data da compra"},
+             {"icone": "2", "titulo": "Sem justificativa", "texto": "a lei não exige motivo"},
+             {"icone": "3", "titulo": "Tudo de volta", "texto": "inclusive o frete"},
+             {"icone": "4", "titulo": "Por escrito", "texto": "guarde o protocolo"}]},
+  {"tipo": "terminal", "kicker": "Modelo", "titulo": "Mande assim __para a loja.__",
+   "codigo": "Assunto: Exercício do direito de arrependimento\n\nInformo que desisto da compra nº ____,\nrecebida em __/__, nos termos do art. 49\ndo CDC. Solicito a devolução integral\ndos valores pagos, inclusive o frete.",
+   "rodape": "Guarde o e-mail e o número do protocolo."},
+  {"tipo": "grade", "kicker": "Atenção", "titulo": "Quando __não vale.__",
+   "cards": [{"icone": "✕", "titulo": "Loja física", "texto": "o art. 49 é para compras fora do estabelecimento"},
+             {"icone": "!", "titulo": "Prazo vencido", "texto": "depois de 7 dias, só se houver defeito"},
+             {"icone": "?", "titulo": "Produto usado", "texto": "depende do caso: guarde a embalagem"},
+             {"icone": "§", "titulo": "Defeito", "texto": "aí o caminho é outro (arts. 18 e 26)"}]},
+  {"tipo": "antes_depois", "kicker": "Na prática", "titulo": "O que muda com __a mensagem certa.__",
+   "antes": {"rotulo": "SEM PEDIDO FORMAL", "imagem": "antes.jpg"}, "depois": {"rotulo": "COM PEDIDO FORMAL", "imagem": "depois.jpg"},
+   "itens": ["prazo comprovado", "pedido por escrito", "protocolo guardado", "frete incluído"]},
+  {"tipo": "cta_palavra", "kicker": "Sua dúvida", "rotulo": "COMENTE", "palavra": "PRAZO", "texto": "e eu respondo sua dúvida __em vídeo.__", "rodape": "Salve para consultar depois."}
+ ]}

@@ -105,7 +105,8 @@ def _titulo_curto(gancho):
 
 
 def dirigir(plano, estilo="estudio", nome=None, cargo=None, titulo=None, broll_dir=None, musica=None,
-            biblioteca_musica=None, diagnostico=None, fundo_foto=None):
+            biblioteca_musica=None, diagnostico=None, fundo_foto=None, sem_abertura=False):
+    """`sem_abertura`: quando um efeito (titulo/camadas, `video/efeitos.py`) vai abrir o vídeo."""
     e = estilos.ESTILOS[estilo]
     pal = _palavras(plano)
     dur = plano["duracao_final"]
@@ -146,6 +147,8 @@ def dirigir(plano, estilo="estudio", nome=None, cargo=None, titulo=None, broll_d
     prod["camadas"]["abertura"] = {"tipo": e["abertura"], "texto": tit, "ini": 0.0, "fim": ab_fim,
                                    "rotulo": "ANÁLISE" if plano["preset"] == "politico" else "ENTENDA",
                                    "sobrelinha": "BRASIL · 2026" if e["abertura"] == "cinetica_mono" else None}
+    if sem_abertura:
+        prod["camadas"]["abertura"] = {"tipo": "nenhuma", "texto": "", "ini": 0.0, "fim": 0.0, "rotulo": None}
 
     sons = []
     if pal_sfx.get("abertura"):
@@ -417,7 +420,7 @@ def renderizar(prod, base, pasta, sfx_dir=None):
     est, lin = graficos.legendas(pal, cam["legenda"]["tipo"], cam["legenda"]["fonte"], e["cor_destaque"],
                                  delta_tam=aprendizado.ajustes().get("legenda_tam_delta", 0))
     ab = cam["abertura"]
-    if ab["tipo"] != "texto_atras":
+    if ab["tipo"] not in ("texto_atras", "nenhuma"):
         e2, l2 = graficos.abertura(ab["tipo"], ab["texto"], ab["ini"], ab["fim"], e["fonte_titulo"], e["fonte_texto"],
                                    e["cor_destaque"], extra=ab)
         est, lin = est + e2, lin + l2

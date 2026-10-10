@@ -82,7 +82,11 @@ Regras: vídeo-âncora no horário nobre e repetido nas redes irmãs (TikTok +1 
 | `capa final.mp4 "Título"` / `thumbnail video.mp4 "Até 5 palavras"` | capa de Reels e thumbnail do YouTube |
 | `visao VIDEO` | diagnóstico visual (rosto, luz, fundo, movimento, **qualidade da captação**) |
 | `analisar`, `planejar`, `renderizar`, `tudo`, `capcut` | etapas avulsas e motor v1 (corte rápido + roteiro CapCut) |
+| `efeitos VIDEO efeitos.json --perfil <id> [--tema roxo\|dourado\|azul]` | **edição IA** (estudo 22): título com brilho, card PERGUNTA, card inclinado, lista explicativa, camadas 3D, transcrição ao vivo, HUD com rastreamento real de rosto, trecho P&B; avisa se um efeito cobre um cartão da produção |
+| `cortes LONGO.mp4 --srt … -n 10 --dur 30-60 --saida cortes/` | vídeo longo (live, podcast, palestra) → N clipes sem sobreposição, cada um com o melhor gancho |
+| `variacoes VIDEO --srt … -n 3 --saida variacoes/` | o mesmo trecho com ganchos diferentes (versões A/B/C para Trial Reels) |
 Motor v3: recorte de vídeo **RVM** (modelo temporal) com **light wrap** e **cor casada** entre pessoa e fundo; **motion graphics HyperFrames + GSAP** (lower third, cartões de norma, chamada); 6 estilos com LUT; legendas premium/forte/viral; câmera virtual com easing; desenho de som e automação de trilha.
+**Estratégia (estudo 22): o Claude é o editor.** Tudo sai por código, sem abrir editor; o CapCut é opcional para retoques. Pela pauta, o campo `efeitos` (lista JSON) é aplicado pelo `executar` depois da produção.
 **A maior alavanca de qualidade é a gravação**: veja `estudos/20-captacao.md` (checklist de 1 minuto).
 
 ### Destinos de vídeo
@@ -91,7 +95,7 @@ Motor v3: recorte de vídeo **RVM** (modelo temporal) com **light wrap** e **cor
 ## 8. Braço de foto
 | Comando | O que faz |
 |---|---|
-| `carrossel spec.json --formato 4x5 9x16` | carrossel (10 tipos de slide, 4 identidades) + PDF |
+| `carrossel spec.json --formato 4x5 9x16` | carrossel (15 tipos de slide, 6 identidades) + PDF; identidades `editorial` e `editorial_juridico` (fundo papel, itálico de ênfase com `__palavra__`, cabeçalho "03 / 07") e slides `fluxo`, `grade`, `terminal`, `antes_depois`, `cta_palavra` |
 | `post post.json --formatos 4x5 9x16 1x1 16x9 --perfil <id>` | post de imagem única: frase, manchete, dado, comunicado, evento, foto, pergunta |
 | `foto tratar img.jpg --formatos 4x5 9x16` | enquadra pelo rosto, corrige cor e aplica o look do perfil |
 | `foto recortar img.jpg` | pessoa com fundo transparente |
@@ -115,12 +119,12 @@ sistema-redes/
   redes/                      código (python -m redes)
     nucleo/   caminhos · regras · perfis · plataformas · conformidade · rosto · aprendizado · diagnostico
     video/    analise · momentos · plano · render · producao · estilos · luts · fundos · recorte · composicao
-              graficos · motion · audio · assets · visao · react · capcut · exportar
+              graficos · motion · audio · assets · visao · react · capcut · exportar · efeitos · cortes
     foto/     motor · carrossel · post · capas · tratamento
     gestao/   pautas · calendario · publicacao · fluxo · relatorio
   perfis/     um JSON por conta          dados/      pautas, produção, pacotes (fora do git)
-  memoria/    LICOES.md e aprendizado    estudos/    01-21 base de conhecimento
-  pesquisa/registro/  R01-R14 todas as pesquisas com fontes      fontes/ modelos/ exemplo/ tests/
+  memoria/    LICOES.md e aprendizado    estudos/    01-22 base de conhecimento
+  pesquisa/registro/  R01-R15 todas as pesquisas com fontes      fontes/ modelos/ exemplo/ tests/
 ```
 
 ## 12. Testes
@@ -133,6 +137,7 @@ python3 -m unittest discover -s tests                    # + produção de víde
 - Não publica nem lê métricas sozinho (as redes não dão acesso a este sistema); você informa os números.
 - Recorte por IA: RVM é bom, mas a próxima geração (MatAnyone, SAM 2) depende do Hugging Face; trocar o fundo é remendo — grave no ambiente certo.
 - Transcrição local (Whisper) baixa modelos na 1ª vez; sem rede, use `--srt` (legenda exportada do CapCut).
+- Efeitos renderizam em CPU: `camadas` ≈ 6-10 min por 4 s; os demais 1-3 min (com cache: só o que mudou é refeito). Detecção de mãos (efeitos que seguem o gesto) exigiria MediaPipe, não instalado.
 - O Kwai não publica especificações oficiais: valores conservadores (R12).
 - A operação do CapCut é guiada (roteiro + skill `videomaker-capcut`); o acabamento automático é feito pelo próprio sistema.
 - Regras eleitorais e da OAB mudam: atualize `redes/nucleo/conformidade.py` a cada eleição.

@@ -86,6 +86,11 @@ class Nucleo(unittest.TestCase):
         self.assertEqual(conformidade.checar("Texto.", pol, {"data": "2026-10-10", "usa_ia": True})["sinal"], "vermelho")
         self.assertEqual(conformidade.checar("x", pol, {"ia_rosto_voz_real": True})["sinal"], "vermelho")
 
+    def test_conformidade_cta_dm(self):
+        adv = perfis.carregar("teste-adv")
+        self.assertEqual(conformidade.checar("Comenta PRAZO que eu te mando no direct", adv)["sinal"], "amarelo")
+        self.assertEqual(conformidade.checar("Comente sua dúvida que respondo em vídeo", adv)["sinal"], "verde")
+
     def test_plataformas(self):
         self.assertTrue(plataformas.validar_texto("instagram_reels", "a", ["#a"] * 6))
         self.assertTrue(plataformas.validar_texto("x_video", "a" * 300))
@@ -134,6 +139,21 @@ class Foto(unittest.TestCase):
         self.assertTrue((TMP / "car" / r["pdf"]).exists())
         self.assertTrue(any("slides" in a for a in r["alertas"]))     # 4 slides < 5 recomendado
 
+    def test_carrossel_editorial(self):
+        spec = {"identidade": "editorial_juridico", "autor": {"nome": "A"}, "slides": [
+            {"tipo": "capa", "kicker": "Tema", "titulo": "Título com __destaque__"},
+            {"tipo": "fluxo", "titulo": "Fluxo", "de": {"rotulo": "A"}, "meio": {"titulo": "7 dias"}, "para": {"rotulo": "B"},
+             "cards": [{"icone": "1", "titulo": "Um", "texto": "x"}, {"icone": "2", "titulo": "Dois", "texto": "y"}]},
+            {"tipo": "terminal", "titulo": "Modelo", "codigo": "Assunto: teste"},
+            {"tipo": "grade", "titulo": "Grade", "cards": [{"titulo": "A"}, {"titulo": "B"}]},
+            {"tipo": "cta_palavra", "palavra": "PRAZO", "texto": "comente"}]}
+        r = carrossel.gerar(spec, TMP / "car_ed", "4x5")
+        self.assertEqual(len(r["png"]), 5)
+        self.assertFalse(any("CTA" in a for a in r["alertas"]))
+        html_capa = (TMP / "car_ed" / "slide_01_4x5.html").read_text(encoding="utf-8")
+        self.assertIn('<em class="ac">destaque</em>', html_capa)
+        self.assertIn("01</b> / 05", html_capa)
+
     def test_tratamento(self):
         r = tratamento.tratar(TMP / "foto.jpg", TMP / "trat", ("4x5", "9x16"), "teste-adv")
         self.assertEqual(tam(r["arquivos"]["9x16"]), (1080, 1920))
@@ -167,6 +187,28 @@ class Exportacao(unittest.TestCase):
         self.assertEqual(len(arqs), 2)
         for a in arqs:
             self.assertLessEqual((TMP / "exp_wa" / a).stat().st_size, 16e6)
+
+
+class Reutilizar(unittest.TestCase):
+    def test_cortes_e_variacoes(self):
+        from redes.video import cortes
+        frases = ["Você sabia que pode cancelar uma compra online?", "O artigo 49 do CDC garante isso.",
+                  "O prazo é de sete dias.", "E a loja não pode cobrar multa.", "Muita gente acha que precisa de motivo.",
+                  "Isso é mito.", "Salve este vídeo e compartilhe."] * 4
+        pal, t = [], 0.5
+        for f in frases:
+            for w in f.split():
+                pal.append({"w": w, "ini": round(t, 2), "fim": round(t + .32, 2), "energia": .6})
+                t += .36
+            t += .9
+        an = {"palavras": pal, "duracao": t, "fonte": "x"}
+        cl = cortes.escolher_clipes(an, 3, 12, 25)
+        self.assertGreaterEqual(len(cl), 2)
+        usados = [set(c["idx"]) for c in cl]
+        self.assertFalse(usados[0] & usados[1])                     # sem sobreposição
+        v = cortes.variacoes(an, TMP / "var", 3, "juridico", 12, 25, renderizar=False)
+        self.assertGreaterEqual(len(v), 2)
+        self.assertEqual(len({x["gancho"] for x in v}), len(v))       # ganchos diferentes
 
 
 # ====================================================================== gestão
@@ -245,6 +287,16 @@ class Video(unittest.TestCase):
         self.assertEqual(dims(TMP / "fx_video" / "pacote" / "instagram_reels" / "instagram_reels.mp4"), (1080, 1920))
         self.assertTrue((TMP / "fx_video" / "pacote" / "instagram_reels" / "capa_reels.png").exists())
         self.assertTrue((TMP / "fx_video" / "video" / "roteiro_capcut_pro.md").exists())
+
+    def test_efeitos_overlay(self):
+        from redes.video import efeitos
+        r = efeitos.aplicar(TMP / "v12.mp4", [
+            {"tipo": "pergunta", "ini": .5, "fim": 3.5, "texto": "Posso desistir da compra?"},
+            {"tipo": "titulo", "ini": 4, "fim": 7, "kicker": "ATENÇÃO", "texto": "Seu direito"},
+            {"tipo": "pb", "ini": 8, "fim": 10}], TMP / "ef.mp4", tema="dourado")
+        self.assertEqual([x["efeito"] for x in r["efeitos"]], ["pb", "pergunta", "titulo"])
+        self.assertEqual(dims(TMP / "ef.mp4"), (540, 960))
+        self.assertAlmostEqual(dur(TMP / "ef.mp4"), 12, delta=0.2)
 
     def test_react(self):
         from redes.video import react

@@ -7,11 +7,23 @@ from .gestao import calendario, fluxo, pautas, publicacao, relatorio
 from .nucleo import conformidade, diagnostico, perfis, plataformas
 from .video import exportar
 
-COMANDOS = {"perfil", "pauta", "calendario", "executar", "exportar", "post", "capa", "thumbnail", "foto", "checar",
+COMANDOS = {"efeitos", "cortes", "variacoes", "perfil", "pauta", "calendario", "executar", "exportar", "post", "capa", "thumbnail", "foto", "checar",
             "legenda", "relatorio", "diagnostico", "destinos"}
 
 
 def registrar(sub):
+    p = sub.add_parser("efeitos", help="aplica efeitos de edição IA (titulo, pergunta, card, hud, camadas, lista, transcricao, pb)")
+    p.add_argument("video"); p.add_argument("spec", help="JSON com a lista de efeitos (ver redes/video/efeitos.py)")
+    p.add_argument("--saida"); p.add_argument("--tema", default=None, help="roxo | dourado | azul (padrão: cores do perfil)")
+    p.add_argument("--perfil"); p.add_argument("--producao", help="producao.json (palavras para o efeito transcricao)")
+    for nome, ajuda in (("cortes", "vídeo longo → N clipes curtos (podcast, live, palestra)"),
+                        ("variacoes", "mesmo trecho com ganchos diferentes (teste A/B, Trial Reels)")):
+        p = sub.add_parser(nome, help=ajuda)
+        p.add_argument("video"); p.add_argument("--srt"); p.add_argument("--transcricao"); p.add_argument("--modelo", default="small")
+        p.add_argument("-n", type=int, default=10 if nome == "cortes" else 3)
+        p.add_argument("--preset", default="juridico"); p.add_argument("--dur", default="25-60")
+        p.add_argument("--sem-render", action="store_true"); p.add_argument("--saida", default=nome)
+
     p = sub.add_parser("perfil", help="perfis (contas atendidas): listar | criar | mostrar | validar")
     p.add_argument("acao", choices=["listar", "criar", "mostrar", "validar"])
     p.add_argument("id", nargs="?")
@@ -78,6 +90,27 @@ def _j(x):
 
 def executar(a):
     c = a.cmd
+    if c == "efeitos":
+        from .video import efeitos
+        lista = json.loads(Path(a.spec).read_text(encoding="utf-8"))
+        base = Path(a.spec).parent
+        for e in lista:
+            if e.get("imagem") and not Path(e["imagem"]).is_absolute():
+                e["imagem"] = str((base / e["imagem"]).resolve())
+        pal = json.loads(Path(a.producao).read_text(encoding="utf-8"))["palavras"] if a.producao else None
+        saida = a.saida or str(Path(a.video).with_name(Path(a.video).stem + "_efeitos.mp4"))
+        r = efeitos.aplicar(a.video, lista, saida, tema=a.tema, perfil=a.perfil, palavras=pal)
+        for x in r["efeitos"]:
+            print(f"  {x['efeito']:>12}: {x.get('status') or str(x.get('ini')) + '–' + str(x.get('fim')) + ' s'}")
+        print(r["saida"]); return 0
+    if c in ("cortes", "variacoes"):
+        from .video import analise, cortes
+        Path(a.saida).mkdir(parents=True, exist_ok=True)
+        an = analise.analisar(a.video, Path(a.saida) / "analise.json", srt=a.srt, transcricao=a.transcricao, modelo=a.modelo)
+        dmin, _, dmax = a.dur.partition("-")
+        f = cortes.cortes if c == "cortes" else cortes.variacoes
+        r = f(an, a.saida, a.n, a.preset, float(dmin), float(dmax or dmin), renderizar=not a.sem_render)
+        _j(r); return 0
     if c == "perfil":
         if a.acao == "listar":
             print("\n".join(perfis.listar()) or "nenhum perfil (crie com: perfil criar <id> --tipo advocacia)")

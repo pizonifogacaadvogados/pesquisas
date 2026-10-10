@@ -40,3 +40,7 @@
 | R08.36 | Fase 10: `executar` de ponta a ponta (pauta reels → produção v3 → exportação 4 redes → capa → conformidade → pacote) com a amostra real | ✅ 12m46s em CPU (4 núcleos); conformidade verde; `PUBLICAR.md` com arquivos, legendas e horários | `gestao/fluxo.py` |
 | R08.37 | Exportação multirrede (13 destinos de vídeo) | ✅ −14,0 LUFS medidos; 4:5 por recorte central e 16:9 com fundo desfocado; 13 → 5 codificações (redes com a mesma especificação compartilham o arquivo); bitrate ajustado ao limite de arquivo (Kwai 50 MB, WhatsApp 16 MB em 720p) | `video/exportar.py` |
 | R08.38 | Suíte `tests/test_sistema.py` + `teste_pipeline.py` | ✅ 18 testes, 7m42s, todos passando (núcleo, foto, exportação, gestão, CLI, vídeo completo, react) | `tests/` |
+| R08.39 | HUD com YuNet em quadro 540×960 | ❌→✅ quebrava (entrada fixa 320×320 do YuNet); `Detector.marcos()` ajusta `setInputSize` a cada quadro | `nucleo/rosto.py` |
+| R08.40 | Demo de 8 efeitos na amostra de 41 s (`exemplo/v4`) | ✅ render total ≈ 7 min em CPU; `camadas` sozinho ≈ 10 min na 1ª vez (4,2 s, 5 planos 3D); cache por `index.html` refaz só o efeito alterado | `video/efeitos.py` |
+| R08.41 | Revisão visual da demo | ajustes: camadas cortavam o título (deslocamento x 90 na abertura); card cobria o rosto (340 px, topo 430); pergunta e HUD cobriam o cartão "Art. 49 · CDC" → função `conflitos()` avisa e a demo foi re-cronometrada | `video/efeitos.py` |
+| R08.42 | Testes rápidos com efeitos, cortes, variações, carrossel editorial | ✅ 22 testes (`REDES_RAPIDO=1`) | `tests/` |

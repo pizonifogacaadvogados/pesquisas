@@ -89,7 +89,7 @@ def estudos():
         linhas = f.read_text(encoding="utf-8").splitlines()
         titulo = linhas[0].lstrip("# ").strip()
         secoes = [l.lstrip("# ").strip() for l in linhas if l.startswith("## ")][:8]
-        out.append({"arq": f.name, "titulo": titulo, "secoes": secoes})
+        out.append({"arq": f.name, "titulo": titulo, "secoes": secoes, "texto": "\n".join(linhas[1:])})
     return out
 
 
@@ -99,7 +99,8 @@ def skills():
         t = f.read_text(encoding="utf-8")
         nome = re.search(r"^name: (.+)$", t, re.M).group(1)
         desc = re.search(r"^description: (.+)$", t, re.M).group(1)
-        out.append({"nome": nome, "desc": desc})
+        corpo = t.split("---", 2)[2] if t.startswith("---") else t
+        out.append({"nome": nome, "desc": desc, "texto": corpo})
     return out
 
 
@@ -112,6 +113,16 @@ def modulos():
             src = f.read_text(encoding="utf-8")
             doc = (ast.get_docstring(ast.parse(src)) or "").strip().split("\n\n")[0].replace("\n", " ")
             out.append({"pac": pac, "mod": f.stem, "doc": doc, "linhas": src.count("\n")})
+    return out
+
+
+def codigo():
+    """Todo o código-fonte do sistema (pacote, ferramentas e testes), para o apêndice."""
+    out = []
+    for pasta in ("redes", "tools", "tests"):
+        for f in sorted((RAIZ / pasta).rglob("*.py")):
+            src = f.read_text(encoding="utf-8")
+            out.append({"arq": str(f.relative_to(RAIZ)), "linhas": src.count("\n"), "src": src})
     return out
 
 
@@ -285,12 +296,14 @@ vídeo real.</div>
                    md((RAIZ / "pesquisa" / "registro" / "R13-conformidade-automatica.md").read_text(encoding="utf-8")
                       .split("\n", 2)[2])))
 
-    secoes.append(("skills", "Skills do Claude", "Como o Claude opera o sistema", md(
-        "| Skill | Quando é usada |\n|---|---|\n" + "\n".join(f"| `{s['nome']}` | {s['desc'].replace('|', '/')} |" for s in sks))))
+    secoes.append(("skills", "Skills do Claude", "Como o Claude opera o sistema (texto integral de cada skill)", md(
+        "| Skill | Quando é usada |\n|---|---|\n" + "\n".join(f"| `{s['nome']}` | {s['desc'].replace('|', '/')} |" for s in sks))
+        + "".join(f"<details><summary>{html.escape(s['nome'])} <small>SKILL.md</small></summary>{md(s['texto'])}</details>"
+                  for s in sks)))
 
     secoes.append(("estudos", "Estudos", "A base de conhecimento (sistema-redes/estudos)", "".join(
-        f"<details><summary>{html.escape(e['titulo'])} <small>{e['arq']}</small></summary><ul>"
-        + "".join(f"<li>{inline(s)}</li>" for s in e["secoes"]) + "</ul></details>" for e in ests)))
+        f"<details><summary>{html.escape(e['titulo'])} <small>{e['arq']}</small></summary>{md(e['texto'])}</details>"
+        for e in ests)))
 
     secoes.append(("cronograma", "Cronograma e histórico", "Todas as fases, do primeiro pedido ao sistema", md(cron)))
 
@@ -330,6 +343,14 @@ Auditoria do código existente (Fase 10, S1) — falhas encontradas e corrigidas
 para dados e documentos (estilo Vox/Johnny Harris); integração com agendadores (Meta Business Suite) quando houver acesso.
 """)))
 
+    cods = codigo()
+    licoes = (RAIZ / "memoria" / "LICOES.md")
+    secoes.append(("codigo", "Apêndice: código-fonte completo",
+                   f"{len(cods)} arquivos, {sum(c['linhas'] for c in cods):,} linhas — o sistema inteiro, como está no repositório".replace(",", "."),
+                   (md(licoes.read_text(encoding="utf-8")) if licoes.exists() else "") + "".join(
+                       f"<details><summary>{html.escape(c['arq'])} <small>{c['linhas']} linhas</small></summary>"
+                       f"<pre><code>{html.escape(c['src'])}</code></pre></details>" for c in cods)))
+
     apend = "".join(
         f'<details><summary>{html.escape(r["titulo"])} <small>{r["entradas"]} entradas · {r["fontes"]} fontes · {r["arq"]}</small>'
         f"</summary>{md(r['texto'].split(chr(10), 1)[1] if chr(10) in r['texto'] else '')}</details>" for r in regs)
@@ -344,6 +365,8 @@ para dados e documentos (estilo Vox/Johnny Harris); integração com agendadores
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&display=swap">
 <style>{CSS}</style>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<script>document.addEventListener("DOMContentLoaded",()=>{{try{{mermaid.initialize({{startOnLoad:false,theme:matchMedia("(prefers-color-scheme: dark)").matches?"dark":"neutral"}});mermaid.run({{querySelector:".mermaid"}})}}catch(e){{}}}});</script>
 <div class="casca">
 <nav class="indice" aria-label="Índice"><b>Índice</b>{indice}</nav>
 <main>

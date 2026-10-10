@@ -80,7 +80,8 @@ def escolher_janela(fs, dur_min, dur_max):
     return melhor
 
 
-def selecionar(palavras, dur_min=25, dur_max=60):
+def selecionar(palavras, dur_min=25, dur_max=60, gancho_forcado=None):
+    """`gancho_forcado`: índice (em `frases`) de uma frase da janela para abrir o vídeo (variações de gancho)."""
     fs = frases(palavras)
     for f in fs:
         f["nota"] = pontuar(f, palavras)
@@ -95,6 +96,9 @@ def selecionar(palavras, dur_min=25, dur_max=60):
         and (gancho["fim"] - gancho["ini"]) <= 6.0
     if not cold_open:
         gancho = janela[0]
+    if gancho_forcado is not None and i <= gancho_forcado <= j:
+        gancho = fs[gancho_forcado]
+        cold_open = gancho is not janela[0]
     # clímax: frase mais forte entre 55% e 95% da janela (para zoom lento / riser+hit)
     n = len(janela)
     meio = janela[int(n * 0.55):max(int(n * 0.95), int(n * 0.55) + 1)] or janela[-1:]

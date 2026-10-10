@@ -49,6 +49,9 @@ OAB_AMARELO = {
     "ostentação (Prov. 205/2021 art. 6º, par. ún.)": [
         r"\b(minha|meu) (ferrari|porsche|lamborghini|mansao|iate|lancha|helicoptero)", r"\bcarro novo\b",
         r"\b(primeira classe|business class)\b"],
+    "CTA 'comente X que te mando no direct' pode virar captação (R15; Prov. 205/2021 art. 5º): envie só material "
+    "informativo, sem oferta de serviço": [
+        r"(coment\w*|digit\w*|escrev\w*).{0,40}(mando|envio|enviarei|mandarei|te passo).{0,25}(dm|direct|inbox|privado|whats)"],
     "caso concreto / cliente (Prov. 205/2021 art. 6º, par. ún.; sigilo)": [
         r"\bmeu cliente\b", r"\bminha cliente\b", r"\bganhei (a|uma) (causa|acao)\b", r"consegui (para|pro|pra) (o|a|meu|minha)"],
 }

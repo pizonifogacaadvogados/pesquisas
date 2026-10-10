@@ -22,6 +22,13 @@ IDENTIDADES = {
                             claro="#FFFFFF", titulo="Inter", corpo="Inter", peso_titulo=900),
     "manifesto": dict(fundo="#0E0E10", texto="#FFFFFF", acento="#FFD23F", sutil="#9A9AA0", escuro="#0E0E10",
                       claro="#FFFFFF", titulo="Bebas Neue", corpo="Inter", peso_titulo=400),
+    # editorial de revista (R15: castilho.ia): papel, serifa pesada, itálico colorido na palavra-chave, cabeçalho 02/06
+    "editorial": dict(fundo="#F3EFE7", texto="#121212", acento="#D9572B", acento2="#1C2A6B", sutil="#5E5A54",
+                      escuro="#16181D", claro="#F3EFE7", titulo="Playfair Display", corpo="Inter", peso_titulo=800,
+                      cabecalho=True),
+    "editorial_juridico": dict(fundo="#F4F1EA", texto="#0F1A33", acento="#9C7A3C", acento2="#0F1A33", sutil="#5B6170",
+                               escuro="#0F1A33", claro="#F4F1EA", titulo="Playfair Display", corpo="Inter",
+                               peso_titulo=800, cabecalho=True),
 }
 ARQ = {"Inter": "Inter.ttf", "Playfair Display": "PlayfairDisplay.ttf", "Bebas Neue": "BebasNeue-Regular.ttf",
        "DM Serif Display": "DMSerifDisplay-Regular.ttf", "Montserrat": "Montserrat.ttf", "Anton": "Anton-Regular.ttf"}
@@ -44,6 +51,8 @@ def contraste(a, b):
 def _css(idv, w, h):
     faces = "\n".join(f"@font-face {{ font-family: '{n}'; src: url('file://{(caminhos.FONTES / a).as_posix()}'); "
                       f"font-weight: 100 900; }}" for n, a in ARQ.items())
+    faces += (f"\n@font-face {{ font-family: 'Playfair Display'; font-style: italic; font-weight: 100 900; "
+              f"src: url('file://{(caminhos.FONTES / 'PlayfairDisplay-Italic.ttf').as_posix()}'); }}")
     return f"""{faces}
 * {{ box-sizing: border-box; margin: 0; padding: 0; }}
 html, body {{ width: {w}px; height: {h + 240}px; overflow: hidden; }}
@@ -59,6 +68,10 @@ body {{ background: var(--fundo); color: var(--texto); font-family: '{idv['corpo
 .sub {{ font-size: 44px; line-height: 1.35; color: var(--sutil); font-weight: 400; }}
 .corpo {{ font-size: 46px; line-height: 1.38; font-weight: 400; }}
 .corpo b, .titulo b {{ font-weight: 800; }}
+em.ac {{ font-family: 'Playfair Display', serif; font-style: italic; color: var(--acento); font-weight: inherit; }}
+.cab {{ position: absolute; left: 92px; right: 92px; top: 56px; display: flex; justify-content: space-between;
+  font-size: 26px; letter-spacing: 6px; color: var(--sutil); text-transform: uppercase; }}
+.cab b {{ color: var(--texto); font-family: 'Playfair Display', serif; letter-spacing: 2px; }}
 mark {{ background: linear-gradient(transparent 58%, color-mix(in srgb, var(--acento) 55%, transparent) 58%);
   color: inherit; padding: 0 4px; }}
 .num {{ font-family: '{idv['titulo']}', serif; font-size: 120px; line-height: 1; color: var(--acento); font-weight: 700; }}
@@ -82,9 +95,10 @@ mark {{ background: linear-gradient(transparent 58%, color-mix(in srgb, var(--ac
 
 
 def _esc(t):
-    """Escapa HTML mas permite **negrito** e ==marca-texto==."""
+    """Escapa HTML mas permite **negrito**, ==marca-texto== e __itálico de destaque__ (cor de acento)."""
     s = html.escape(t or "")
     s = re.sub(r"\*\*(.+?)\*\*", r"<b>\1</b>", s)
+    s = re.sub(r"__(.+?)__", r'<em class="ac">\1</em>', s)
     s = re.sub(r"==(.+?)==", r"<mark>\1</mark>", s)
     return s.replace("\n", "<br>")
 

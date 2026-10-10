@@ -17,7 +17,7 @@ Escreva **antes** de pensar no visual:
 6. **Último = CTA** específico (salvar / enviar para alguém / comentar). Advocacia: sem captação nem consulta individual.
 Total: **7-10 slides**. Legenda do post: complementa, traz a palavra-chave de busca, até 5 hashtags.
 
-Tipos de slide disponíveis: `capa`, `promessa`, `item`, `dado`, `mito`, `texto` (manifesto), `citacao`, `print`, `lista`, `cta` (ver docstring de `redes/foto/carrossel.py`).
+Tipos de slide disponíveis: `capa`, `promessa`, `item`, `dado`, `mito`, `texto` (manifesto), `citacao`, `print`, `lista`, `cta` e, para a identidade editorial (estilo de revista, R15/castilho.ia), `fluxo` (de → meio → para + cartões), `grade` (cartões com ícone), `terminal` (modelo de texto/mensagem), `antes_depois` e `cta_palavra` ("COMENTE 'PRAZO'"). Destaque em itálico colorido: `__palavra__`. Campo `kicker` em cada slide aparece no cabeçalho ("02 / 06 · COMO FUNCIONA").
 
 ## 2. Identidade visual
 | Identidade | Quando |
@@ -26,6 +26,8 @@ Tipos de slide disponíveis: `capa`, `promessa`, `item`, `dado`, `mito`, `texto`
 | `juridico_moderno` | temas atuais, tecnologia, trabalho (grafite + verde-água; Inter) |
 | `politico_sobrio` | política institucional, propostas (branco + azul; Inter Black) |
 | `manifesto` | frases fortes, carrossel-texto político/opinião (preto + amarelo; Bebas) |
+| `editorial_juridico` | estilo revista (papel, Playfair pesada + itálico dourado, cabeçalho 02/06): explicações passo a passo, modelos de mensagem |
+| `editorial` | o mesmo com acento laranja/azul (castilho.ia) |
 Mantenha **a mesma identidade** no perfil inteiro. Para outra paleta (cor do partido, marca), acrescente uma entrada em `IDENTIDADES`, sempre com contraste ≥ 4,5:1.
 
 ## 3. Imagens

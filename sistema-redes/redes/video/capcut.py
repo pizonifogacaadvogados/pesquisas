@@ -269,7 +269,7 @@ def roteiro_v2_md(prod, plano):
         l += [f"- **Texto atrás da pessoa ({tc(ab['ini'])}–{tc(ab['fim'])}):** duplique o trecho do clipe principal para a faixa "
               f"de cima, aplique Remover fundo na cópia; entre as duas faixas adicione o texto **\"{ab['texto'].upper()}\"** "
               f"(fonte serifada elegante, ~230 pt, centralizado na altura da cabeça), animação de entrada: desfoque/zoom suave."]
-    else:
+    elif ab["tipo"] != "nenhuma":
         l += [f"- **Abertura ({tc(ab['ini'])}–{tc(ab['fim'])}):** texto \"{ab['texto']}\" no estilo `{ab['tipo']}` "
               "(modelo de texto Pro equivalente: entrada palavra a palavra com desfoque → nítido)."]
     if c.get("lower_third"):

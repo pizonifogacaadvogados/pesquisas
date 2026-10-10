@@ -105,14 +105,24 @@ def _video(pauta, p, pasta, destinos):
         fundo = p.get("fundo_foto") or None
         if fundo and not Path(fundo).is_absolute():
             fundo = str(caminhos.RAIZ / fundo)
+        abre_com_efeito = any(x["tipo"] in ("titulo", "camadas") and float(x["ini"]) < 1.0
+                              for x in pauta.get("efeitos", []))
         prod, final = producao.produzir(pl, prod_dir / "base.mp4", prod_dir, estilo, nome=a.get("nome"),
                                         cargo=_perfis.assinatura_texto(p) or None, titulo=pauta.get("titulo_abertura"),
                                         musica=pauta.get("musica"), biblioteca_musica=p.get("musica_biblioteca") or None,
-                                        fundo_foto=fundo)
+                                        fundo_foto=fundo, sem_abertura=abre_com_efeito)
         capcut.salvar_v2(prod, pl, prod_dir)
         vid = aprendizado.registrar_video(prod, pl, prod_dir)
         texto = " ".join(w["w"] for w in prod["palavras"])
         info = {"estilo": prod["estilo"], "aprendizado_id": vid, "composicao": prod.get("composicao")}
+    if pauta.get("efeitos"):     # efeitos de edição IA (R15) sobre o vídeo produzido
+        from ..video import efeitos
+        pal = prod["palavras"] if pauta["formato"] != "react" else None
+        r_ef = efeitos.aplicar(final, pauta["efeitos"], prod_dir / "final_efeitos.mp4", tema=pauta.get("tema_efeitos"),
+                               perfil=p, palavras=pal, prod=prod if pauta["formato"] != "react" else None)
+        final = Path(r_ef["saida"])
+        info["efeitos"] = r_ef["efeitos"]
+        info.setdefault("avisos_efeitos", []).extend(r_ef["avisos"])
     exp = exportar.exportar(final, pasta / "exportar", destinos)
     pecas = {d: [pasta / "exportar" / f for f in v["arquivos"]] for d, v in exp["destinos"].items()}
     capa = capas.capa_reels(final, pauta.get("titulo_capa") or pauta.get("gancho") or pauta["tema"], pasta / "capa", p,
@@ -124,7 +134,7 @@ def _video(pauta, p, pasta, destinos):
         th = capas.thumbnail(final, pauta.get("thumb_texto") or pauta["tema"][:30], pasta / "thumb", p)
         pecas["youtube_video"].append(pasta / "thumb" / th["thumbnail"])
     alertas = [f"{d}: {a}" for d, v in exp["destinos"].items() for a in v["alertas"]] + \
-        [f"capa: {a}" for a in capa["alertas"]]
+        [f"capa: {a}" for a in capa["alertas"]] + [f"efeitos: {a}" for a in info.get("avisos_efeitos", [])]
     return pecas, texto, {"final": str(final), **info, "alertas_exportacao": alertas}
 
 

@@ -17,6 +17,10 @@ class Detector:
 
     def __init__(self, confianca=0.75):
         import cv2
+        try:
+            cv2.utils.logging.setLogLevel(cv2.utils.logging.LOG_LEVEL_ERROR)   # aviso inofensivo do backend DNN
+        except Exception:
+            pass
         self.cv2 = cv2
         self.motor = None
         if hasattr(cv2, "FaceDetectorYN") and YUNET.exists():
@@ -44,3 +48,22 @@ class Detector:
                    self._haar.detectMultiScale(cinza, scaleFactor=1.15, minNeighbors=5, minSize=(w // 12, w // 12))]
         res = [(max(x, 0), max(y, 0), min(a, w - max(x, 0)), min(b, h - max(y, 0)), c) for x, y, a, b, c in res]
         return sorted([r for r in res if r[2] > 0 and r[3] > 0], key=lambda r: -r[2] * r[3])
+
+    def marcos(self, rgb):
+        """Maior rosto com pontos: {"caixa", "olho_d", "olho_e", "nariz", "boca_d", "boca_e", "conf"} ou None.
+        Só com YuNet (o Haar não dá pontos)."""
+        if self.motor != "yunet":
+            r = self(rgb)
+            return {"caixa": r[0][:4], "conf": r[0][4]} if r else None
+        cv2 = self.cv2
+        h, w = rgb.shape[:2]
+        if self._tam != (w, h):
+            self._yn.setInputSize((w, h))
+            self._tam = (w, h)
+        _, faces = self._yn.detect(cv2.cvtColor(np.ascontiguousarray(rgb), cv2.COLOR_RGB2BGR))
+        if faces is None or not len(faces):
+            return None
+        f = max(faces, key=lambda r: r[2] * r[3])
+        pt = lambda i: (float(f[i]), float(f[i + 1]))  # noqa: E731
+        return {"caixa": tuple(float(v) for v in f[:4]), "olho_d": pt(4), "olho_e": pt(6), "nariz": pt(8),
+                "boca_d": pt(10), "boca_e": pt(12), "conf": float(f[14])}

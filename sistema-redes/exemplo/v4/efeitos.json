@@ -1,0 +1,70 @@
+[
+ {
+  "tipo": "camadas",
+  "ini": 0.0,
+  "fim": 4.2,
+  "titulo": "Seus direitos",
+  "legenda": "7 dias para desistir"
+ },
+ {
+  "tipo": "pergunta",
+  "ini": 8.6,
+  "fim": 12.6,
+  "texto": "Posso desistir de uma compra feita pela internet?"
+ },
+ {
+  "tipo": "hud",
+  "ini": 21.5,
+  "fim": 25.0
+ },
+ {
+  "tipo": "lista",
+  "ini": 13.0,
+  "fim": 21.0,
+  "rotulo": "CDC · Art. 49",
+  "titulo": "Três pontos\nsobre o prazo",
+  "lado": "",
+  "itens": [
+   {
+    "titulo": "7 dias",
+    "texto": "a partir do recebimento",
+    "t": 13.6
+   },
+   {
+    "titulo": "Sem motivo",
+    "texto": "não precisa justificar",
+    "t": 16.0
+   },
+   {
+    "titulo": "Devolução total",
+    "texto": "inclusive o frete",
+    "t": 18.5
+   }
+  ]
+ },
+ {
+  "tipo": "card",
+  "ini": 25.3,
+  "fim": 29.8,
+  "imagem": "exemplo/v4/print.jpg",
+  "etiqueta": "SALVO"
+ },
+ {
+  "tipo": "pb",
+  "ini": 30.0,
+  "fim": 32.5,
+  "texto": "ATENÇÃO"
+ },
+ {
+  "tipo": "transcricao",
+  "ini": 33.0,
+  "fim": 37.5
+ },
+ {
+  "tipo": "titulo",
+  "ini": 37.8,
+  "fim": 41.0,
+  "kicker": "SALVE ESTE VÍDEO",
+  "texto": "Seu direito"
+ }
+]

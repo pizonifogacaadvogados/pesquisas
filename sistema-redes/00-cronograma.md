@@ -137,3 +137,14 @@ Pedido: estruturar todo o código como um sistema de produção de conteúdo com
 | S4 | Testes de ponta a ponta | `tests/test_sistema.py` (18 testes, todos passando em 7m42s, incluindo produção de vídeo completa) + `teste_pipeline.py` | ✅ |
 | S5 | Skills | `gestor-redes` (mãe) → `social-planejamento`, `videomaker` (+5), `social-foto` (+ carrossel), `social-conformidade`, `social-publicacao` | ✅ |
 | S6 | Manual e relatório | `MANUAL.md` + relatório completo (artefato) | ✅ |
+
+# Fase 11 (pedido de 10/10/2026): o Claude como editor
+
+Pedido: analisar imagem a imagem as referências enviadas (Tiago Lemos, André Nunes, castilho.ia, edicaomia, Runway, slayer.vfx), entender o nível de edição e o que dá para fazer com o Claude editando sozinho.
+
+| # | Etapa | Entregável | Status |
+|---|---|---|---|
+| F11-1 | Motor de efeitos IA | `redes/video/efeitos.py`: título, pergunta, card, lista, camadas 3D, transcrição, HUD com rastreamento YuNet, P&B; cache de render; aviso de conflito com os cartões da produção | ✅ |
+| F11-2 | Estudo e registro | `estudos/22-claude-editor.md` + `R15` (análise imagem a imagem, nível de edição, estratégia) | ✅ |
+| F11-3 | Reutilização e carrossel editorial | `video/cortes.py` (cortes e variações de gancho), identidades editoriais e 5 tipos novos de slide, regra de conformidade do "comente X que te mando no DM" | ✅ |
+| F11-4 | Integração | CLI (`efeitos`, `cortes`, `variacoes`), campo `efeitos` da pauta no `executar`, skill `videomaker-efeitos`, testes, demo `exemplo/v4`, relatório | ✅ |
