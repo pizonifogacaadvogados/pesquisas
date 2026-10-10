@@ -58,8 +58,12 @@ gravação (checklist estudo 20)
 | Rubrica de cortes (claude-shorts) | gancho 0,30 · sentido sozinho 0,25 · conteúdo 0,35 · fecho 0,10 | `redes/video/cortes.py` |
 | Barra do Reels maior (R18) | legenda premium a 500 px da base; linhas ≤ 32 caracteres | `redes/video/graficos.py` |
 | Ritmo jurídico × político (R18) | regras na skill `videomaker`; QC avisa > 5 s por mudança e > 10 s parado | skill, `qc.py` |
+| Limpeza de voz (R17) | DeepFilterNet 3 → RNNoise + EQ/de-esser/compressor na voz bruta; comando `voz` | `redes/video/voz.py` |
+| Versão limpa e 2 capas (R18) | `final_sem_legenda.mp4` e `capa_reels_B.png` (outro estilo) no pacote de entrega | `producao.py`, `capas.py`, `entrega.py` |
+| Licença de trilha em campanha (R19) | Pixabay/bancos sem licença política → 🔴; NC/ND → 🟡 | `nucleo/conformidade.py` |
+| Batida (R19) | detector v2: F 0,67 → 0,99 sem biblioteca nova | `redes/video/audio.py` |
 | Fade nas fronteiras, zoom 1,18-1,30 (R16) | já existiam (20/30 ms; punch 1,22) — conferido | `render.py`, `producao.py` |
 
 ## 5. O que ainda falta (e por quê) — ver `ESTADO.md` §3
-Vídeo real do usuário; cadeia de limpeza de voz do R17; versão "limpa" sem legenda; 2 capas; WhisperX; mãos no HUD (libegl1);
+Vídeo real do usuário; transcrição local via sherpa-onnx (Whisper não baixa modelo aqui); WhisperX; mãos no HUD (libegl1);
 rascunho CapCut/XML validado no computador do escritório; regras das skills oficiais do HyperFrames; subagente crítico.

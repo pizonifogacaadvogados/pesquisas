@@ -255,6 +255,8 @@ em conteúdo político.</div>
                    "Análise das referências, motor de efeitos, QC, entrega e pesquisa além dos exemplos", f"""
 {fig("efeitos_demo", "Demo dos 8 efeitos (exemplo/v4) sobre a amostra de 41 s: camadas 3D, cartão da produção, pergunta, lista explicativa, HUD com rastreamento real, card SALVO, P&B com ATENÇÃO, transcrição ao vivo com forma de onda, título final. Nenhum efeito cobre o cartão da produção (função conflitos).")}
 {fig("comparacao_denoise", "R17: limpeza de voz medida neste servidor (bruto com ruído × DeepFilterNet 3 × RNNoise × afftdn). DeepFilterNet: ruído nas pausas −44,6 → −66,4 dBFS sem distorcer a fala; testado, integração pendente.")}
+{fig("capas_ab", "Duas opções de capa geradas para o mesmo vídeo (R18): A com degradê e título branco; B com manchete em caixa branca e rótulo na cor do perfil.")}
+{fig("comparacao_imagem", "R19: filtros de imagem em CPU sobre a demo (sem filtro, unsharp, hqdn3d, cas, nlmeans). unsharp é o melhor custo-benefício para texto; nlmeans é inviável em CPU (120-568 s para 41 s).")}
 {fig("carrossel_editorial", "Carrossel editorial (identidade editorial: fundo papel, itálico de ênfase, cabeçalho 03/07; slides fluxo, grade, terminal, antes/depois e CTA palavra).")}
 """ + md((RAIZ / "estudos" / "23-melhor-entrega.md").read_text(encoding="utf-8").split("\n", 1)[1])
                    + "<h3>Estudo 22 — análise imagem a imagem das referências</h3>"
