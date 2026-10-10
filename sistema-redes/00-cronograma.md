@@ -158,3 +158,10 @@ Pedido: "não se limite aos exemplos que dei, pesquise, aprofunde, e veja qual m
 | F12-1 | Pesquisa ampliada em 3 frentes | R16 ecossistema (90 entradas), R18 ofício/entrega (69), R17 blocos open-source (ver o registro e as pendências) | ✅ (R17 parcial) |
 | F12-2 | Integração | `qc` automático, `entrega` versionada, legenda ≥ 480 px e ≤ 32 car., retomadas, rubrica de cortes | ✅ |
 | F12-3 | Registro integral | estudo 23, `memoria/DIARIO.md`, `ESTADO.md` (tarefas feitas/pendentes), relatório com estudos, skills, registros e código completos | ✅ |
+
+# Fase 12b-13 (10/10/2026): fazer, medir e mapear o que falta
+| # | Etapa | Entregável | Status |
+|---|---|---|---|
+| F12b | Integrações | limpeza de voz (`voz`), versão limpa, 2 capas, licença de música política, batidas v2 (F 0,99), cache de recorte/voz; suíte completa 26 testes OK | ✅ |
+| F13-1 | Vídeos do @tiagolemosx | YouTube bloqueado (R20); ferramenta `referencia` pronta | ⏳ depende de baixar fora |
+| F13-2 | Mapa do que falta + cronograma | `estudos/24` (cinema, luz, ambientes, técnicas sênior, Claude × CapCut, 4 semanas) | ✅ |

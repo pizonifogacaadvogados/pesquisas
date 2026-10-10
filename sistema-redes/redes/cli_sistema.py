@@ -7,11 +7,13 @@ from .gestao import calendario, fluxo, pautas, publicacao, relatorio
 from .nucleo import conformidade, diagnostico, perfis, plataformas
 from .video import exportar
 
-COMANDOS = {"voz", "qc", "entrega", "efeitos", "cortes", "variacoes", "perfil", "pauta", "calendario", "executar", "exportar", "post", "capa", "thumbnail", "foto", "checar",
+COMANDOS = {"referencia", "voz", "qc", "entrega", "efeitos", "cortes", "variacoes", "perfil", "pauta", "calendario", "executar", "exportar", "post", "capa", "thumbnail", "foto", "checar",
             "legenda", "relatorio", "diagnostico", "destinos"}
 
 
 def registrar(sub):
+    p = sub.add_parser("referencia", help="disseca um vídeo de referência (cortes/min, planos, zoom, som, cor) e compara")
+    p.add_argument("video"); p.add_argument("--comparar", help="nosso vídeo para comparar lado a lado"); p.add_argument("--saida")
     p = sub.add_parser("voz", help="limpa e trata a voz de um vídeo (DeepFilterNet → RNNoise, EQ, de-esser, −14 LUFS)")
     p.add_argument("video"); p.add_argument("--saida"); p.add_argument("--motor", default="auto",
                                                                        choices=["auto", "deepfilter", "rnnoise", "nenhum"])
@@ -99,6 +101,13 @@ def _j(x):
 
 def executar(a):
     c = a.cmd
+    if c == "referencia":
+        from .video import referencia
+        if a.comparar:
+            print(referencia.comparar(a.video, a.comparar, a.saida))
+        else:
+            print(referencia.formatar([referencia.analisar(a.video, a.saida)]))
+        return 0
     if c == "voz":
         from .video import voz
         saida = a.saida or str(Path(a.video).with_name(Path(a.video).stem + "_voz.mp4"))

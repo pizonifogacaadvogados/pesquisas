@@ -262,6 +262,11 @@ em conteúdo político.</div>
                    + "<h3>Estudo 22 — análise imagem a imagem das referências</h3>"
                    + md((RAIZ / "estudos" / "22-claude-editor.md").read_text(encoding="utf-8").split("\n", 1)[1])))
 
+    secoes.append(("faltas", "O que falta: cinema, luz, ambientes, Claude × CapCut e cronograma",
+                   "Estudo 24 + R20 (vídeos do @tiagolemosx: bloqueio e receita para destravar)",
+                   md((RAIZ / "estudos" / "24-mapa-do-que-falta.md").read_text(encoding="utf-8").split("\n", 1)[1])
+                   + fig("referencia_planos", "Comando `referencia`: folha com um quadro por plano (aqui, a demo v4), pronta para dissecar os vídeos do Tiago Lemos quando forem baixados.")))
+
     secoes.append(("diario", "Diário de aprendizados", "Cada problema, como foi descoberto, a causa e o que mudou",
                    md((RAIZ / "memoria" / "DIARIO.md").read_text(encoding="utf-8").split("\n", 1)[1])))
 

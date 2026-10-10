@@ -71,6 +71,8 @@ Documento para **outra sessão continuar de onde paramos**. Leia nesta ordem: es
 | 10 | Perfil real `escritorio-pizoni` (OAB, handles, cores, horários) | depende do usuário | `python3 -m redes perfil criar escritorio-pizoni` |
 | 11 | Biblioteca de trilhas/SFX licenciadas do escritório | depende do usuário | pasta + `--biblioteca-musica` |
 | 12 | Conector do Canva (falhou por proxy) e agendadores (Meta Business Suite) | ambiente | configurações do claude.ai |
+| 14 | **Analisar os vídeos do @tiagolemosx** (incl. `IobZgb7ngz4`) | YouTube bloqueado aqui (R20) | baixar fora (yt-dlp) → `python3 -m redes referencia ref.mp4 --comparar nosso.mp4`; receita em `estudos/24` §1 |
+| 15 | **Mapa do que falta + cronograma de 4 semanas** (luz, ambientes, técnicas de editor sênior, Claude × CapCut) | — | `estudos/24-mapa-do-que-falta.md` |
 | 13 | Dados de retenção reais (taxa de pulo, curva) para calibrar o ritmo | depende de publicação | `metricas` + `feedback` |
 
 ## 4. O que existe (mapa rápido)
@@ -80,11 +82,11 @@ Documento para **outra sessão continuar de onde paramos**. Leia nesta ordem: es
   graficos, motion (HyperFrames), audio, assets, visao, react, capcut, exportar, **efeitos**, **cortes**, **qc** ·
   `foto/` motor, carrossel (15 tipos, 6 identidades), post, capas, tratamento ·
   `gestao/` pautas, calendario, publicacao, fluxo (`executar`), relatorio, **entrega**.
-- **Comandos novos (Fases 11-12):** `efeitos`, `cortes`, `variacoes`, `qc`, `entrega`, `voz`.
+- **Comandos novos (Fases 11-13):** `efeitos`, `cortes`, `variacoes`, `qc`, `entrega`, `voz`, `referencia`.
 - **Fluxo `executar` de vídeo:** análise → plano → produção v3 → efeitos da pauta → **QC** → exportação por rede → capa/thumbnail → conformidade → pacote `PUBLICAR.md` → **entrega/vNN** (prévia 720p com marca d'água, `.srt`, QC, nota com o que medir).
 - **Testes:** `tests/test_sistema.py` (26 testes; suíte completa OK em 11m46s em 10/10/2026; 4 pulados no modo rápido).
 - **Exemplos:** `exemplo/v3` (motor v3), `exemplo/v4` (demo dos 8 efeitos + carrossel editorial), `exemplo/sistema` (posts, calendário, pacote).
-- **Conhecimento:** estudos 01-23, registros R01-R18, `memoria/DIARIO.md` (como cada coisa foi descoberta).
+- **Conhecimento:** estudos 01-24, registros R01-R20, `memoria/DIARIO.md` (como cada coisa foi descoberta).
 
 ## 5. Limites do ambiente desta sessão (para a próxima não perder tempo)
 - Proxy: Hugging Face, YouTube, Instagram, TikTok, jsDelivr (GSAP) e a maioria dos sites via WebFetch bloqueados (403/DNS); funcionam PyPI, npm, GitHub raw/releases, Google Fonts. WebSearch funciona.
