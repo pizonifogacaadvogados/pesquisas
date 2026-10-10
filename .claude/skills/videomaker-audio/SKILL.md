@@ -38,3 +38,8 @@ Biblioteca local do escritório: pasta com faixas licenciadas nomeadas `<humor>_
 - Avulso: `python3 -m redes voz VIDEO [--motor deepfilter|rnnoise|nenhum]`.
 - **Sempre na voz bruta.** Em vídeo já mixado com música o compressor levanta a trilha nas pausas (medido: +19 dB de piso). O modo auto não limpa áudio que já está limpo (piso < −60 dBFS).
 - Gravação ruim não vira boa: limpeza agressiva gera voz "metálica". Prefira regravar perto do microfone (estudo 20).
+
+## Licença de trilha (R19)
+- **Campanha política:** Pixabay PROÍBE uso político; Uppbeat grátis não cobre empresa; bancos pagos em geral excluem campanha (confirme o plano). Use Freesound CC0, faixa CC0, trilha própria ou licença expressa. A conformidade marca 🔴.
+- YouTube Audio Library: segura no YouTube; faixas CC BY exigem crédito na descrição. Evite NC (não comercial) e ND (sem edição).
+- Sempre preencha `musica_licenca` na pauta: sem ela a conformidade avisa.

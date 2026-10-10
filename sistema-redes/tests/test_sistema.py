@@ -86,6 +86,13 @@ class Nucleo(unittest.TestCase):
         self.assertEqual(conformidade.checar("Texto.", pol, {"data": "2026-10-10", "usa_ia": True})["sinal"], "vermelho")
         self.assertEqual(conformidade.checar("x", pol, {"ia_rosto_voz_real": True})["sinal"], "vermelho")
 
+    def test_conformidade_musica_politica(self):
+        r = conformidade.checar("Conheça a proposta", {"tipo": "politico"},
+                                {"musica": "t.mp3", "musica_licenca": "Pixabay Content License"})
+        self.assertEqual(r["sinal"], "vermelho")
+        r = conformidade.checar("Seu direito", {"tipo": "advocacia"}, {"musica": "t.mp3", "musica_licenca": "CC BY-NC"})
+        self.assertTrue(any("NC/ND" in i["regra"] for i in r["itens"]))
+
     def test_conformidade_cta_dm(self):
         adv = perfis.carregar("teste-adv")
         self.assertEqual(conformidade.checar("Comenta PRAZO que eu te mando no direct", adv)["sinal"], "amarelo")
@@ -195,6 +202,17 @@ class Exportacao(unittest.TestCase):
         self.assertIsNotNone(r["medidas"]["lufs"])
         self.assertTrue((TMP / "qc" / "folha_quadros.png").exists())
         self.assertTrue((TMP / "qc" / "QC.md").read_text(encoding="utf-8").startswith("# QC"))
+
+    def test_batidas(self):
+        from redes.video import audio
+        import numpy as np
+        ff("-f", "lavfi", "-i", "aevalsrc='sin(2*PI*(60+90*exp(-mod(t-0.3,60/92)*30))*mod(t-0.3,60/92))"
+           "*exp(-mod(t-0.3,60/92)*18)*gte(t,0.3)+0.05*sin(2*PI*330*t)':d=12:s=44100", TMP / "b92.wav")
+        est = np.array(audio.batidas(TMP / "b92.wav"))
+        ref = np.arange(0.3, 11.9, 60 / 92)
+        acertos = sum(np.any(np.abs(est - r) <= 0.07) for r in ref)
+        self.assertGreaterEqual(acertos / len(ref), 0.9)
+        self.assertLessEqual(len(est), len(ref) + 2)       # não marca contratempo/ataques extras
 
     def test_voz(self):
         from redes.video import voz

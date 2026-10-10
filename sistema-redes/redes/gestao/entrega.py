@@ -4,6 +4,7 @@
   previa_720p.mp4     prévia leve com marca d'água "PRÉVIA vNN · NÃO PUBLICAR" para aprovação no celular
   legendas.srt        legenda frase a frase (≤ 32 caracteres por linha, 2 linhas) para subir separada (YouTube, LinkedIn)
                       e para revisar o texto antes de aprovar
+  final_sem_legenda.mp4  versão limpa (quando a produção gerou; pauta `versao_limpa`, padrão ligado)
   QC.md + folha_quadros.png   ficha de controle de qualidade automática (redes/video/qc.py)
   ENTREGA.md          nota de entrega: o que está incluído, como aprovar (feedback consolidado, 2 rodadas),
                       como publicar e O QUE MEDIR em 24-48 h (taxa de pulo < 35 %, retenção, envios, salvamentos)
@@ -80,7 +81,7 @@ Registre: `python3 -m redes metricas <id> --views … --taxa-pulo … --envios �
 """
 
 
-def preparar(pasta, final, palavras=None, qc=None, publicar_md=None, titulo="", destinos=()):
+def preparar(pasta, final, palavras=None, qc=None, publicar_md=None, titulo="", destinos=(), limpo=None):
     pasta = Path(pasta)
     v = _proxima_versao(pasta / "entrega")
     dst = pasta / "entrega" / v
@@ -88,6 +89,8 @@ def preparar(pasta, final, palavras=None, qc=None, publicar_md=None, titulo="", 
     previa(final, dst / "previa_720p.mp4", f"PRÉVIA {v} · NÃO PUBLICAR")
     if palavras:
         srt(palavras, dst / "legendas.srt")
+    if limpo and Path(limpo).exists():
+        shutil.copy(limpo, dst / "final_sem_legenda.mp4")
     if qc:
         for nome in ("QC.md", "folha_quadros.png"):
             orig = Path(qc["folha"]).parent / nome
@@ -98,6 +101,8 @@ def preparar(pasta, final, palavras=None, qc=None, publicar_md=None, titulo="", 
               "## O que está incluído",
               "- `previa_720p.mp4`: prévia para aprovar no celular (com marca d'água; **não publique esta**)",
               "- `legendas.srt`: texto da legenda para revisar e para subir separado (YouTube, LinkedIn)" if palavras else "",
+              "- `final_sem_legenda.mp4`: versão limpa (sem legenda queimada; sem os efeitos de edição IA), para legendar "
+              "na própria rede ou reaproveitar" if limpo else "",
               f"- `QC.md` + `folha_quadros.png`: controle de qualidade automático {sinal}" if qc else "",
               f"- Arquivos finais por rede ({', '.join(destinos)}), capa e textos: `{publicar_md}`" if publicar_md else "",
               "", "## Como aprovar",

@@ -111,10 +111,16 @@ def _video(pauta, p, pasta, destinos):
                                         cargo=_perfis.assinatura_texto(p) or None, titulo=pauta.get("titulo_abertura"),
                                         musica=pauta.get("musica"), biblioteca_musica=p.get("musica_biblioteca") or None,
                                         fundo_foto=fundo, sem_abertura=abre_com_efeito)
+        if pauta.get("versao_limpa", True):     # R18: versão sem legenda queimada (recorte/voz em cache)
+            info_limpa = producao.renderizar(prod, prod_dir / "base.mp4", prod_dir, sem_legenda=True,
+                                             saida="final_sem_legenda.mp4")
         capcut.salvar_v2(prod, pl, prod_dir)
         vid = aprendizado.registrar_video(prod, pl, prod_dir)
         texto = " ".join(w["w"] for w in prod["palavras"])
-        info = {"estilo": prod["estilo"], "aprendizado_id": vid, "composicao": prod.get("composicao")}
+        info = {"estilo": prod["estilo"], "aprendizado_id": vid, "composicao": prod.get("composicao"),
+                "voz": prod.get("voz_tratamento")}
+        if pauta.get("versao_limpa", True):
+            info["final_sem_legenda"] = str(info_limpa)
     if pauta.get("efeitos"):     # efeitos de edição IA (R15) sobre o vídeo produzido
         from ..video import efeitos
         pal = prod["palavras"] if pauta["formato"] != "react" else None
@@ -202,7 +208,7 @@ def executar(pauta_id, pasta=None, agenda=None):
         pj = pasta / "video" / "producao.json"
         pal = json.loads(pj.read_text(encoding="utf-8")).get("palavras") if pj.exists() else None
         info["entrega"] = entrega.preparar(pasta, info["final"], pal, info["qc"], pasta / "pacote" / "PUBLICAR.md",
-                                           pauta.get("tema", ""), list(pecas))
+                                           pauta.get("tema", ""), list(pecas), limpo=info.get("final_sem_legenda"))
     status = "produzido"
     _pautas.atualizar(pauta_id, status=status, pecas={"pasta": str(pasta), "pacote": str(pasta / "pacote"),
                                                      "conformidade": pac["conformidade"]["sinal"]})

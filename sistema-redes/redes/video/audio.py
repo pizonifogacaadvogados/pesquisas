@@ -94,26 +94,48 @@ def expressao_volume(pontos):
     return f"pow(10,({db})/20)"
 
 
-def batidas(arquivo, max_seg=180):
-    """Tempos (s) das batidas: fluxo espectral simples + seleção de picos."""
+def batidas(arquivo, max_seg=180, bpm_min=60, bpm_max=180):
+    """Tempos (s) das batidas (o pulso, não todo ataque).
+    v2 (R19): a v1 marcava todo ataque — inclusive o chimbal no contratempo (F=0,67 na faixa de teste a 112 BPM).
+    Agora: fluxo espectral com peso no grave (bumbo/baixo) → andamento por autocorrelação (com preferência
+    suave por ~110 BPM) → fase da grade pela soma do fluxo → cada batida da grade é ajustada ao pico mais próximo
+    (±60 ms), seguindo pequenas variações de andamento."""
     sr = 11025
     raw = subprocess.run(["ffmpeg", "-v", "error", "-t", str(max_seg), "-i", str(arquivo), "-ac", "1", "-ar", str(sr),
                           "-f", "f32le", "-"], capture_output=True, check=True).stdout
     x = np.frombuffer(raw, np.float32)
-    if x.size < sr:
+    if x.size < sr * 2:
         return []
-    hop, n = 256, 1024
+    hop, n = 128, 1024
+    fps = sr / hop
     quadros = np.lib.stride_tricks.sliding_window_view(x, n)[::hop] * np.hanning(n)
-    esp = np.abs(np.fft.rfft(quadros, axis=1))
-    fluxo = np.maximum(np.diff(np.log1p(esp), axis=0), 0).sum(axis=1)
+    esp = np.log1p(np.abs(np.fft.rfft(quadros, axis=1)))
+    d = np.maximum(np.diff(esp, axis=0), 0)
+    corte = int(250 / (sr / n))                       # até ~250 Hz: bumbo e baixo
+    fluxo = d[:, :corte].sum(axis=1) + 0.25 * d[:, corte:].sum(axis=1)
     fluxo = (fluxo - fluxo.mean()) / (fluxo.std() + 1e-9)
-    picos = [i for i in range(1, len(fluxo) - 1) if fluxo[i] > 1.2 and fluxo[i] >= fluxo[i - 1] and fluxo[i] >= fluxo[i + 1]]
-    tempos, ult = [], -1.0
-    for i in picos:
-        t = (i * hop + n / 2) / sr + 0.02  # centro da janela
-        if t - ult >= 0.25:
-            tempos.append(round(t, 3))
-            ult = t
+    fluxo = np.maximum(fluxo, 0)
+    # andamento: autocorrelação nos atrasos de bpm_max..bpm_min, com preferência log-normal em torno de 110 BPM
+    ac = np.correlate(fluxo, fluxo, "full")[len(fluxo) - 1:]
+    lags = np.arange(int(fps * 60 / bpm_max), int(fps * 60 / bpm_min) + 1)
+    peso = np.exp(-0.5 * (np.log2((60 * fps / lags) / 110) / 0.9) ** 2)
+    lag = int(lags[np.argmax(ac[lags] * peso)])
+    # refina o período (fracionário) pela média de 3 múltiplos
+    per = lag
+    for m in (2, 3, 4):
+        j = np.arange(m * lag - 2, m * lag + 3)
+        j = j[j < len(ac)]
+        if len(j):
+            per = (per + j[np.argmax(ac[j])] / m) / 2 if m == 2 else (per * (m - 1) + j[np.argmax(ac[j])] / m) / m
+    fase = int(np.argmax([fluxo[f::lag].sum() for f in range(lag)]))
+    viz = int(0.06 * fps)
+    tempos, pos = [], float(fase)
+    while pos < len(fluxo):
+        i0, i1 = max(0, int(pos) - viz), min(len(fluxo), int(pos) + viz + 1)
+        k = i0 + int(np.argmax(fluxo[i0:i1]))
+        alvo = k if fluxo[k] > 0.5 else int(round(pos))      # sem pico claro: mantém a grade
+        tempos.append(round((alvo * hop + n / 2) / sr + 0.035, 3))   # +35 ms: atraso da janela (medido, R08.50)
+        pos = alvo + per
     return tempos
 
 

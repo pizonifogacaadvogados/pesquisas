@@ -136,6 +136,15 @@ def checar(texto, perfil=None, peca=None):
     if peca.get("musica") and not peca.get("musica_licenca"):
         add("amarelo", "música sem licença declarada (Lei 9.610/98; use biblioteca da rede ou licença paga)",
             [str(peca["musica"])], "declarar a licença ou trocar a faixa")
+    lic = f"{peca.get('musica_licenca', '')} {peca.get('musica', '')}".lower()
+    if tipo == "politico" and re.search(r"pixabay|uppbeat|epidemic|artlist", lic):
+        # R19: a licença da Pixabay proíbe uso político; Uppbeat grátis não cobre empresa; bancos pagos excluem
+        # campanha em geral (confirmar plano). Em campanha: Freesound CC0, CC0, trilha própria ou licença expressa.
+        add("vermelho", "trilha de banco cuja licença não cobre (ou proíbe) uso político/eleitoral (R19)",
+            [lic.strip()[:80]], "trocar por faixa CC0 (Freesound), trilha própria ou licença que autorize campanha")
+    if re.search(r"\b(cc[ -]?by[- ]?nc|nc[- ]?nd|by-nc|by-nd)\b", lic):
+        add("amarelo", "música com licença NC/ND: proíbe uso comercial ou edição (R19)", [lic.strip()[:80]],
+            "trocar a faixa")
     if peca.get("terceiro") and not peca.get("credito"):
         add("amarelo", "conteúdo de terceiro sem crédito (LDA art. 46, III: citação com indicação da fonte)",
             acao="incluir @autor, data e rede")

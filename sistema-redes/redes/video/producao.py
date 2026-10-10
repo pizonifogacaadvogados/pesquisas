@@ -279,7 +279,15 @@ def _tem_audio(video):
     return bool(out.strip())
 
 
-def renderizar(prod, base, pasta, sfx_dir=None):
+def _recente(arq, fonte):
+    """Arquivo intermediário já gerado a partir da mesma fonte (cache: evita refazer recorte/voz)."""
+    arq, fonte = Path(arq), Path(fonte)
+    return arq.exists() and arq.stat().st_size > 0 and arq.stat().st_mtime >= fonte.stat().st_mtime
+
+
+def renderizar(prod, base, pasta, sfx_dir=None, sem_legenda=False, saida="final.mp4"):
+    """`sem_legenda=True` + `saida="final_sem_legenda.mp4"`: versão "limpa" (R18) — tudo igual, sem a legenda
+    queimada (para quem vai legendar na própria rede ou reaproveitar o vídeo)."""
     pasta = Path(pasta).resolve()
     pasta.mkdir(parents=True, exist_ok=True)
     a_dir = pasta / "assets"
@@ -297,7 +305,10 @@ def renderizar(prod, base, pasta, sfx_dir=None):
 
     # ---------- 1. fundo + pessoa
     if precisa_matte:
-        matte, motor = recorte.matte_auto(base, a_dir / "matte.mp4")
+        if _recente(a_dir / "matte.mp4", base):
+            matte, motor = a_dir / "matte.mp4", prod.get("composicao", {}).get("recorte", "rvm")
+        else:
+            matte, motor = recorte.matte_auto(base, a_dir / "matte.mp4")
         prod.setdefault("composicao", {})["recorte"] = motor
         entradas += ["-i", str(matte)]
         k_m = k
@@ -419,6 +430,8 @@ def renderizar(prod, base, pasta, sfx_dir=None):
     pal = prod["palavras"]
     est, lin = graficos.legendas(pal, cam["legenda"]["tipo"], cam["legenda"]["fonte"], e["cor_destaque"],
                                  delta_tam=aprendizado.ajustes().get("legenda_tam_delta", 0))
+    if sem_legenda:
+        est, lin = [], []
     ab = cam["abertura"]
     if ab["tipo"] not in ("texto_atras", "nenhuma"):
         e2, l2 = graficos.abertura(ab["tipo"], ab["texto"], ab["ini"], ab["fim"], e["fonte_titulo"], e["fonte_texto"],
@@ -464,8 +477,9 @@ def renderizar(prod, base, pasta, sfx_dir=None):
     from . import voz as _voz
     if tem_a and _voz.ativo(prod):
         # R17: redução de ruído (DeepFilterNet → RNNoise) + EQ/de-esser/compressor de voz, fora do grafo principal
-        r_voz = _voz.tratar(base, a_dir / "voz.wav", (prod.get("voz") or {}).get("motor", "auto"))
-        prod["voz_tratamento"] = {k: v for k, v in r_voz.items() if k != "saida"}
+        if not (_recente(a_dir / "voz.wav", base) and prod.get("voz_tratamento")):
+            r_voz = _voz.tratar(base, a_dir / "voz.wav", (prod.get("voz") or {}).get("motor", "auto"))
+            prod["voz_tratamento"] = {k: v for k, v in r_voz.items() if k != "saida"}
         entradas += ["-i", str(a_dir / "voz.wav")]
         partes.append(f"[{k}:a]aformat=sample_rates=48000:channel_layouts=stereo[voz]")
         k += 1
@@ -499,9 +513,9 @@ def renderizar(prod, base, pasta, sfx_dir=None):
 
     from .render import _executar
     _executar([entradas, ["-map", "[vout]", "-map", "[aout]", "-c:v", "libx264", "-crf", "18", "-preset", "medium",
-                          "-c:a", "aac", "-b:a", "192k", "-movflags", "+faststart", "-t", f"{dur:.3f}", "final.mp4"]],
+                          "-c:a", "aac", "-b:a", "192k", "-movflags", "+faststart", "-t", f"{dur:.3f}", saida]],
               pasta, ";\n".join(partes))
-    return pasta / "final.mp4"
+    return pasta / saida
 
 
 def _ini_ass(linha):
