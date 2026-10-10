@@ -32,3 +32,9 @@ Biblioteca local do escritório: pasta com faixas licenciadas nomeadas `<humor>_
 - Voz clara no **alto-falante do celular**; loudness ≈ −14 LUFS; pico ≤ −1,5 dBTP.
 - Nenhum SFX repetido 3 vezes seguidas; o pico do whoosh no corte.
 - Feedback do usuário sobre música → `python3 -m redes feedback <id> "música alta"` (o sistema ajusta).
+
+## Limpeza de voz (R17, Fase 12b)
+- A produção limpa a voz sozinha (`redes/video/voz.py`): DeepFilterNet 3 (melhor; ~0,4 × tempo real em CPU) → reserva RNNoise → EQ de voz (−2 dB 250 Hz, +2,5 dB 3,2 kHz), de-esser, compressor 3:1; volume final −14 LUFS na mixagem.
+- Avulso: `python3 -m redes voz VIDEO [--motor deepfilter|rnnoise|nenhum]`.
+- **Sempre na voz bruta.** Em vídeo já mixado com música o compressor levanta a trilha nas pausas (medido: +19 dB de piso). O modo auto não limpa áudio que já está limpo (piso < −60 dBFS).
+- Gravação ruim não vira boa: limpeza agressiva gera voz "metálica". Prefira regravar perto do microfone (estudo 20).

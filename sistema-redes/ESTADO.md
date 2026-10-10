@@ -58,7 +58,7 @@ Documento para **outra sessão continuar de onde paramos**. Leia nesta ordem: es
 | P | Pendência | Por que ficou | Como fazer |
 |---|---|---|---|
 | 1 | **Re-teste com vídeo real do usuário** gravado pelo checklist (estudo 20) | depende do usuário | `python3 -m redes executar <pauta>` com o material; revisar `qc/` e `entrega/v01` |
-| 2 | **Integrar a cadeia de voz testada no R17**: DeepFilterNet 3 (binário `deep-filter-0.5.6-x86_64-unknown-linux-musl` da release do GitHub; RTF 0,36; ruído nas pausas −44,6 → −66,4 dBFS sem distorcer) com fallback `arnndn=m=std.rnnn` (rápido, mas distorce: SI-SDR 18,8); depois `highpass=f=80,equalizer=f=250:t=q:w=1.2:g=-2,equalizer=f=3200:t=q:w=1:g=2.5,deesser=i=0.5,acompressor=threshold=-21dB:ratio=3:attack=8:release=120:makeup=3dB:knee=4` + `volume` medido + `alimiter=limit=-2dB` (deu −14,2 LUFS, TP −2,0) | testado, não integrado (créditos) | função `tratar_voz()` em `redes/video/audio.py`; scripts em `pesquisa/testes-r17/` (`cadeia_voz.py`, `metricas.py`) |
+| ~~2~~ | ✅ **FEITO (Fase 12b): cadeia de voz integrada em `redes/video/voz.py`, na produção e no comando `voz`** — registro original:: DeepFilterNet 3 (binário `deep-filter-0.5.6-x86_64-unknown-linux-musl` da release do GitHub; RTF 0,36; ruído nas pausas −44,6 → −66,4 dBFS sem distorcer) com fallback `arnndn=m=std.rnnn` (rápido, mas distorce: SI-SDR 18,8); depois `highpass=f=80,equalizer=f=250:t=q:w=1.2:g=-2,equalizer=f=3200:t=q:w=1:g=2.5,deesser=i=0.5,acompressor=threshold=-21dB:ratio=3:attack=8:release=120:makeup=3dB:knee=4` + `volume` medido + `alimiter=limit=-2dB` (deu −14,2 LUFS, TP −2,0) | testado, não integrado (créditos) | função `tratar_voz()` em `redes/video/audio.py`; scripts em `pesquisa/testes-r17/` (`cadeia_voz.py`, `metricas.py`) |
 | 2b | **Transcrição neste servidor está quebrada**: faster-whisper não baixa modelo (proxy 403) → `analise._whisper` falha aqui; use `--srt`. Alternativa testada: sherpa-onnx (PyPI) com modelos das releases do GitHub — Whisper turbo int8 WER 5,4 % (sem tempo por palavra) + Parakeet v3 int8 (tempo por palavra, erro médio 104 ms) combinados por `difflib` | testado, não integrado | `redes/video/analise.py`: backend sherpa-onnx; scripts `asr_*.py` em `pesquisa/testes-r17/` |
 | 2c | R17 não testado: reenquadramento seguindo o rosto, nitidez/denoise de imagem, LUTs, batida (librosa/aubio), licenças de música (freesound/pixabay bloqueados) | créditos | ver `R17` §Pendente |
 | 3 | **Versão "limpa" (sem legenda queimada)** no pacote de entrega (R18) | precisa de render sem a camada ASS | em `producao.py`, flag para pular `subtitles=`; chamar em `entrega.preparar` |
@@ -76,11 +76,11 @@ Documento para **outra sessão continuar de onde paramos**. Leia nesta ordem: es
 ## 4. O que existe (mapa rápido)
 - **Pacote `redes`** (`python3 -m redes <comando>`, rode dentro de `sistema-redes/`):
   `nucleo/` caminhos, regras, perfis, plataformas (26 destinos), conformidade (OAB/TSE/LGPD), rosto (YuNet), aprendizado, diagnostico ·
-  `video/` analise, momentos (frases, gancho, **retomadas**), plano, render, producao (motor v3), estilos, luts, fundos, recorte (RVM), composicao,
+  `video/` voz (limpeza DeepFilterNet/RNNoise), analise, momentos (frases, gancho, **retomadas**), plano, render, producao (motor v3), estilos, luts, fundos, recorte (RVM), composicao,
   graficos, motion (HyperFrames), audio, assets, visao, react, capcut, exportar, **efeitos**, **cortes**, **qc** ·
   `foto/` motor, carrossel (15 tipos, 6 identidades), post, capas, tratamento ·
   `gestao/` pautas, calendario, publicacao, fluxo (`executar`), relatorio, **entrega**.
-- **Comandos novos (Fases 11-12):** `efeitos`, `cortes`, `variacoes`, `qc`, `entrega`.
+- **Comandos novos (Fases 11-12):** `efeitos`, `cortes`, `variacoes`, `qc`, `entrega`, `voz`.
 - **Fluxo `executar` de vídeo:** análise → plano → produção v3 → efeitos da pauta → **QC** → exportação por rede → capa/thumbnail → conformidade → pacote `PUBLICAR.md` → **entrega/vNN** (prévia 720p com marca d'água, `.srt`, QC, nota com o que medir).
 - **Testes:** `tests/test_sistema.py` (25 testes; 4 pulados no modo rápido; último resultado: OK em 93 s).
 - **Exemplos:** `exemplo/v3` (motor v3), `exemplo/v4` (demo dos 8 efeitos + carrossel editorial), `exemplo/sistema` (posts, calendário, pacote).

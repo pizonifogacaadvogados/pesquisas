@@ -461,9 +461,18 @@ def renderizar(prod, base, pasta, sfx_dir=None):
 
     # ---------- 10. áudio: voz + SFX + música com ducking
     tem_a = _tem_audio(base)
-    partes.append("[0:a]aformat=sample_rates=48000:channel_layouts=stereo,highpass=f=70,"
-                  "acompressor=threshold=0.12:ratio=2.5:attack=8:release=120[voz]" if tem_a else
-                  f"anullsrc=r=48000:cl=stereo,atrim=0:{dur:.3f}[voz]")
+    from . import voz as _voz
+    if tem_a and _voz.ativo(prod):
+        # R17: redução de ruído (DeepFilterNet → RNNoise) + EQ/de-esser/compressor de voz, fora do grafo principal
+        r_voz = _voz.tratar(base, a_dir / "voz.wav", (prod.get("voz") or {}).get("motor", "auto"))
+        prod["voz_tratamento"] = {k: v for k, v in r_voz.items() if k != "saida"}
+        entradas += ["-i", str(a_dir / "voz.wav")]
+        partes.append(f"[{k}:a]aformat=sample_rates=48000:channel_layouts=stereo[voz]")
+        k += 1
+    else:
+        partes.append("[0:a]aformat=sample_rates=48000:channel_layouts=stereo,highpass=f=70,"
+                      "acompressor=threshold=0.12:ratio=2.5:attack=8:release=120[voz]" if tem_a else
+                      f"anullsrc=r=48000:cl=stereo,atrim=0:{dur:.3f}[voz]")
     mix = ["[vozm]"]
     musica = cam.get("musica")
     partes.append("[voz]asplit=2[vozm][vozsc]" if musica else "[voz]anull[vozm]")
@@ -509,7 +518,9 @@ def produzir(plano, base, pasta, estilo="estudio", **kw):
     sfx_dir = kw.pop("sfx_dir", None)
     prod = dirigir(plano, estilo, **kw)
     salvar(prod, Path(pasta) / "producao.json")
-    return prod, renderizar(prod, base, pasta, sfx_dir=sfx_dir)
+    final = renderizar(prod, base, pasta, sfx_dir=sfx_dir)
+    salvar(prod, Path(pasta) / "producao.json")          # inclui o que o render mediu (ex.: voz_tratamento)
+    return prod, final
 
 
 def salvar(prod, caminho):

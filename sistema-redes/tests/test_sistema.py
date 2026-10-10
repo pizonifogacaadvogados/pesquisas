@@ -196,6 +196,15 @@ class Exportacao(unittest.TestCase):
         self.assertTrue((TMP / "qc" / "folha_quadros.png").exists())
         self.assertTrue((TMP / "qc" / "QC.md").read_text(encoding="utf-8").startswith("# QC"))
 
+    def test_voz(self):
+        from redes.video import voz
+        ff("-f", "lavfi", "-i", "sine=f=220:d=4", "-f", "lavfi", "-i", "anoisesrc=c=pink:a=0.03:d=4",
+           "-filter_complex", "[0:a]volume=0.3,apulsator=hz=0.5[s];[s][1:a]amix=inputs=2:normalize=0", TMP / "ruido.wav")
+        r = voz.tratar(TMP / "ruido.wav", TMP / "voz.wav", "rnnoise")
+        if r["motor"] == "rnnoise":                       # modelo baixado do GitHub (sem rede: segue sem limpeza)
+            self.assertLess(r["piso_depois"], r["piso_antes"] - 3)
+        self.assertTrue((TMP / "voz.wav").exists())
+
     def test_entrega_versionada(self):
         from redes.gestao import entrega
         pal = [{"w": w, "ini": i * 0.4, "fim": i * 0.4 + 0.35} for i, w in enumerate(

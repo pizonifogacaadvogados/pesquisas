@@ -7,11 +7,14 @@ from .gestao import calendario, fluxo, pautas, publicacao, relatorio
 from .nucleo import conformidade, diagnostico, perfis, plataformas
 from .video import exportar
 
-COMANDOS = {"qc", "entrega", "efeitos", "cortes", "variacoes", "perfil", "pauta", "calendario", "executar", "exportar", "post", "capa", "thumbnail", "foto", "checar",
+COMANDOS = {"voz", "qc", "entrega", "efeitos", "cortes", "variacoes", "perfil", "pauta", "calendario", "executar", "exportar", "post", "capa", "thumbnail", "foto", "checar",
             "legenda", "relatorio", "diagnostico", "destinos"}
 
 
 def registrar(sub):
+    p = sub.add_parser("voz", help="limpa e trata a voz de um vídeo (DeepFilterNet → RNNoise, EQ, de-esser, −14 LUFS)")
+    p.add_argument("video"); p.add_argument("--saida"); p.add_argument("--motor", default="auto",
+                                                                       choices=["auto", "deepfilter", "rnnoise", "nenhum"])
     p = sub.add_parser("qc", help="controle de qualidade do vídeo final (som, imagem, rosto, ritmo) + folha de quadros")
     p.add_argument("video"); p.add_argument("--saida"); p.add_argument("--destino", default="instagram_reels")
     p.add_argument("--sem-rosto", action="store_true")
@@ -96,6 +99,11 @@ def _j(x):
 
 def executar(a):
     c = a.cmd
+    if c == "voz":
+        from .video import voz
+        saida = a.saida or str(Path(a.video).with_name(Path(a.video).stem + "_voz.mp4"))
+        r = voz.limpar_video(a.video, saida, a.motor)
+        print(f"{r['motor']}: ruído nas pausas {r['piso_antes']} → {r['piso_depois']} dBFS\n{r['saida']}"); return 0
     if c == "qc":
         from .video import qc
         r = qc.revisar(a.video, a.saida, a.destino, rosto=not a.sem_rosto)
