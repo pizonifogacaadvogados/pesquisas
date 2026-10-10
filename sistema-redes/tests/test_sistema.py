@@ -223,6 +223,15 @@ class Exportacao(unittest.TestCase):
             self.assertLess(r["piso_depois"], r["piso_antes"] - 3)
         self.assertTrue((TMP / "voz.wav").exists())
 
+    def test_tom_de_pele(self):
+        import numpy as np
+        from redes.video import qc
+        pele = np.zeros((100, 100, 3), np.uint8)
+        pele[:] = (156, 125, 117)                                   # pele real medida na amostra
+        self.assertLess(abs(qc.tom_de_pele(pele, (0, 0, 100, 100)) - 123), 12)
+        pele[:] = (128, 140, 111)                                   # mesma pele com dominante verde
+        self.assertGreater(abs(qc.tom_de_pele(pele, (0, 0, 100, 100)) - 123), 12)
+
     def test_entrega_versionada(self):
         from redes.gestao import entrega
         pal = [{"w": w, "ini": i * 0.4, "fim": i * 0.4 + 0.35} for i, w in enumerate(

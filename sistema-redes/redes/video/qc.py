@@ -4,7 +4,8 @@ Mede no arquivo final o que um editor de agência confere antes de mandar ao cli
   técnico   resolução, fps, codec, duração, áudio presente
   som       loudness integrado (alvo −14 LUFS ±1), pico verdadeiro (≤ −1 dBTP), silêncios longos (> 1,2 s)
   imagem    quadros pretos, imagem congelada (> 1 s)
-  rosto     % do tempo com rosto visível; rosto fora da zona segura (sob a interface das redes)
+  rosto     % do tempo com rosto visível; rosto fora da zona segura (sob a interface das redes);
+            TOM DE PELE no vetorscópio (linha de pele ≈ 123°; desvio > 12° = cor errada) — estudo 24 §4
   ritmo     tempo médio entre mudanças de plano (corte/zoom) e maior trecho parado — R18: jurídico 2-5 s,
             político 1,5-3 s, nunca mais de 8-10 s sem mudança visual (heurística de mercado, não estudo controlado)
 E gera a FOLHA DE QUADROS (um quadro a cada N s) para a revisão humana, que continua obrigatória.
@@ -74,6 +75,21 @@ def _quadros(video, fps, largura=270):
     return np.frombuffer(r.stdout[:n * largura * h * 3], np.uint8).reshape(n, h, largura, 3), (largura, h)
 
 
+def tom_de_pele(rgb, caixa):
+    """Ângulo de matiz (graus, no plano CbCr do vetorscópio) do centro do rosto. A "linha de pele" fica em ~123°
+    (laranja-avermelhado) para todas as etnias; desvio > 12° indica pele esverdeada/azulada/magenta (cor errada)."""
+    import numpy as np
+    x, y, w, h = [int(v) for v in caixa[:4]]
+    reg = rgb[max(0, y + h // 3): y + 2 * h // 3, max(0, x + w // 4): x + 3 * w // 4].reshape(-1, 3).astype(np.float32)
+    if len(reg) < 20:
+        return None
+    r, g, b = reg[:, 0], reg[:, 1], reg[:, 2]
+    yy = 0.299 * r + 0.587 * g + 0.114 * b
+    cb, cr = (b - yy).mean(), (r - yy).mean()
+    # vetorscópio: eixo horizontal = Cb, vertical = Cr; 0° no +Cb, sentido anti-horário
+    return round(float(np.degrees(np.arctan2(cr, cb)) % 360), 1)
+
+
 def _rosto_e_ritmo(video, destino="instagram_reels", fps=4):
     import numpy as np
     from ..nucleo import rosto
@@ -81,13 +97,17 @@ def _rosto_e_ritmo(video, destino="instagram_reels", fps=4):
     det = rosto.Detector()
     d = plataformas.destino(destino)
     topo, base, dir_, esq = (v * h / d["h"] for v in d["segura"])
-    visivel, fora, centros, mudancas = 0, [], [], []
+    visivel, fora, centros, mudancas, peles = 0, [], [], [], []
     ant = None
     for k, q in enumerate(qs):
         f = [r for r in det(q) if r[2] > 0.15 * w]     # só o rosto principal (ignora a janela do apresentador)
         if f:
             x, y, fw, fh, _ = f[0]
             visivel += 1
+            if k % 4 == 0:
+                ang = tom_de_pele(q, f[0])
+                if ang is not None:
+                    peles.append(ang)
             cy = y + fh / 2
             centros.append((x + fw / 2, cy, fw))
             if y < topo * 0.6 or y + fh > h - base:
@@ -106,6 +126,7 @@ def _rosto_e_ritmo(video, destino="instagram_reels", fps=4):
     mud = sorted(set(round(t, 1) for t in mudancas))
     marcos = [0.0] + mud + [dur]
     return {"rosto_visivel_pct": round(100 * visivel / max(1, len(qs))), "rosto_fora_zona_s": fora[:20],
+            "pele_graus": round(float(np.median(peles)), 1) if peles else None,
             "maior_trecho_sem_mudanca": round(max(b - a for a, b in zip(marcos, marcos[1:])), 1),
             "mudancas_plano": len(mud), "seg_por_mudanca": round(dur / max(1, len(mud)), 1)}
 
@@ -165,6 +186,9 @@ def revisar(video, saida=None, destino="instagram_reels", rosto=True):
         if r["seg_por_mudanca"] > 5:
             item("amarelo", f"uma mudança de plano a cada {r['seg_por_mudanca']} s: lento para vídeo curto "
                             "(R18: jurídico 2-5 s, político 1,5-3 s)")
+        if r.get("pele_graus") is not None and abs(r["pele_graus"] - 123) > 12:
+            item("amarelo", f"tom de pele a {r['pele_graus']}° no vetorscópio (linha de pele ≈ 123°): "
+                            f"{'esverdeado/amarelado' if r['pele_graus'] > 123 else 'magenta/avermelhado'} — revise o balanço de branco/LUT")
         if r.get("maior_trecho_sem_mudanca", 0) > 10:
             item("amarelo", f"{r['maior_trecho_sem_mudanca']} s sem nenhuma mudança visual (R18: nunca mais de 8-10 s)")
     folha_quadros(video, pasta / "folha_quadros.png")
@@ -184,7 +208,7 @@ def formatar(r):
               + (f" · {m.get('lufs')} LUFS · pico {m.get('pico_dbtp')} dBFS" if m.get("audio") else ""), ""]
     if "rosto_visivel_pct" in m:
         linhas.append(f"Rosto visível {m['rosto_visivel_pct']}% · {m['mudancas_plano']} mudanças de plano "
-                      f"(uma a cada {m['seg_por_mudanca']} s)")
+                      f"(uma a cada {m['seg_por_mudanca']} s) · pele {m.get('pele_graus')}° (ideal ≈ 123°)")
         linhas.append("")
     linhas += [f"- {ic[i['nivel']]} {i['texto']}" for i in r["itens"]] or ["- 🟢 nada a corrigir"]
     linhas += ["", "Revisão humana (obrigatória): assista no celular, com som, do início ao fim; confira a folha de quadros."]

@@ -51,7 +51,7 @@ medido no sistema; o que não foi verificado na prática está marcado "a testar
 1. **Corte no movimento e no olhar** (match cut): detectar piscadas/movimentos de cabeça e preferir cortar nelas (YuNet já dá os marcos dos olhos).
 2. **J/L cuts automáticos** com B-roll: o áudio da próxima frase entra 6-10 quadros antes.
 3. **Room tone** em cortes secos para não "furar" o som (gravar 5 s de silêncio na captação).
-4. **Checagem de tom de pele** no QC (vetorscópio: pele na linha de ~123°) e de balanço de branco.
+4. ✅ **Checagem de tom de pele** no QC (vetorscópio: pele na linha de ~123°) — feito (R08.53). Falta: balanço de branco geral.
 5. **Sincronia multicâmera por áudio** (correlação cruzada) e corte entre ângulos pela fala.
 6. **Banco de B-roll** do escritório (pasta + etiquetas) e inserção por palavra-chave da fala.
 7. **Retenção prevista**: marcar no plano os pontos de risco (> 8 s sem mudança, frase longa) antes do render.

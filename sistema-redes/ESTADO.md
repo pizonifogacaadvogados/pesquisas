@@ -72,6 +72,7 @@ Documento para **outra sessão continuar de onde paramos**. Leia nesta ordem: es
 | 11 | Biblioteca de trilhas/SFX licenciadas do escritório | depende do usuário | pasta + `--biblioteca-musica` |
 | 12 | Conector do Canva (falhou por proxy) e agendadores (Meta Business Suite) | ambiente | configurações do claude.ai |
 | 14 | **Analisar os vídeos do @tiagolemosx** (incl. `IobZgb7ngz4`) | YouTube bloqueado aqui (R20) | baixar fora (yt-dlp) → `python3 -m redes referencia ref.mp4 --comparar nosso.mp4`; receita em `estudos/24` §1 |
+| 16 | ✅ FEITO: **tom de pele no QC** (estudo 24 §4 item 4; R08.53) | — | `video/qc.py` |
 | 15 | **Mapa do que falta + cronograma de 4 semanas** (luz, ambientes, técnicas de editor sênior, Claude × CapCut) | — | `estudos/24-mapa-do-que-falta.md` |
 | 13 | Dados de retenção reais (taxa de pulo, curva) para calibrar o ritmo | depende de publicação | `metricas` + `feedback` |
 
